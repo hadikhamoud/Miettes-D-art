@@ -1,3 +1,4 @@
+{% load static %}
 * {box-sizing: border-box;}
 
 body {
@@ -6,7 +7,7 @@ body {
 }
 
 .active img {
-   display: block; 
+   display: block;
    width: 120px;
     height: 50px;
     border-radius: 0%;
@@ -15,8 +16,8 @@ body {
     margin-left:200px;
     margin-top: -80px;
 
-    
-    
+
+
 }
 
 .topnav {
@@ -58,7 +59,7 @@ body {
   width: auto;
   border: 1px solid #e8e9e18a;
   border-radius: 2px;
-  
+
 }
 
 .topnav .search-container button {
@@ -89,7 +90,7 @@ body {
     padding: 14px;
   }
   .topnav input[type=text] {
-    border: 1px solid #ccc;  
+    border: 1px solid #ccc;
   }
 }
 
@@ -104,21 +105,21 @@ body, html {
 }
 
 .bg-image {
-  height: 100%; 
+  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
  border-bottom:150px solid rgb(255, 255, 255) ;
 }
-  
 
 
-.img1 { background-image: url("/images/DSC_4376.jpeg"); }
-.img2 { background-image: url("/images/DSC_4525.jpeg"); }
-.img3 { background-image: url("/images/DSC_4565_0.jpeg"); }
-.img4 { background-image: url("/images/DSC_4602\ copy.jpeg"); }
-.img5 { background-image: url("/images/DSC_4717.jpeg"); }
-.img6 { background-image: url("/images/DSC_4376.jpeg"); }
+
+.img1 { background-image: url("images/DSC_4376.jpeg"); }
+.img2 { background-image: url("images/DSC_4525.jpeg"); }
+.img3 { background-image: url("images/DSC_4565_0.jpeg"); }
+.img4 { background-image: url("images/DSC_4602\ copy.jpeg"); }
+.img5 { background-image: url("images/DSC_4717.jpeg"); }
+.img6 { background-image: url("images/DSC_4376.jpeg"); }
 
 
   .btn, .btn2 ,.btn3 ,.btn4 ,.btn5 ,.btn6 {
@@ -132,14 +133,14 @@ body, html {
     border-radius: 6px;
     text-align: center;
     border:2px solid #dde5d341;
-  
+
   }
-  
+
   .btn:hover , .btn2:hover , .btn3:hover, .btn4:hover, .btn5:hover, .btn6:hover {
     background-color: rgb(187, 222, 228);
   }
 
-.btn, .btn2 ,.btn3 ,.btn4 ,.btn5 ,.btn6 { transform: translate(30%, 1200%);} 
+.btn, .btn2 ,.btn3 ,.btn4 ,.btn5 ,.btn6 { transform: translate(30%, 1200%);}
 .container {
    position:static;
    bottom: 0;
@@ -147,15 +148,15 @@ body, html {
    margin-top: 5px;
    width: 100%;
    background-color: #ffffff;
-}   
+}
 .container a {
    padding: 16px;
    font-size: 20px;
-   text-align: center;	  	  
+   text-align: center;
 }
 .facebook, .instagram ,.twitter {
    color: rgb(67, 80, 124);}
-   
+
 .link {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-size: 20px;
@@ -184,5 +185,3 @@ input[type=submit] {
 input[type=submit]:hover {
   opacity: 0.8;
 }
-
-  
