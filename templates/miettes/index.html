@@ -1,64 +1,44 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
-    <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %} " >
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-
+    <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width-device-width, intial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'style.css' %} " >
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
-        <body>
-        <div class="topnav">
-          <div class=active><a href="#home"><img src="{% static "images/logo.png" %}"></a></div>
-          <a class="home" href="#home">Home</a>
-          <a href="#about">About us </a>
-          <a href="shop">Shop</a>
-          <a href="#shipping">Shipping</a>
-          <a href="#contact">Contact</a>
-          <div class="search-container">
-            <form action="/action_page.php">
-              <input type="text" placeholder="..." name="search">
-              <button type="submit"><i class="fa fa-search"></i></button>
-            </form>
-          </div>
-          <a href="#" class="user"><i class="fa fa-user"></i></a>
-          <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
-        </div>
-        </body>
+<!--
 
 
-<hr>
-<body>
-<div class="bg-image img1"><button class="btn">shop now</button></div>
-<div class="bg-image img2"><button class="btn2">shop now</button></div>
-<div class="bg-image img3"><button class="btn3">shop now</button></div>
-<div class="bg-image img4"><button class="btn4">shop now</button></div>
-<div class="bg-image img5"><button class="btn5">shop now</button></div>
-<div class="bg-image img6"><button class="btn6">shop now</button></div>
-<hr>
-<div class="newsletter">
-  <h3>Subscribe to our newsletter</h3>
-  <input type="text" placeholder="Name" name="name" required>
-  <input type="text" placeholder="Email address" name="mail" required>
-<div class="container">
-  <input type="submit" value="Subscribe">
-</div>
-</head>
 
-<body>
-  <hr>
-    <div class="container">
-      <div class="link">
-        <a class="home" href="#home">Home</a>
-        <a href="#about">About us </a>
-        <a href="shop">Shop</a>
-        <a href="#shipping">Shipping</a>
-        <a href="#contact">Contact</a>
-      </div>
-	  <h3> Don't forget to follow us on: </h2>
-	  <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-	  <a href="https://www.instagram.com/miettesdart/?hl=en" class="instagram"><i class="fa fa-instagram"></i></a>
-	</div>
-</body>
-</html>
+            <body>
+            <div class="topnav">
+              <a href="#home">Home</a>
+              <a href="aboutus.html">About us </a>
+              <a href="products.html">Shop</a>
+              <a href="#home" class="logo"><img src="/images/logo.png"></a>
+              <a href="#shipping">Shipping</a>
+              <a href="contactus.html">Contact</a>
+              <a href="#" class="user"><i class="fa fa-user"></i></a>
+              <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
+            </div>
+            </body>
+
+-->
+
+
+    {% include "miettes/topnav.html" %}
+    <hr>
+    <body>
+    <div class="bg-image img1"><button class="btn">shop now</button></div>
+    <div class="bg-image img2"><button class="btn2">shop now</button></div>
+    <div class="bg-image img3"><button class="btn3">shop now</button></div>
+    <div class="bg-image img4"><button class="btn4">shop now</button></div>
+    <div class="bg-image img5"><button class="btn5">shop now</button></div>
+    <div class="bg-image img6"><button class="btn6">shop now</button></div>
+    <hr>
+
+
+        {% include "miettes/botnav.html" %}
+    </html>

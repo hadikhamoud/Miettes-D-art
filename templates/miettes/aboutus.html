@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+{% include "miettes/topnav.html" %}
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width-device-width, intial-scale=1">
+
+      <title>About us</title>
+        <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      html {
+        box-sizing: border-box;
+      }
+
+      *, *:before, *:after {
+        box-sizing: inherit;
+      }
+
+      .column {
+        float: left;
+        width: 50%;
+        margin-bottom: 16px;
+        padding: 10px 100px;
+      }
+
+      .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: 10px;
+      }
+
+      .about-section {
+        padding: 100px;
+        text-align: center;
+        background-color: #adb2bb;
+        color: white;
+        line-height: 50px;
+        font-size: 25px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .container::after, .row::after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .title {
+        color: grey;
+      }
+
+      .button {
+        border: none;
+        outline: 0;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      .button:hover {
+        background-color: #555;
+      }
+
+      @media screen and (max-width: 650px) {
+        .column {
+          width: 100%;
+          display: block;
+        }
+      }
+      </style>
+    </head>
+
+<body>
+    <div class="about-section">
+      <h1>About Us Page</h1>
+      <p>Who we are and What we do.</p>
+      <p>"Miettes d'art" is an online store that aims to give women unique, fashionable and affordable jewelry.
+
+        Every piece we design hides a story full of passion and emotions. That’s what makes our pieces worth wearing.
+
+        We spend days searching for the finest material to ensure a timeless product. Our custom-made designs are gold or silver plated made with love.
+
+        Our goal is far beyond designing earrings, we aim to tackle a wider palette of jewelry and small "objets d'art", all inspired by our background and taste.
+
+
+
+        Here’s how it all started.
+
+        Miettes d’art was founded in July 2020 by us, Sarah and Taymaa. We are speech therapists by day and jewelry creators by night!
+
+        We first met during an internship in Toulouse, France. Back then, we discovered our common interest in handmade jewelry, especially earrings.
+
+        With the economic collapse in our home country Lebanon, working in our field became more challenging. Out of ambition, we exchanged views on creating jewelry and came up with the idea of
+
+        building an e-commerce jewelry hub. And here it is, “Miettes d’art”.</p>
+    </div>
+
+    <h2 style="text-align:center">Our Team</h2>
+    <div class="row">
+      <div class="column">
+        <div class="card">
+          <img src="/images/Screen Shot 2021-12-26 at 11.56.47 PM.png" alt="Sarah" style="width:100%">
+          <div class="container">
+            <h2>Sarah Hanna</h2>
+            <p class="title">CEO & Founder</p>
+            <p>Some text that describes her.</p>
+            <a href="https://www.instagram.com/taymaaham/?hl=en"><p><button class="button">Contact</button></p></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="card">
+          <img src="/images/Screen Shot 2021-12-26 at 11.39.03 PM.png" alt="Taymaa" style="width:100%">
+          <div class="container">
+            <h2>Taymaa Hamoud</h2>
+            <p class="title">CEO & Founder</p>
+            <p>She's awesome</p>
+            <a href="https://www.instagram.com/taymaaham/?hl=en"><p><button class="button">Contact</button></p></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </body>
+    </html>
