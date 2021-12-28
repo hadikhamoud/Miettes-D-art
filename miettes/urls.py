@@ -20,5 +20,13 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('homepage',views.homepage),
     path('',views.homepage),
+    path('aboutus', views.aboutus_view,name='aboutus'),
+    path('contactus', views.contactus_view,name='contactus'),
+    path('products', views.products_view,name='products'),
+    #path('productcard', views.productcard_view,name='productcard'),
+    path('addproduct', views.addproduct_view,name='addproduct'),
+    path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
+
 ]

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width-device-width, intial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %} " >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+        </head>
+        <body>
+        <div class="topnav">
+          <a href="/">Home</a>
+          <a href="/aboutus">About us </a>
+          <a href="/products">Shop</a>
+          <a href="/" class="logo"><img src="{% static "images/logo.png" %}"></a>
+          <a href="#shipping">Shipping</a>
+          <a href="/contactus">Contact</a>
+    <!--      <a href="addproduct">Add Product</a> -->
+          <a href="#" class="user"><i class="fa fa-user"></i></a>
+          <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
+        </div>
+        </body>
+</html>
