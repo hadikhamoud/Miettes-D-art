@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR=os.path.join(BASE_DIR,'static')
+GEOIP_PATH = os.path.join(BASE_DIR,'geoip')
 
 
 # Quick-start development settings - unsuitable for production
@@ -41,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MA'
+    'MA',
+    'djmoney',
+    'phonenumber_field',
+
 ]
 
 MIDDLEWARE = [
@@ -80,10 +84,15 @@ WSGI_APPLICATION = 'miettes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME':'MiettesDB',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'miettesdb',
+        'USER': 'postgres',
+        'PASSWORD': 'qwertyuiop[]',
+        'HOST': 'localhost',
+        'POST': '5432',
     }
 }
+
 
 
 # Password validation
@@ -131,3 +140,19 @@ STATIC_DIR,
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+MAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST_USER = 'support@miettesdart.com'
+#EMAIL_HOST = 'mail.miettesdart.com'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 465
+#EMAIL_HOST_PASSWORD = 'miettesdart@11'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'noreplylibMS@gmail.com'
+EMAIL_HOST_PASSWORD = 'Password11@'

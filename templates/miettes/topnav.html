@@ -1,26 +1,82 @@
 <!DOCTYPE html>
-{% load static %}
-<html>
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width-device-width, intial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %} " >
+<html lang="en"> {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'stylee.css' %} ">
+    <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'searchbar.css' %} "> -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <nav class="topnav" id="myTopnav">
+        <div class="logo logo-show-sm"><a href="/homepage"><img src="{% static "images/logo.png" %}" alt=""></a></div>
+        <a href="javascript:void(0);" style="font-size:30px;" class="icon" onclick="myFunction()">&#9776;</a>
+        <ul class="menu">
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/aboutus" >About</a></li>
+            <li><a href="/products">Shop</a></li>
+            <li class="logo logo-show-md"><a href="/homepage"><img src="{% static "images/logo.png" %}" alt=""></a></li>
+            <li><a href="/shipping">Shipping</a></li>
+            <li><a href="/contactus">Contact</a></li>
+            <li><a href="/cart" class="cart"><i class="fa fa-shopping-cart"></i></a></li>
+            <!-- <li>  <form id="content2">
+              <input type="text" name="input" class="input" id="search2-input">
+              <button type="reset" class="search2" id="search2-btn"></button>
+            </form>
+            </li> -->
+        </ul>
+    </nav>
+
+    <script type="text/javascript">
+      function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+          x.className += " responsive";
+        } else {
+          x.className = "topnav";
+        }
+      }
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function uuidv4() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    let device = getCookie('device')
+
+    if (device == null || device == undefined){
+        device = uuidv4()
+    }
+
+    document.cookie ='device=' + device + ";domain=;path=/"
 
 
 
-        </head>
-        <body>
-        <div class="topnav">
-          <a href="/">Home</a>
-          <a href="/aboutus">About us </a>
-          <a href="/products">Shop</a>
-          <a href="/" class="logo"><img src="{% static "images/logo.png" %}"></a>
-          <a href="#shipping">Shipping</a>
-          <a href="/contactus">Contact</a>
-    <!--      <a href="addproduct">Add Product</a> -->
-          <a href="#" class="user"><i class="fa fa-user"></i></a>
-          <a href="#" class="cart"><i class="fa fa-shopping-cart"></i></a>
-        </div>
-        </body>
+    </script>
+     
+
+
+</body>
+
 </html>

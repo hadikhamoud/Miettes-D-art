@@ -1,0 +1,110 @@
+
+* {box-sizing: border-box;}
+
+body {
+  margin: 0;
+  font-family:quicksand;
+  background-color:rgb(246, 246, 246);
+  color:rgb(68, 76, 87)
+}
+
+.topnav{background: rgba(255, 255, 255, 0);
+  }
+
+.menu{margin: 0;padding: 2px;list-style: none; }
+.menu a{display: block; text-decoration: none; font-size: 20px; color:rgb(68, 76, 87); padding: 35px 10px; }
+.menu a:hover,.menu a:focus{font-weight: 600; }
+ .logo-show-md img:hover { transform: scale(1.0);}
+.logo a,
+.logo img{display: block; width: 200px;}
+
+@media screen and (min-width: 600px){
+    .menu{display: flex; max-width: 550px; margin:0 auto; justify-content: center; align-items: center;}
+    .logo-show-sm{display: none;}
+
+}
+
+@media screen and (max-width: 600px){
+    .logo-show-md{display: none;}
+ .logo img {width: 180px;
+        position: absolute;
+        transform: translateX(-50%);
+         left: 50%;
+        top: 7%; 
+
+    }
+
+}
+
+.topnav .icon {
+    display: none;
+
+  }
+
+  @media screen and (max-width: 600px) {
+    .menu a    {
+      display: none; }
+
+     .topnav a.icon {
+        display: block;
+        text-align: left;
+        padding: 50px;
+        color:rgb(68, 76, 87);
+        text-decoration:none
+      }
+
+  }
+
+  @media screen and (max-width: 600px) {
+
+    .topnav.responsive {position: relative;}
+    .topnav.responsive.icon {
+      position:absolute;
+      right: 0;
+      top: 0;
+
+    }
+    .topnav.responsive a {
+      float: none;
+      display: block;
+
+    }
+
+    .topnav.responsive  {position: relative;}
+    .topnav.responsive {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .container2 {
+      position:flex;
+      bottom: 0;
+      text-align: center;
+      margin-top: 5px;
+      width: 100%; }
+
+   .container2 a {
+      padding: 16px;
+      font-size: 20px;
+      text-align: center;
+      text-decoration: none;
+      color:rgb(67, 80, 124)
+   }
+   .container2 a:hover {font-weight:600}
+   .facebook, .instagram ,.twitter {
+      color: rgb(67, 80, 124);}
+
+   .link {
+     font-family: quicksand;
+     font-size: 20px;
+     margin-left: 10px;
+   }
+   @media screen and (max-width: 700px) {
+     .container2 {
+       width: 100%;
+       display: block;
+     }
+
+
+}
