@@ -33,6 +33,8 @@ urlpatterns = [
     path('checkout', views.checkout_view, name='checkout'),
     path('removeitem/<str:orderItemID>',
          views.removeitem_view, name='removeitem'),
-    path('thankyou', views.thankyou_view, name='thankyou')
+    path('thankyou', views.thankyou_view, name='thankyou'),
+    path('productsearch', views.productsearch_view, name = "productsearch"),
+
 
 ]

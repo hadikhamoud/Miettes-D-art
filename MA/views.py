@@ -77,6 +77,32 @@ def products_view(request):
     #Country, US = get_country(request)
     Allproducts = models.Product.objects.all()
     return render(request, 'miettes/productsgrid.html', {'Allproducts': Allproducts})
+# def searchbooksadmin(request):
+#     #get the search input as POST
+    
+#         #search by book name
+
+#         Books = models.Book.objects.filter(name__contains = searched).filter(Active =True)
+#         try:
+#             #search by isbn, ignore query if input is not int
+#             Booksbyisbn = models.Book.objects.filter(isbn__contains = int(searched)).filter(Active =True)
+#             print(Booksbyisbn)
+#         except:
+#             Booksbyisbn = models.Book.objects.none()
+#         #merge both queries
+#         Books = list(chain(Books,Booksbyisbn))
+#         print("books",Books)
+#         return render(request, 'library/searchbooksadmin.html',{'books':Books})
+
+
+
+def productsearch_view(request):
+    #Country, US = get_country(request)
+    if request.method == "POST":
+        searched = request.POST['searched']
+        ProductsQuery = models.Product.objects.filter(Name__contains = searched)
+        return render(request, 'miettes/productsearch.html', {'Allproducts': ProductsQuery,'Query':searched})
+    return render(request, 'miettes/productsearch.html')
 
 
 def discover_view(request, Title):

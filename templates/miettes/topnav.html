@@ -23,6 +23,13 @@
             <li><a href="/shipping">Shipping</a></li>
             <li><a href="/contactus">Contact</a></li>
             <li><a href="/cart" class="cart"><i class="fa fa-shopping-cart"></i></a></li>
+            <li><form class="d-flex" method=POST action="{% url 'productsearch' %}">
+              {% csrf_token %}
+        
+              <input type="text" placeholder="Search..." name="searched">
+              <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+            </li>
             <!-- <li>  <form id="content2">
               <input type="text" name="input" class="input" id="search2-input">
               <button type="reset" class="search2" id="search2-btn"></button>
