@@ -1,320 +1,309 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-{% load static %}
-    <head>
-          {% include "miettes/topnav.html" %}
-        <style>
+  {% load static %}
+  {% include "miettes/topnav.html" %}
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset=-"utf-8">
 
-            /* Basic Styling */
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+ <style>
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px;
-  display: flex;
-}
-/* Columns */
-.left-column {
-  width: 65%;
-  position: relative;
-}
+  *{
+    margin:0px;
+    padding:0px;
+    box-sizing:border-box;
+    font-family:quicksand;
+  color:rgb(68, 76, 87)
+  }
 
-.right-column {
-  width: 35%;
-  margin-top: 60px;
-}
-/* Left Column */
-.left-column img {
-  width: 90%;
-  position: absolute;
-  left: 0;
-  top: 50px;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
+  .center-wrapper{
+    position: absolute;
+    width:90%;
+    height: 80vh;
+    min-height:550px;
+    background-color:white;
+    top:50%;
+    left:50%;
+    transform: translate(-50% , -50%);
+    box-shadow: 0px 2px 10px rgba(0,0,0,.12);
+    border-radius:1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .content{
+    width:90%;
+    border-radius:4px;
 
-.left-column img.active {
-  opacity: 1;
-}
-/* Product Description */
-.product-description {
-  border-bottom: 1px solid #E1E8EE;
-  margin-bottom: 20px;
-}
-.product-description span {
-  font-size: 12px;
-  color: #358ED7;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.product-description h1 {
-  font-weight: 300;
-  font-size: 52px;
-  color: #43484D;
-  letter-spacing: -2px;
-}
-.product-description p {
-  font-size: 16px;
-  font-weight: 300;
-  color: #86939E;
-  line-height: 24px;
-}
-/* Product Color */
-.product-color {
-  margin-bottom: 30px;
-}
+  }
+  .shoe-content{
 
-.color-choose div {
-  display: inline-block;
-}
+    position: relative;
+  }
+  .text1{
+    width:100%;
+    height: auto;
+    border-left:1px solid #333333;
+    padding-left: 10px;
+  }
+  .text1 span{
+    display: block;
+    font-size:40px;
+    color:rgb(39, 102, 120)
 
-.color-choose input[type=&amp;quot;radio&amp;quot;] {
-  display: none;
-}
+  }
 
-.color-choose input[type=&amp;quot;radio&amp;quot;] + label span {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  margin: -1px 4px 0 0;
-  vertical-align: middle;
-  cursor: pointer;
-  border-radius: 50%;
-}
+  .text2 {
+      font-size: 30px;
+      color: #444;
+      padding-top: 10px;
+      padding-bottom: 5px;
+  }
+  .text3 {
+      font-size: 16px;
+      color: #444;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+  }
+  .text4 {
+      font-size: 12px;
+      color: #6b6b6b;
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .text5 {
+      font-size: 12px;
+      color: #6b6b6b;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      line-height: 23px;
+  }
+  .btn-wrapper{
+      width: 100%;
+      height: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    margin-top: 10px;
+  }
+  .btn-wrapper input{
+      box-shadow: 2px 5px 2px rgba(246,246,246);
+      background: grey;
+      border-radius: 20px;
+      color: #fbfbfb;
+      font-size: 14px;
+      padding: 8px 48px;
+  }
 
-.color-choose input[type=&amp;quot;radio&amp;quot;] + label span {
-  border: 2px solid #FFFFFF;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.33);
-}
-
-.color-choose input[type=&amp;quot;radio&amp;quot;]#red + label span {
-  background-color: #C91524;
-}
-.color-choose input[type=&amp;quot, radio&amp;quot;]#blue + label span {
-  background-color: #314780;
-}
-.color-choose input[type=&amp;quot;radio&amp;quot;]#black + label span {
-  background-color: #323232;
-}
-
-.color-choose input[type=&amp;quot;radio&amp;quot;]:checked + label span {
-  background-image: url(images/check-icn.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-/* Cable Configuration */
-.cable-choose {
-  margin-bottom: 20px;
-}
-
-.cable-choose button {
-  border: 2px solid #E1E8EE;
-  border-radius: 6px;
-  padding: 13px 20px;
-  font-size: 14px;
-  color: #5E6977;
-  background-color: #fff;
-  cursor: pointer;
-  transition: all .5s;
-}
-
-.cable-choose button:hover,
-.cable-choose button:active,
-.cable-choose button:focus {
-  border: 2px solid #86939E;
-  outline: none;
-}
-
-.cable-config {
-  border-bottom: 1px solid #E1E8EE;
-  margin-bottom: 20px;
-}
-
-.cable-config a {
-  color: #358ED7;
-  text-decoration: none;
-  font-size: 12px;
-  position: relative;
-  margin: 10px 0;
-  display: inline-block;
-}
-.cable-config a:before {
-  content: &amp;quot;?&amp;quot;;
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  border: 2px solid rgba(53, 142, 215, 0.5);
-  display: inline-block;
+.Size > select {
+  width: 50px;
+  padding: 2px;
   text-align: center;
-  line-height: 16px;
-  opacity: 0.5;
-  margin-right: 5px;
-}
-/* Cable Configuration */
-.cable-choose {
-  margin-bottom: 20px;
-}
-
-.cable-choose button {
-  border: 2px solid #E1E8EE;
-  border-radius: 6px;
-  padding: 13px 20px;
-  font-size: 14px;
-  color: #5E6977;
-  background-color: #fff;
-  cursor: pointer;
-  transition: all .5s;
-}
-
-.cable-choose button:hover,
-.cable-choose button:active,
-.cable-choose button:focus {
-  border: 2px solid #86939E;
-  outline: none;
-}
-
-.cable-config {
-  border-bottom: 1px solid #E1E8EE;
-  margin-bottom: 20px;
-}
-
-.cable-config a {
-  color: #358ED7;
-  text-decoration: none;
-  font-size: 12px;
-  position: relative;
-  margin: 10px 0;
-  display: inline-block;
-}
-.cable-config a:before {
-  height: 15px;
-  width: 15px;
-  border-radius: 50%;
-  border: 2px solid rgba(53, 142, 215, 0.5);
-  display: inline-block;
-  text-align: center;
-  line-height: 16px;
-  opacity: 0.5;
-  margin-right: 5px;
-}
-/* Responsive */
-@media (max-width: 940px) {
-  .container {
-    flex-direction: column;
-    margin-top: 60px;
+  border-radius: 10px
+   }
+  .color-choose { display: flex;
+flex-direction: row;
   }
 
-  .left-column,
-  .right-column {
-    width: 100%;
+
+  .carousel .carousel-indicators{
+    bottom: -40px;
+  }
+  .carousel .carousel-indicators li{
+    width:60px;
+    height:60px;
+    border-radius: 50%;
+    border:none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .left-column img {
-    width: 300px;
-    right: 0;
-    top: -65px;
-    left: initial;
+  .carousel .carousel-indicators li.active{
+    background: #fff;
+    box-shadow: 2px 5px 20px rgba(32,57,90,0.379);
   }
-}
+  .carousel .carousel-indicators li:nth-child(2){
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .carousel-control-next,
+  .carousel-control-prev{
+    position: absolute;
+    width:50px;
+    height:50px;
+    top:92%;
+    z-index: 999999;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon{
+    background-image: none;
+    width:10px;
+    height: 10px;
+    transform: rotate(45deg);
+  }
+  .carousel-control-prev-icon{
+    border-left:2px solid black;
+    border-bottom:2px solid black;
+  }
+  .carousel-control-next-icon{
+    border-top:2px solid black;
+    border-right:2px solid black;
+  }
+   .carousel-control-prev{
+     left:33%;
+   }
+    .carousel-control-next{
+     right:33%;
+   }
 
-@media (max-width: 535px) {
-  .left-column img {
-    width: 220px;
-    top: -85px;
+
+  @media only screen and (min-width:768px) and (max-width: 1024px) {
+    .center-wrapper{
+      height:auto;
+    }
+
   }
-}
-        </style>
-    </head>
-    <main class="container">
-          {% csrf_token %}
+  @media only screen and (max-width: 550px) {
+    .outer{
+      height:auto;
+    }
+    .shoe-content{
+      margin-top: 55px;
+    }
+    .center-wrapper{
+      height: auto;
+      margin: 20px;
+      border-radius: 0px;
+      width: 90%;
+      padding-bottom: 20px;
+      top:unset;
+      left:unset;
+      transform:unset;
+      -webkit-transform:unset;
+      -moz-transform:unset;
+      -ms-transform:unset;
+      -o-transform:unset;
+      box-shadow: 0px 2px 10px rgba(0,0,0,.10);
+  }
+    .content{
+      width:100%;
+    }
+
+    }
+
+    .carousel-control-next, .carousel-control-prev{
+      top:82%;
+    }
+    .carousel-control-prev{
+      left:27%;
+    }
+    .carousel-control-next{
+      right:27%;
+    }
+
+    .text2 {
+      font-size:22px;
+    }
+    .text3{
+      font-size:14px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+
+    <div class="container-fluid content">
+      {% csrf_token %}
       {%if Selectedproduct%}
 
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-6 shoe-slider">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
-        <!-- Left Column / Headphones Image -->
-        <div class="left-column">
-          <img data-image="black" src="/{{Selectedproduct.Image}}"  alt="" style="width:100%">
-          <img data-image="blue" src="/{{Selectedproduct.Image}}"   alt="" style="width:100%">
-          <img data-image="red" class="active" src="/{{Selectedproduct.Image}}" alt="" style="width:100%">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/{{Selectedproduct.Image}}" class="d-block w-100" alt="...">
+              </div>
+              {%for element in Pictures%}
+              <div class="carousel-item">
+                <img src="/{{element.picture}}" class="d-block w-100" alt="...">
+              </div>
+              {%endfor%}
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
+              </a>
+            </div>
+          </div>
         </div>
-
-
-        <!-- Right Column -->
-        <div class="right-column">
-
-          <!-- Product Description -->
-          <div class="product-description">
-
-            <span>{{Selectedproduct.Category}}</span>
+        <div class="col-12 col-sm-12 col-md-6 shoe-content">
+          <div class="text1">
             <h1>{{Selectedproduct.Name}}</h1>
+          </div>
+          <div class="text2">
+            <span>{{Selectedproduct.PriceLBP}}</span>
+          </div>
+          <div class="text3">
+            <span>{{Selectedproduct.Category}}</span>
+          </div>
+          <div class="text4">
+            DESCRIPTION
+          </div>
+          <div class="text5">
             <p>{{Selectedproduct.Description}}</p>
           </div>
+          <form method ="POST">
+              {% csrf_token %}
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+          <div class="color-choose">
+            {%for option in Selectedproduct.Color %}
+                            <div>
 
-          <!-- Product Configuration -->
-          <div class="product-configuration">
+                              <input type="radio" id={{option}} name="color" value={{option}}>{{option}}
+                              <label for={{option}}><span></span></label>
+                            </div>
 
-            <!-- Product Color -->
-            <div class="product-color">
-              <span>Color</span>
-
-              <div class="color-choose">
-                <div>
-                  <input data-image="red" type="radio" id="red" name="color" value="red" checked>
-                  <label for="red"><span></span></label>
-                </div>
-                <div>
-                  <input data-image="blue" type="radio" id="blue" name="color" value="blue">
-                  <label for="blue"><span></span></label>
-                </div>
-                <div>
-                  <input data-image="black" type="radio" id="black" name="color" value="black">
-                  <label for="black"><span></span></label>
-                </div>
-              </div>
-
-            </div>
+              {%endfor%}
+        </div>
 
 
-            <!-- Cable Configuration -->
-            <div class="cable-config">
-              <span>Size</span>
-
-              <div class="cable-choose">
-                <button>L</button>
-                <button>M</button>
-                <button>S</button>
-              </div>
-
-              <a href="#">Size guide</a>
-            </div>
+          <div class="Size">
+            <span>Size</span>
+            <select name="size">
+              {%for option in Selectedproduct.Size %}
+            <option value={{option}}>{{option}}</option>
+            {%endfor%}
+            </select>
           </div>
+    <div>
+            <a href="#">Size guide</a>
+          </div>
+          <div class="btn-wrapper">
+          <input type="submit" value = "Add to Cart"/>
+              </div>
 
-          <!-- Product Pricing -->
-          <div class="product-price">
-            <span>${{Selectedproduct.Price}}</span>
-            <a href="#" class="cart-btn"><button>Add to Cart</button></a>
+{%endif%}
           </div>
         </div>
-        {%endif%}
-      </main>
-      <script>
+      </div>
 
-      $(document).ready(function() {
-
-        $('.color-choose input').on('click', function() {
-            var headphonesColor = $(this).attr('data-image');
-
-            $('.active').removeClass('active');
-            $('.left-column img[data-image = ' + headphonesColor + ']').addClass('active');
-            $(this).addClass('active');
-        });
-
-      });
-    </script>
-    </html>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+{% include "miettes/botnav.html" %}
+</html>

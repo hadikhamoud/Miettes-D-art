@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
 {% load static %}
-{% include "miettes/topnav.html" %}
-    <head>
+
+
       <meta charset="utf-8">
-      <meta name="viewport" content="width-device-width, intial-scale=1">
+      <meta name="viewport" content="width-device-width, intial-scale=1.0">
+      {% include "miettes/topnav.html" %}
+      <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+
 
       <title>About us</title>
         <style>
+
       body {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: quicksand;
         margin: 0;
+        background-color:rgb(246, 246, 246);
+        color:rgb(68, 76, 87)
+
       }
 
       html {
@@ -25,66 +32,83 @@
         float: left;
         width: 50%;
         margin-bottom: 16px;
-        padding: 10px 100px;
+        padding: 0px 30px;
       }
 
       .card {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        margin: 10px;
+        box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2);
+        margin: 5px;
+        border-radius:10%;
       }
 
       .about-section {
-        padding: 100px;
+        padding: 0px 100px;
         text-align: center;
-        background-color: #adb2bb;
-        color: white;
+
+       color:rgb(68, 76, 87);
         line-height: 50px;
-        font-size: 25px;
+        font-size: 15px;
       }
 
       .container {
         padding: 0 20px;
+
+
+
       }
 
       .container::after, .row::after {
         content: "";
         clear: both;
         display: table;
+
       }
 
       .title {
         color: grey;
       }
 
+      .team {
+        font-size:50px
+      }
+      .img {
+        border-radius:10%;
+      }
       .button {
-        border: none;
-        outline: 0;
-        display: inline-block;
-        padding: 8px;
-        color: white;
-        background-color: #000;
-        text-align: center;
-        cursor: pointer;
-        width: 100%;
+      width: 50%;
+      background-color: rgba(255, 248, 220, 0);
+      font-size: 16px;
+      padding: 10px 35px;
+      border-width: 50px;
+      cursor: pointer;
+      border-radius: 6px;
+      text-align: center;
+      border:1px solid #000000;
+      font-family: quicksand;
+      border-radius: 50px
       }
 
       .button:hover {
-        background-color: #555;
+        font-weight:700
       }
+      .line {  border: 1px solid rgb(128, 139, 151);
+        border-radius: 5px;}
 
-      @media screen and (max-width: 650px) {
+      @media screen and (max-width: 700px) {
         .column {
           width: 100%;
           display: block;
         }
+        .about-section {
+          padding: 0px 20px;
+          text-align: center;
       }
       </style>
     </head>
 
 <body>
     <div class="about-section">
-      <h1>About Us Page</h1>
-      <p>Who we are and What we do.</p>
+      <hr class='line'>
       <p>"Miettes d'art" is an online store that aims to give women unique, fashionable and affordable jewelry.
 
         Every piece we design hides a story full of passion and emotions. That’s what makes our pieces worth wearing.
@@ -92,8 +116,6 @@
         We spend days searching for the finest material to ensure a timeless product. Our custom-made designs are gold or silver plated made with love.
 
         Our goal is far beyond designing earrings, we aim to tackle a wider palette of jewelry and small "objets d'art", all inspired by our background and taste.
-
-
 
         Here’s how it all started.
 
@@ -103,35 +125,39 @@
 
         With the economic collapse in our home country Lebanon, working in our field became more challenging. Out of ambition, we exchanged views on creating jewelry and came up with the idea of
 
-        building an e-commerce jewelry hub. And here it is, “Miettes d’art”.</p>
+        building an e-commerce jewelry hub.
+        And here it is, “Miettes d’art”.</p>
+        <hr class='line'>
     </div>
 
-    <h2 style="text-align:center">Our Team</h2>
+    <h1 class='team' style="text-align:center">Our Team</h1>
     <div class="row">
       <div class="column">
-        <div class="card">
-          <img src="/images/Screen Shot 2021-12-26 at 11.56.47 PM.png" alt="Sarah" style="width:100%">
-          <div class="container">
-            <h2>Sarah Hanna</h2>
-            <p class="title">CEO & Founder</p>
-            <p>Some text that describes her.</p>
-            <a href="https://www.instagram.com/taymaaham/?hl=en"><p><button class="button">Contact</button></p></a>
-          </div>
+      <div class="card">
+        <img class='img' src="{% static '/images/IMG_2762.jpg'%}" style="width:100%">
+        <div class="container">
+          <h2>Taymaa Hamoud</h2>
+          <p class="title">CEO & Founder</p>
+          <p>Taymaa is a speech therapist, metal smith and jewelry designer. She's in charge of all the hands-on operations at Miettes d'art.</p>
+          <a href="https://www.instagram.com/taymaaham/?hl=en"><p><button class="button">Contact</button></p></a>
         </div>
+      </div>
+
       </div>
 
       <div class="column">
-        <div class="card">
-          <img src="/images/Screen Shot 2021-12-26 at 11.39.03 PM.png" alt="Taymaa" style="width:100%">
-          <div class="container">
-            <h2>Taymaa Hamoud</h2>
-            <p class="title">CEO & Founder</p>
-            <p>She's awesome</p>
-            <a href="https://www.instagram.com/taymaaham/?hl=en"><p><button class="button">Contact</button></p></a>
-          </div>
+      <div class="card">
+        <img class='img' src="{% static '/images/Screen Shot 2021-12-26 at 11.56.47 PM.png' %}" alt="Sarah" style="width:100%">
+        <div class="container">
+          <h2>Sarah Hanna</h2>
+          <p class="title">CEO & Founder</p>
+          <p>Sarah is a speech therapist and jewelry designer. She's in charge of all the hands-on operations at Miettes d'art..</p>
+          <a href="https://www.instagram.com/taymaaham/?hl=en"><p><button class="button">Contact</button></p></a>
         </div>
       </div>
+      </div>
     </div>
-
     </body>
+
+    {% include "miettes/botnav.html" %}
     </html>
