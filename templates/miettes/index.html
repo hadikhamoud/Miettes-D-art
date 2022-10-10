@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html>
+
+  {%extends 'miettes/base.html'%}
+
 {% load static %}
 
-          <meta charset="utf-8">
-          <meta name="viewport" content="width-device-width, intial-scale=1.0">
-        {% include "miettes/topnav.html" %}
-         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{%block content%}
+
+
 <style>
 @import url(https://fonts.googleapis.com/css?family=Quicksand);
-  body {font-family:quicksand;
-  background-color:rgb(246, 246, 246);
-  color:rgb(68, 76, 87)}
+
 
 .card,.card2,.card3,.card4 {
   box-shadow: 0px 4px 8px 5px rgba(0,0,0,0.2);
@@ -45,24 +44,24 @@
 
 </style>
 
-<body>
 
+{%if Discovers%}
+{%for discover in Discovers%}
 
 <div class="card">
-  {%if Discovers%}
-  {%for discover in Discovers%}
+
   <img src="{{discover.Image1}}"  style="width:100%">
   <div class="container">
     <h2 style="font-size:25px">{{discover.Title}}</h2>
       <a href="{% url 'discover' discover.Title %}"><button class="btn1">Discover now</button></a>
  </div>
+
+ </div>
  {%endfor%}
  {%endif%}
- </div>
 
 
 
-</body>
-{% include "miettes/newsletter.html" %}
-{% include "miettes/botnav.html" %}
-    </html>
+
+
+  {%endblock%}

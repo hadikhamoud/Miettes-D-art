@@ -1,14 +1,25 @@
 
-* {box-sizing: border-box;}
+
 
 body {
   margin: 0;
   font-family:quicksand;
   background-color:rgb(246, 246, 246);
-  color:rgb(68, 76, 87)
+  color:rgb(68, 76, 87);
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh; 
+  margin: 0; 
+
+
 }
 
-.topnav{background: rgba(255, 255, 255, 0);
+* {
+  box-sizing: border-box;
+}
+
+#myTopnav{background: rgba(255, 255, 255, 0);
   }
 
 .menu{margin: 0;padding: 2px;list-style: none; }
@@ -36,7 +47,7 @@ body {
 
 }
 
-.topnav .icon {
+#myTopnav .icon {
     display: none;
 
   }
@@ -45,7 +56,7 @@ body {
     .menu a    {
       display: none; }
 
-     .topnav a.icon {
+     #myTopnav a.icon {
         display: block;
         text-align: left;
         padding: 50px;
@@ -57,43 +68,54 @@ body {
 
   @media screen and (max-width: 600px) {
 
-    .topnav.responsive {position: relative;}
-    .topnav.responsive.icon {
+    #myTopnav.responsive {position: relative;}
+    #myTopnav.responsive.icon {
       position:absolute;
       right: 0;
       top: 0;
 
     }
-    .topnav.responsive a {
+    #myTopnav.responsive a {
       float: none;
       display: block;
 
     }
+  }
 
-    .topnav.responsive  {position: relative;}
-    .topnav.responsive {
+    #myTopnav.responsive  {
+      position: relative;
+    }
+    #myTopnav.responsive {
       display: block;
       width: 100%;
       text-align: center;
     }
 
-    .container2 {
-      position:flex;
-      bottom: 0;
+.botnavContainer{
+
+  min-height:50px; 
+
+}
+
+    .botnav {
+
       text-align: center;
       margin-top: 5px;
-      width: 100%; }
+      width: 100%;
+    }
 
-   .container2 a {
+   .botnav a {
       padding: 16px;
       font-size: 20px;
       text-align: center;
       text-decoration: none;
-      color:rgb(67, 80, 124)
+      color:rgb(67, 80, 124);
+
    }
-   .container2 a:hover {font-weight:600}
+   .botnav a:hover {font-weight:600}
    .facebook, .instagram ,.twitter {
-      color: rgb(67, 80, 124);}
+      color: rgb(67, 80, 124);
+    }
 
    .link {
      font-family: quicksand;
@@ -101,10 +123,13 @@ body {
      margin-left: 10px;
    }
    @media screen and (max-width: 700px) {
-     .container2 {
+     .botnav {
        width: 100%;
        display: block;
      }
 
 
 }
+
+
+

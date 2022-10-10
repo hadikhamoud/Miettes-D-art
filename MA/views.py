@@ -108,7 +108,6 @@ def productsearch_view(request):
 def discover_view(request, Title):
     discover = models.Discover.objects.get(Title=Title)
     Allproducts = discover.Items.all()
-    print(Allproducts)
     return render(request, 'miettes/discover.html', {'Allproducts': Allproducts})
 
 
@@ -125,13 +124,13 @@ def viewproduct_view(request, SKU):
         try:
             customer = request.user.customer
         except:
-            Device = request.COOKIES['device']
+            Device = request.session.session_key
             customer, created = models.Customer.objects.get_or_create(
                 Device=Device)
 
         order, created = models.Order.objects.get_or_create(
             Customer=customer, Ordered=False)
-        orderitem, created = models.OrderItem.objects.get_or_create(
+        orderitem  = models.OrderItem.objects.create(
             Customer=customer, Order=order, Item=Selectedproduct, Color=Color_choice, Size=Size_choice)
         orderitem.save()
         order.save()
@@ -141,9 +140,10 @@ def viewproduct_view(request, SKU):
 
 def cart_view(request):
     try:
-        customer = request.user.customer
+        customer = request.user.Customer
     except:
-        Device = request.COOKIES['device']
+        Device = request.session.session_key
+        print(Device)
         customer, created = models.Customer.objects.get_or_create(
             Device=Device)
         print(created)
@@ -168,9 +168,11 @@ def removeitem_view(request, orderItemID):
 
 def checkout_view(request):
     try:
-        customer = request.user.customer
+        customer = request.user.Customer
+        print("found customer")
     except:
-        Device = request.COOKIES['device']
+        Device = request.session.session_key
+        print(Device)
         customer, created = models.Customer.objects.get_or_create(
                 Device=Device)
     form = forms.AddressForm()
@@ -185,20 +187,17 @@ def checkout_view(request):
         customer.Name = Name
         customer.Email = Email
         customer.save()
-        print('you are in post')
-        print(form)
-
+        print(form.is_valid())
         if form.is_valid():
             Address = form.save()
-            print("you are in form")
-            
             order.Shipping_address = models.Address.objects.create(Country=Address.Country,Street_address=Address.Street_address,Zip=Address.Zip)
-            #address, created = models.Address.get_or_create(Customer = customer, Street_address = )
             order.Ordered = True
             order.Ordered_date = datetime.now()
             order.Total = total
             order.Customer = customer
             order.save()
+            request.session.flush()
+            request.session.cycle_key()
             return render(request, 'miettes/thankyou.html')
     return render(request, 'miettes/checkout.html', {'Order': orderitems, 'form': form,"total": total, "numberofitems": numberofitems})
 

@@ -1,136 +1,128 @@
 <!DOCTYPE html>
-<html>
+{%extends 'miettes/base.html'%}
+{%block content%}
+{% load static %}
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<head>
-  {% load static %}
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% include "miettes/topnav.html" %}
 <style>
 
-  body {
-    font-family:quicksand;
-    background-color:rgb(246, 246, 246);
-    color:rgb(68, 76, 87)
-  }
 
-  * {
-    box-sizing: border-box;
-  }
-
-  input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
-  }
-
-  input[type=submit] {
-    background-color: rgb(211, 224, 234);
-    color:rgb(68, 76, 87);
-    padding: 12px 20px;
-    border: none;
-    cursor: pointer;
-  }
-
-  input[type=submit]:hover {
-    font-weight:600;
-  }
-
-  .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 10px;
-  }
-
-  .column {
-    float: left;
-    width: 50%;
-    margin-top: 6px;
-    padding: 20px;
-  }
-
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  @media screen and (max-width: 550px) {
-    .column, input[type=submit] {
-      width: 100%;
-      margin-top: 0;
+    * {
+        box-sizing: border-box;
     }
-  }
 
+    #contactUsName,
+    #contactUsEmail,
+    select,
+    #contactUsArea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
+
+    .contactUsSubmit {
+        background-color: rgb(211, 224, 234);
+        color: rgb(68, 76, 87);
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .contactUsSubmit:hover {
+        font-weight: 600;
+    }
+
+
+
+    .column {
+        float: left;
+        width: 50%;
+        margin-top: 6px;
+        padding: 20px;
+    }
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        margin-bottom: 100px;
+    }
+   
+
+    @media screen and (max-width: 550px) {
+        .column
+        {
+            width: 100%;
+            
+        }
+    }
 </style>
 
-</head>
-<body>
-
-  <div  style="text-align:center">
+<div style="text-align:center">
     <h2>Contact Us</h2>
-    <p> Leave us a message:</p>
+    <p>
+        Leave us a message:</p>
+</div>
+<div class="row">
+  <div class="column">
+      <div class="mySlides fade">
+          <img src="{% static 'images/DSC_3707.jpg'%}" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+          <img src="{% static 'images/DSC_4146.jpg'%}" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+          <img src="{% static 'images/DSC_4628.jpg'%}" style="width:100%">
+      </div>
+
+
+      <div style="text-align:center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
   </div>
 
   <div class="column">
-      <div class="mySlides fade">
-        <img src="{% static 'images/DSC_3707.jpg'%}" style="width:100%">
-      </div>
-
-      <div class="mySlides fade">
-        <img src="{% static 'images/DSC_4146.jpg'%}" style="width:100%">
-      </div>
-
-      <div class="mySlides fade">
-        <img src="{% static 'images/DSC_4628.jpg'%}" style="width:100%">
-      </div>
-      <br>
-
-      <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-      </div>
-    </div>
-
-    <div class="column">
-      <form method = 'POST'>
-        {%csrf_token%}
-        <label for="fname">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name...">
-        <label for="lname">Email</label>
-        <input type="text" id="email" name="email" placeholder="Your email...">
-        <label for="subject">Subject</label>
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
-        <input type="submit" value="Submit">
+      <form method='POST'>
+          {%csrf_token%}
+          <label for="fname">Name</label>
+          <input type="text" id="contactUsName" name="name" placeholder="Your name...">
+          <label for="lname">Email</label>
+          <input type="text" id="contactUsEmail" name="email" placeholder="Your email...">
+          <label for="subject">Subject</label>
+          <textarea id="contactUsArea" placeholder="Write something.." style="height:170px"></textarea>
+          <input type="submit" class="contactUsSubmit" value="Submit">
       </form>
-    </div>
-
+  </div>
 </div>
 
-</body>
-<script>
-  var slideIndex = 0;
+
+
+
+<script>var slideIndex = 0;
 showSlides();
 
 function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 2000);
-}
-</script>
-{% include "miettes/botnav.html" %}
-</html>
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 2000);
+}</script>{%endblock%}
