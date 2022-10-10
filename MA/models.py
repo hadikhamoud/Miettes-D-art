@@ -10,6 +10,7 @@ import random
 import string
 from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import MaxLengthValidator
 
 def generate_Ref_code():
     current_date =datetime.now()
@@ -26,8 +27,6 @@ def get_default_size():
     return ['XS','S','M','L','XL']
 def get_default_color():
     return ['Gold', 'Silver']
-
-
 
 
 class Product(models.Model):
@@ -61,7 +60,7 @@ class Product(models.Model):
     SKU = models.CharField(max_length=40,unique = True)
     Size = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_size)
     Color = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_color)
-    Description = models.CharField(max_length=400,null = True, blank=True)
+    Description = models.TextField(max_length=400,null = True, blank=True)
     Price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Category = models.CharField(max_length=30,choices=catchoice,default='earrings',null = True, blank=True)
     Status = models.CharField(max_length=30,choices=statuschoice,default='Active',null = True, blank=True)
@@ -118,7 +117,7 @@ class OrderItem(models.Model):
     Quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.Item.Name} ------ {self.Size} ----- {self.Color}"
+        return f"{self.Item.Name} \n------ {self.Size} \n----- {self.Color}"
 
     def get_total_item_price(self):
         return self.Quantity * self.Item.Price

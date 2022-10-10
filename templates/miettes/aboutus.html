@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
+{%extends 'miettes/base.html'%}
 {% load static %}
-
+{%block content%}
 
       <meta charset="utf-8">
       <meta name="viewport" content="width-device-width, intial-scale=1.0">
-      {% include "miettes/topnav.html" %}
-      <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
 
 
       <title>About us</title>
@@ -147,7 +146,7 @@
 
       <div class="column">
       <div class="card">
-        <img class='img' src="{% static '/images/Screen Shot 2021-12-26 at 11.56.47 PM.png' %}" alt="Sarah" style="width:100%">
+        <img class='img' src="{% static '/images/Screen Shot 2021-12-26 at 11.56.47 PM.png' %}" alt="Sarah" style="width:100%;margin-bottom: 20px;">
         <div class="container">
           <h2>Sarah Hanna</h2>
           <p class="title">CEO & Founder</p>
@@ -159,5 +158,5 @@
     </div>
     </body>
 
-    {% include "miettes/botnav.html" %}
     </html>
+{%endblock%}

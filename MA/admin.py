@@ -2,6 +2,8 @@ from django.contrib import admin
 from .models import *
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models.functions import Lower
+from django.contrib.sessions.models import Session
+
 # Register your models here.
 
 
@@ -76,11 +78,22 @@ class DiscoverAdmin(admin.ModelAdmin):
     list_display=('Title', )
     #inlines = [ProductlInline,]
 
+
+
+class SessionAdmin(admin.ModelAdmin):
+    def _session_data(self, obj):
+        return obj.get_decoded()
+    list_display = ['session_key', '_session_data', 'expire_date']
+
+
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Customer,CustomerAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderItem,OrderItemAdmin)
 admin.site.register(Discover,DiscoverAdmin)
 admin.site.register(Multiplier,MultiplierAdmin)
+admin.site.register(Session, SessionAdmin)
 
 #admin.site.register(ShippingAddress)

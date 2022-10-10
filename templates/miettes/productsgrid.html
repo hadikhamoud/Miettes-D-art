@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+{%extends 'miettes/base.html'%}
 {% load static %}
+{%block content%}
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
- {% include "miettes/topnav.html" %}
-   <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+
 <style>
 * {
   box-sizing: border-box;
@@ -13,9 +13,7 @@
   background-color: rgb(246,246,246)
 }
 
-body {
-  font-family: quicksand;
-}
+
 
 /* Float four columns side by side */
 .column {
@@ -34,7 +32,6 @@ body {
 
 } }
 
-/* Style the counter cards */
 .card {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0);
   padding: 16px;
@@ -69,3 +66,4 @@ body {
 
 </body>
 </html>
+{%endblock%}
