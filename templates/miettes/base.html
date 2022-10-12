@@ -8,19 +8,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <style>
-          * {
-        box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
     <nav id="myTopnav">
         <div class="logo logo-show-sm">
-            <a href="/homepage"><img src="{% static "images/logo.png" %}" alt=""></a>
+            <a href="/homepage"><img src="{% static "images/logo.svg" %}" alt=""></a>
         </div>
         <a href="javascript:void(0);" style="font-size:30px;" class="icon" onclick="myFunction()">&#9776;</a>
         <ul class="menu">
@@ -35,7 +34,7 @@
             </li>
 
             <li class="logo logo-show-md">
-                <a href="/homepage"><img src="{% static "images/logo.png" %}" alt=""></a>
+                <a href="/homepage"><img src="{% static "images/logo.svg" %}" alt=""></a>
             </li>
             <li>
                 <a href="/shipping">Shipping</a>
@@ -44,17 +43,22 @@
                 <a href="/contactus">Contact</a>
             </li>
             <!-- <li>
-                <label for="search">Search for stuff</label>
-                <input id="search" type="search" placeholder="Search..." autofocus required/>
-                <button type="submit">Go</button>
-            </li> -->
-            <li>
-                <a href="/cart" class="cart">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
-            </li>
+                                                                                                                                                                                                    <label for="search">Search for stuff</label>
+                                                                                                                                                                                                    <input id="search" type="search" placeholder="Search..." autofocus required/>
+                                                                                                                                                                                                    <button type="submit">Go</button>
+                                                                                                                                                                                                </li> -->
+
 
         </ul>
+
+        <ul class="cartMenu">
+            <li>
+                <a href="/cart" class="cartIcon">
+                    <i class="fa fa-shopping-cart fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+
     </nav>
 
 
@@ -62,7 +66,9 @@
 
     {%endblock%}
 
-
+    <a href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202." class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float" aria-hidden="true"></i>
+    </a>
     <div class="botnavContainer">
         <div class="botnav">
             <div class="link">

@@ -8,13 +8,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
-    <nav class="topnav" id="myTopnav">
+    <nav id="myTopnav">
         <div class="logo logo-show-sm">
-            <a href="/homepage"><img src="{% static "images/logo.png" %}" alt=""></a>
+            <a href="/homepage"><img src="{% static "images/logo.svg" %}" alt=""></a>
         </div>
         <a href="javascript:void(0);" style="font-size:30px;" class="icon" onclick="myFunction()">&#9776;</a>
         <ul class="menu">
@@ -27,8 +32,9 @@
             <li>
                 <a href="/products">Shop</a>
             </li>
+
             <li class="logo logo-show-md">
-                <a href="/homepage"><img src="{% static "images/logo.png" %}" alt=""></a>
+                <a href="/homepage"><img src="{% static "images/logo.svg" %}" alt=""></a>
             </li>
             <li>
                 <a href="/shipping">Shipping</a>
@@ -36,26 +42,28 @@
             <li>
                 <a href="/contactus">Contact</a>
             </li>
-            <li>
-                <label for="search">Search for stuff</label>
-                <input id="search" type="search" placeholder="Search..." autofocus required/>
-                <button type="submit">Go</button>
-            </li>
-            <li>
-                <a href="/cart" class="cart">
-                    <i class="fa fa-shopping-cart"></i>
-                </a>
-            </li>
+            <!-- <li>
+                                                                                                                                                                                                                <label for="search">Search for stuff</label>
+                                                                                                                                                                                                                <input id="search" type="search" placeholder="Search..." autofocus required/>
+                                                                                                                                                                                                                <button type="submit">Go</button>
+                                                                                                                                                                                                            </li> -->
+
 
         </ul>
-    </nav>
 
+        <ul class="cartMenu">
+            <li>
+                <a href="/cart" class="cartIcon">
+                    <i class="fa fa-shopping-cart fa-lg"></i>
+                </a>
+            </li>
+        </ul>
+
+    </nav>
 
     {%block content%}
 
     {%endblock%}
 
-
-    
 
 </body>

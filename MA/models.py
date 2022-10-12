@@ -11,11 +11,9 @@ import string
 from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import MaxLengthValidator
+from .utils import *
 
-def generate_Ref_code():
-    current_date =datetime.now()
-    Ref_code = str(int(current_date.strftime("%y%m%d")))+''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
-    return Ref_code
+
 
 
 def ConvertCheck():
@@ -23,10 +21,7 @@ def ConvertCheck():
     return multiplier[0]
 
 
-def get_default_size():
-    return ['XS','S','M','L','XL']
-def get_default_color():
-    return ['Gold', 'Silver']
+
 
 
 class Product(models.Model):
@@ -135,18 +130,32 @@ class Order(models.Model):
     #Items = models.ManyToManyField(OrderItem)
     Start_date = models.DateTimeField(auto_now=True,null = True)
     Ordered_date = models.DateTimeField(blank=True, null=True)
+    Shipped_date = models.DateTimeField(blank=True, null=True)
+    Delivered_date = models.DateTimeField(blank=True, null=True)
     Ordered = models.BooleanField(default=False)
     Shipping_address = models.OneToOneField(
         'Address', on_delete=models.SET_NULL, blank=True, null=True)
     Total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
-    Being_delivered = models.BooleanField(default=False)
-    Received = models.BooleanField(default=False)
+    Shipped = models.BooleanField(default=False)
+    Delivered = models.BooleanField(default=False)
 
     class Meta:
         ordering=['-Ordered']
 
     def __str__(self):
         return str(self.Customer) + str(self.Ref_code)
+
+    
+    def save(self, *args, **kwargs):
+        
+        if self.Shipped and not self.Delivered:
+            print("shipped")
+            send_html_mail(subject = "order shipped!" , recipient_list=[self.Customer.Email], html_content="",sender='gradesoutaub@outlook.com')
+        elif self.Shipped and self.Delivered: 
+            print("delivered")
+            send_html_mail(subject = "order delivered!" , recipient_list=[self.Customer.Email], html_content="",sender=settings.EMAIL_HOST_USER)
+
+        super(Order, self).save(*args, **kwargs)
 
 
 

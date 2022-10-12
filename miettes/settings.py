@@ -16,9 +16,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
-STATIC_DIR=os.path.join(BASE_DIR,'static')
-GEOIP_PATH = os.path.join(BASE_DIR,'geoip')
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 
 
 # Quick-start development settings - unsuitable for production
@@ -63,7 +63,7 @@ ROOT_URLCONF = 'miettes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,7 +92,6 @@ DATABASES = {
         'POST': '5432',
     }
 }
-
 
 
 # Password validation
@@ -132,27 +131,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[
-STATIC_DIR,
- ]
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 
+IMG_DIR = 'static/images'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-
-
-MAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_HOST_USER = 'support@miettesdart.com'
-#EMAIL_HOST = 'mail.miettesdart.com'
-#EMAIL_USE_TLS = True
-#EMAIL_PORT = 465
-#EMAIL_HOST_PASSWORD = 'miettesdart@11'
-EMAIL_HOST = 'smtp.gmail.com'
+MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'noreplylibMS@gmail.com'
+EMAIL_HOST_USER = 'gradesoutaub@outlook.com'
 EMAIL_HOST_PASSWORD = 'Password11@'

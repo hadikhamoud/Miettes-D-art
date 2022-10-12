@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.db import models
-import random
-import string
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from . import forms, models
@@ -14,43 +13,14 @@ from django.core.mail import send_mail
 from miettes.settings import EMAIL_HOST_USER
 from django.conf import settings
 from django.contrib.gis.geoip2 import GeoIP2
-
-
-def get_total_and_items(queryset):
-    total = 0
-    number = 0
-    for item in queryset:
-        number += item.Quantity
-        total += item.Item.PriceLBP * item.Quantity
-    return total, number
-
-
-def get_country(request):
-    g = GeoIP2()
-    US = True
-    ip = request.META.get('REMOTE_ADDR', None)
-    if ip:
-        Country = g.city(ip)['country_code']
-        if Country == 'LB':
-            US = False
-    else:
-        Country = 'US'
-        
-    return Country, US
-
-
-
-
-
-
-def generate_Ref_code():
-    current_date = datetime.now()
-    Ref_code = str(int(current_date.strftime("%y%m%d")))+''.join(
-        random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
-    return Ref_code
-
+from .utils import *
+import pytz
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 # Create your views here.
+
+
 def homepage(request):
     Discovers = models.Discover.objects.all()
     return render(request, 'miettes/index.html', {'Discovers': Discovers})
@@ -79,7 +49,7 @@ def products_view(request):
     return render(request, 'miettes/productsgrid.html', {'Allproducts': Allproducts})
 # def searchbooksadmin(request):
 #     #get the search input as POST
-    
+
 #         #search by book name
 
 #         Books = models.Book.objects.filter(name__contains = searched).filter(Active =True)
@@ -95,13 +65,12 @@ def products_view(request):
 #         return render(request, 'library/searchbooksadmin.html',{'books':Books})
 
 
-
 def productsearch_view(request):
     #Country, US = get_country(request)
     if request.method == "POST":
         searched = request.POST['searched']
-        ProductsQuery = models.Product.objects.filter(Name__contains = searched)
-        return render(request, 'miettes/productsearch.html', {'Allproducts': ProductsQuery,'Query':searched})
+        ProductsQuery = models.Product.objects.filter(Name__contains=searched)
+        return render(request, 'miettes/productsearch.html', {'Allproducts': ProductsQuery, 'Query': searched})
     return render(request, 'miettes/productsearch.html')
 
 
@@ -130,7 +99,7 @@ def viewproduct_view(request, SKU):
 
         order, created = models.Order.objects.get_or_create(
             Customer=customer, Ordered=False)
-        orderitem  = models.OrderItem.objects.create(
+        orderitem = models.OrderItem.objects.create(
             Customer=customer, Order=order, Item=Selectedproduct, Color=Color_choice, Size=Size_choice)
         orderitem.save()
         order.save()
@@ -154,10 +123,8 @@ def cart_view(request):
     if request.method == 'POST':
         Name = request.POST.get('number')
         print(Name)
-        
 
     return render(request, 'miettes/cart.html', {'Order': orderitems, "total": total, "numberofitems": numberofitems})
-    
 
 
 def removeitem_view(request, orderItemID):
@@ -174,7 +141,7 @@ def checkout_view(request):
         Device = request.session.session_key
         print(Device)
         customer, created = models.Customer.objects.get_or_create(
-                Device=Device)
+            Device=Device)
     form = forms.AddressForm()
     order, created = models.Order.objects.get_or_create(
         Customer=customer, Ordered=False)
@@ -190,16 +157,20 @@ def checkout_view(request):
         print(form.is_valid())
         if form.is_valid():
             Address = form.save()
-            order.Shipping_address = models.Address.objects.create(Country=Address.Country,Street_address=Address.Street_address,Zip=Address.Zip)
+            order.Shipping_address = models.Address.objects.create(
+                Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip)
             order.Ordered = True
-            order.Ordered_date = datetime.now()
+            order.Ordered_date = datetime.now(pytz.timezone('Asia/Beirut'))
             order.Total = total
             order.Customer = customer
             order.save()
+            send_html_mail(subject=f"You have received your order {order.Customer.Name}!", html_content=render_to_string(
+                'miettes/orderemail.html', {'orderItems': orderitems}), recipient_list=[order.Customer.Email], sender="gradesoutaub@outlook.com")
             request.session.flush()
             request.session.cycle_key()
+
             return render(request, 'miettes/thankyou.html')
-    return render(request, 'miettes/checkout.html', {'Order': orderitems, 'form': form,"total": total, "numberofitems": numberofitems})
+    return render(request, 'miettes/checkout.html', {'Order': orderitems, 'form': form, "total": total, "numberofitems": numberofitems})
 
 
 def thankyou_view(request):
@@ -212,3 +183,7 @@ def addproduct_view(request):
         form = forms.ProductForm(request.POST, request.FILES)
         if form.is_valid():
             Product = form.save()
+
+
+def orderemail_view(request):
+    return render(request, 'miettes/orderemail.html')

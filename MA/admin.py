@@ -39,7 +39,10 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = [
             'Ordered',
         ]
-    readonly_fields=['Shipping_address','Customer','Ordered_date']
+    readonly_fields=['Shipping_address','Customer','Ordered_date','Delivered_date','Shipped_date']
+
+
+
     
 
 

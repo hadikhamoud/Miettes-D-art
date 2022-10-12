@@ -1,0 +1,140 @@
+{% load static %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body {
+        font-family: 'Courier New', Courier, monospace;
+        margin: 0;
+    }
+
+    .mainLogo,
+    .bottomNav {
+        position: relative;
+        margin: 0 auto;
+        height: auto;
+        text-align: center; /* Add This*/
+        background-color: rgb(246, 246, 246);
+        overflow-x: hidden;
+    }
+
+    .imgLogo {
+        margin: 30px 0;
+    }
+    .facebook,
+    .instagram {
+        width: 20px;
+
+    }
+
+    .orderDetails,
+    .delivery,
+    .products {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        margin: 130px auto;
+    }
+
+
+    .bottomNav {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+
+    hr {
+        border: 0;
+        clear: both;
+        display: block;
+        width: 96%;
+        background-color: rgb(246, 246, 246);
+        height: 3px;
+
+    }
+
+
+    .productImage {
+
+        max-width: 70%;
+        height: 300px;
+        object-fit: cover;
+
+    }
+
+
+    .productPrice {
+        font-size: 30px;
+        margin-top: -10px;
+    }
+
+    a {
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .socials {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 50px;
+    }
+</style>
+<body>
+    <div class="mainLogo">
+        <img class="imgLogo" src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574040/logo_tosw14.svg">
+    </div>
+    <div class="orderDetails">
+        <h2>Your order is on its way</h2>
+        <p>ORDER NO.{orderNumber}</p>
+        <p>YOU WILL RECEIVE YOUR DELIVERY SOON</p>
+
+    </div>
+    <hr>
+    <div class="delivery">
+        <h2>Delivery</h2>
+        <p>HOME DELIVERY</p>
+        <p>Ashrafieh, Mathaf, Hay el seryen
+            <br>
+            Moghrabi Building, 3rd Floor<br>
+            Hammoud HouseHold
+        </p>
+
+
+    </div>
+    <hr>
+    <div class="products">
+        <h2>Products</h2>
+        <img class="productImage" src="cid:logo.png">
+        <h3>Point - Gold
+            <br>
+            M
+        </h3>
+        <p class="productPrice">119,000LBP</p>
+
+    </div>
+
+    <div class="bottomNav">
+        <a href="#">privacy policy</a>
+        <a href="#">
+            shipping conditions</a>
+
+        <p>
+            Follow us:
+        </p>
+
+        <div class="socials">
+            <a href="#">
+                <img class="facebook" src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574859/facebook-brands_sxjqdh.png">
+            </a>
+            <a href="https://www.instagram.com/miettesdart/?hl=en" class="instagram">
+                <img class="instagram" src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574856/instagram-brands_k92vwr.png">
+            </a>
+        </div>
+    </body>
+</body></div></body>

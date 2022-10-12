@@ -20,7 +20,14 @@ body {
 }
 
 #myTopnav{background: rgba(255, 255, 255, 0);
+display: flex;
+
+
   }
+
+a:visited{
+  color: rgb(68, 76, 87) !important;
+}
 
 .menu{margin: 0;padding: 2px;list-style: none; }
 .menu a{display: block; text-decoration: none; font-size: 20px; color:rgb(68, 76, 87); padding: 35px 10px; }
@@ -30,7 +37,13 @@ body {
 .logo img{display: block; width: 200px;}
 
 @media screen and (min-width: 600px){
-    .menu{display: flex; max-width: 550px; margin:0 auto; justify-content: center; align-items: center;}
+    .menu{display: flex;
+       max-width: 400px;
+        margin:0 auto;
+         justify-content: center; 
+         align-items: center;
+        }
+
     .logo-show-sm{display: none;}
 
 }
@@ -62,6 +75,7 @@ body {
         padding: 50px;
         color:rgb(68, 76, 87);
         text-decoration:none
+        
       }
 
   }
@@ -80,7 +94,7 @@ body {
       display: block;
 
     }
-  }
+  
 
     #myTopnav.responsive  {
       position: relative;
@@ -90,6 +104,9 @@ body {
       width: 100%;
       text-align: center;
     }
+  
+  }
+    
 
 .botnavContainer{
 
@@ -113,7 +130,7 @@ body {
 
    }
    .botnav a:hover {font-weight:600}
-   .facebook, .instagram ,.twitter {
+   .facebook, .instagram ,.twitter,.float,.my-float {
       color: rgb(67, 80, 124);
     }
 
@@ -131,5 +148,34 @@ body {
 
 }
 
+.menu a:hover,.menu a:focus{font-weight: 600;}
 
 
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+
+	border-radius:50px;
+	text-align:center;
+  font-size:30px;
+	box-shadow: 2px 2px 3px #999;
+  z-index:100;
+}
+
+.my-float{
+	margin-top:16px;
+}
+
+
+.cartMenu{
+  padding: 2px;
+  list-style: none; 
+  display: flex;
+  margin-right: 30px;
+  justify-content: center;
+  align-items: center; 
+  min-width: 40px;
+}
