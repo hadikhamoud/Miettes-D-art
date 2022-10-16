@@ -22,6 +22,7 @@ body {
 #myTopnav{background: rgba(255, 255, 255, 0);
 display: flex;
 
+margin-bottom: 10px;
 
   }
 
@@ -29,14 +30,24 @@ a:visited{
   color: rgb(68, 76, 87) !important;
 }
 
-.menu{margin: 0;padding: 2px;list-style: none; }
-.menu a{display: block; text-decoration: none; font-size: 20px; color:rgb(68, 76, 87); padding: 35px 10px; }
+.menu{margin: 0;padding: 0;list-style: none; }
+.menu a{display: block; text-decoration: none; font-size: 20px; color:rgb(68, 76, 87); padding: 20px 10px; }
 .menu a:hover,.menu a:focus{font-weight: 600; }
  .logo-show-md img:hover { transform: scale(1.0);}
 .logo a,
 .logo img{display: block; width: 200px;}
 
-@media screen and (min-width: 600px){
+.cartMenu{
+  padding: 2px;
+  list-style: none; 
+  display: flex;
+  margin-right: 30px;
+  justify-content: center;
+  align-items: center; 
+  min-width: 40px;
+}
+
+@media screen and (min-width: 715px){
     .menu{display: flex;
        max-width: 400px;
         margin:0 auto;
@@ -48,15 +59,21 @@ a:visited{
 
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 715px){
+  /* .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+      } */
     .logo-show-md{display: none;}
- .logo img {width: 180px;
-        position: absolute;
-        transform: translateX(-50%);
-         left: 50%;
-        top: 7%; 
 
+    .logo img{
+      width: 150px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
+
 
 }
 
@@ -65,30 +82,52 @@ a:visited{
 
   }
 
-  @media screen and (max-width: 600px) {
-    .menu a    {
-      display: none; }
+  @media screen and (max-width: 715px) {
+    .menu a {
+      display: none; 
+    }
 
-     #myTopnav a.icon {
+
+    .cartMenu a {
+      right: 0;
+      top: 10px;
+
+      margin: 20px;
+      position: absolute;
+      display: block;
+     
+       color:rgb(68, 76, 87);
+       text-decoration:none;
+       line-height: normal;
+       
+     }
+
+     #myTopnav a.icon{
+        right: 30px;
+        top: 0;
+ 
+        margin: 20px;
+        position: absolute;
         display: block;
-        text-align: left;
-        padding: 50px;
-        color:rgb(68, 76, 87);
-        text-decoration:none
-        
-      }
+       
+         color:rgb(68, 76, 87);
+         text-decoration:none
+         
+       }
+
+
+
+
+
 
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 715px) {
 
-    #myTopnav.responsive {position: relative;}
-    #myTopnav.responsive.icon {
-      position:absolute;
-      right: 0;
-      top: 0;
+    #myTopnav.responsive {position: relative;
+      animation-timing-function: linear;
+}
 
-    }
     #myTopnav.responsive a {
       float: none;
       display: block;
@@ -104,7 +143,8 @@ a:visited{
       width: 100%;
       text-align: center;
     }
-  
+
+
   }
     
 
@@ -169,13 +209,6 @@ a:visited{
 	margin-top:16px;
 }
 
-
-.cartMenu{
-  padding: 2px;
-  list-style: none; 
-  display: flex;
-  margin-right: 30px;
-  justify-content: center;
-  align-items: center; 
-  min-width: 40px;
+ul{
+  margin-top: 16px;
 }

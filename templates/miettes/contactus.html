@@ -36,7 +36,6 @@
     }
 
 
-
     .column {
         float: left;
         width: 50%;
@@ -50,13 +49,12 @@
         clear: both;
         margin-bottom: 100px;
     }
-   
+
 
     @media screen and (max-width: 550px) {
-        .column
-        {
+        .column {
             width: 100%;
-            
+
         }
     }
 </style>
@@ -67,62 +65,63 @@
         Leave us a message:</p>
 </div>
 <div class="row">
-  <div class="column">
-      <div class="mySlides fade">
-          <img src="{% static 'images/DSC_3707.jpg'%}" style="width:100%">
-      </div>
+    <div class="column">
+        <div class="mySlides fade">
+            <img src="{% static 'images/DSC_0604.jpeg'%}" style="width:100%">
+        </div>
 
-      <div class="mySlides fade">
-          <img src="{% static 'images/DSC_4146.jpg'%}" style="width:100%">
-      </div>
+        <div class="mySlides fade">
+            <img src="{% static 'images/DSC_0604.jpeg'%}" style="width:100%">
+        </div>
 
-      <div class="mySlides fade">
-          <img src="{% static 'images/DSC_4628.jpg'%}" style="width:100%">
-      </div>
+        <div class="mySlides fade">
+            <img src="{% static 'images/DSC_0604.jpeg'%}" style="width:100%">
+        </div>
 
 
-      <div style="text-align:center">
-          <span class="dot" onclick="currentSlide(1)"></span>
-          <span class="dot" onclick="currentSlide(2)"></span>
-          <span class="dot" onclick="currentSlide(3)"></span>
-      </div>
-  </div>
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
 
-  <div class="column">
-      <form method='POST'>
-          {%csrf_token%}
-          <label for="fname">Name</label>
-          <input type="text" id="contactUsName" name="name" placeholder="Your name...">
-          <label for="lname">Email</label>
-          <input type="text" id="contactUsEmail" name="email" placeholder="Your email...">
-          <label for="subject">Subject</label>
-          <textarea id="contactUsArea" placeholder="Write something.." style="height:170px"></textarea>
-          <input type="submit" class="contactUsSubmit" value="Submit">
-      </form>
-  </div>
+    <div class="column">
+        <form method='POST'>
+            {%csrf_token%}
+            <label for="fname">Name</label>
+            <input type="text" id="contactUsName" name="name" placeholder="Your name...">
+            <label for="lname">Email</label>
+            <input type="text" id="contactUsEmail" name="email" placeholder="Your email...">
+            <label for="subject">Subject</label>
+            <textarea id="contactUsArea" placeholder="Write something.." style="height:170px"></textarea>
+            <input type="submit" class="contactUsSubmit" value="Submit">
+        </form>
+    </div>
 </div>
 
 
+<script>
+    var slideIndex = 0;
+    showSlides();
 
-
-<script>var slideIndex = 0;
-showSlides();
-
-function showSlides() {
-    var i;
-    var slides = document.getElementsByClassName("mySlides");
-    var dots = document.getElementsByClassName("dot");
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 2000);
     }
-    slideIndex++;
-    if (slideIndex > slides.length) {
-        slideIndex = 1
-    }
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-    setTimeout(showSlides, 2000);
-}</script>{%endblock%}
+</script>
+{%endblock%}

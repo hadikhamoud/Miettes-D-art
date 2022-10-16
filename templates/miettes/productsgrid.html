@@ -3,7 +3,10 @@
 {% load static %}
 {%block content%}
 <html>
-<head>
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'stylee.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
 
 <style>
 * {
@@ -24,7 +27,7 @@
 
 
 /* Responsive columns */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 715px) {
     .column {
             float: left;
             width: 50%;
@@ -38,16 +41,33 @@
   text-align: center;
 
 }
+
+
+.grid-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 2fr);
+        grid-auto-rows: 250px;
+        grid-gap: 1rem;
+        grid-auto-flow: row;
+    }
+
+    .grid-item {
+        background: red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
-</head>
+
 <body>
 
 
     {% csrf_token %}
     {% if Allproducts%}
-    {% for product in Allproducts %}
+    <div class="grid-wrapper">
 
-    <div class="column">
+  {% for product in Allproducts %}
+
    <div class="card">
     <a href="{% url 'viewproduct' product.SKU %}"><img src={{product.Image}} style="width:100%"></a>
   <div class="container">
@@ -59,9 +79,12 @@
 
   </div>
   </div>
-   </div>
+
 
    {% endfor %}
+  </div>
+
+
    {%endif%}
 
 </body>

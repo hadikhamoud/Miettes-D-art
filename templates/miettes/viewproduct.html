@@ -7,18 +7,30 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'stylee.css' %} ">
-<link
-rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"> -->
 
 <style>
+
+    html{
+        -webkit-text-size-adjust:100%;
+        line-height: 1;
+    }
 
     body {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
         font-family: quicksand;
-        color: rgb(68, 76, 87)
+        color: rgb(68, 76, 87);
+
+    }
+
+    svg{
+        vertical-align: baseline;
     }
 
     .center-wrapper {
@@ -107,7 +119,7 @@ rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
         text-align: center;
         border-radius: 10px
     }
-    .color-choose {
+    .colorSize-choose {
         display: flex;
         flex-direction: row;
     }
@@ -165,13 +177,14 @@ rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
     }
 
 
-    @media only screen and(min-width:768px) and(max-width: 1024px) {
+    @media only screen and (min-width:768px) and (max-width: 1024px) {
         .center-wrapper {
             height: auto;
         }
 
     }
-    @media only screen and(max-width: 550px) {
+    @media only screen and (max-width: 550px) {
+
         .outer {
             height: auto;
         }
@@ -216,7 +229,81 @@ rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
             font-size: 14px;
         }
     }
-</style></head><body>
+
+    .containerRadio{
+  display: block;
+  position: relative;
+  padding-left: 5px;
+  margin-bottom: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 22px;
+  margin-right: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+    .colorSize-choose input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+.checkmark {
+
+  height: 30px;
+  width: 30px;
+  background-color: #eee;
+  border-radius: 50%;
+  margin-bottom: -20px;
+}
+
+.checkmarkSize{
+    border-radius: 0%;
+    text-align: center;
+    justify-content: center;
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    font-size: large;
+    
+ 
+}
+
+
+
+.containerRadio input:checked ~ .checkmark {
+  border: 2px solid black;
+}
+
+.containerRadio .checkmark:after,.checkmarkSize:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 80%;
+	background: transparent;
+}
+
+.containerRadio input:checked ~ .checkmarkSize {
+  background-color: beige;
+  text-align: center;
+}
+
+.containerRadio .checkmark:after,.checkmarkSize:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 80%;
+	background: transparent;
+}
+
+
+
+
+</style></head>
 
 
 <div class="container-fluid content">
@@ -261,35 +348,48 @@ rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
                         DESCRIPTION
                     </div>
                     <!-- <div class="text5">
-                                                                                                                                                                                                                                                                                                    <p>{{Selectedproduct.Description}}</p>
-                                                                                                                                                                                                                                                                                                  </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                <p>{{Selectedproduct.Description}}</p>
+                                                                                                                                                                                                                                                                                                                                                                                                                                              </div> -->
                     <form method="POST">
                         {% csrf_token %}
                         {{Selectedproduct.Description}}
-                        <div class="color-choose">
+                        <div class="colorSize-choose">
                             {%for option in Selectedproduct.Color %}
-                                <div>
-
-                                    <input type="radio" id={{option}} name="color" value={{option}}>{{option}}
-                                    <label for={{option}}>
-                                        <span></span>
-                                    </label>
+                              
+                                <div class="containerRadio">
+                                    <input type="radio" id={{option}} name="color" value={{option}}>
+                                    <label class="checkmark" style="background-color: {{option}};" for={{option}}></label>
+                                  
                                 </div>
 
                                 {%endfor%}
                             </div>
                             {%if Selectedproduct.Size%}
 
-                                <div class="Size">
+
+                            <div class="colorSize-choose">
+                                {%for option in Selectedproduct.Size %}
+                                  
+                                    <div class="containerRadio">
+                                        <input type="radio" id={{option}} name="size" value={{option}}>
+                                        <label class="checkmark checkmarkSize" style="background-color: {{option}};" for={{option}}>{{option}}</label>
+                                      
+                                    </div>
+
+                            {%endfor%}
+                            </div>
+
+
+                                <!-- <div class="Size">
                                     <span>Size</span>
                                     <select name="size">
                                         {%for option in Selectedproduct.Size %}
-                                            <option value={{option}}></option>
-                                            {{option}}
-                                        </option>
+                                            <option value={{option}}>{{option}}</option>
+                                            
+                                        
                                         {%endfor%}
                                     </select>
-                                </div>
+                                </div> -->
                                 {%endif%}
                                 <div>
                                     <a href="#">Size guide</a>
