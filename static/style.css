@@ -1,4 +1,6 @@
-{% load static %}
+
+
+
 * {box-sizing: border-box;}
 
 body {
@@ -158,4 +160,4 @@ input[type=submit] {
 input[type=submit]:hover {
   opacity: 0.8;
 }
-}
+

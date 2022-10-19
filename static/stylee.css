@@ -1,10 +1,21 @@
+@font-face {
+  font-family: 'AbrilFatface';
+  src: local('AbrilFatface'),
+  url('./fonts/AbrilFatface-Regular.ttf') format("truetype");
 
+}
+@font-face {
+  font-family: 'LibreBaskerville';
+  src: local('LibreBaskerville'),
+  url('./fonts/LibreBaskerville-Regular.ttf') format("truetype");
+
+}
 
 
 body {
   margin: 0;
-  font-family:quicksand;
-  background-color:rgb(246, 246, 246);
+  font-family: LibreBaskerville;
+  background-color: #FFFF;
   color:rgb(68, 76, 87);
   position: relative;
   display: grid;
@@ -19,7 +30,7 @@ body {
   box-sizing: border-box;
 }
 
-#myTopnav{background: rgba(255, 255, 255, 0);
+#myTopnav{background: rgba(255, 255, 255);
 display: flex;
 
 margin-bottom: 10px;
@@ -175,7 +186,7 @@ a:visited{
     }
 
    .link {
-     font-family: quicksand;
+     font-family: AbrilFatface;
      font-size: 20px;
      margin-left: 10px;
    }
@@ -211,4 +222,16 @@ a:visited{
 
 ul{
   margin-top: 16px;
+}
+
+.inButton{
+  position: absolute;
+  bottom:0;
+  left: 0;
+  width:5%;
+  background-color: transparent;
+  color: transparent;
+  border-color: transparent;
+  cursor: default;
+
 }

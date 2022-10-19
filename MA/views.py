@@ -1,22 +1,22 @@
 from django.shortcuts import render
 from django.db import models
-
-from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from . import forms, models
-from django.http import HttpResponseRedirect
-from django.contrib.auth.models import Group
-from django.contrib import auth
-from django.contrib.auth.decorators import login_required, user_passes_test
-from datetime import datetime, timedelta, date
+
+# from django.http import HttpResponseRedirect
+# from django.contrib.auth.models import Group
+# from django.contrib import auth
+# from django.contrib.auth.decorators import login_required, user_passes_test
+# from django.conf import settings
+# from django.contrib.gis.geoip2 import GeoIP2
+# from django.utils.html import strip_tags
+
+
 from django.core.mail import send_mail
 from miettes.settings import EMAIL_HOST_USER
-from django.conf import settings
-from django.contrib.gis.geoip2 import GeoIP2
 from .utils import *
-import pytz
 from django.template.loader import render_to_string
-from django.utils.html import strip_tags
+import os
 
 # Create your views here.
 
@@ -24,6 +24,10 @@ from django.utils.html import strip_tags
 def homepage(request):
     Discovers = models.Discover.objects.all()
     return render(request, 'miettes/index.html', {'Discovers': Discovers})
+
+
+def base_dev(request):
+    return render(request, 'miettes/basedev.html')
 
 
 def aboutus_view(request):
@@ -34,11 +38,10 @@ def contactus_view(request):
     if request.method == 'POST':
         email = request.POST.get("email")
         name = request.POST.get("name")
-        subject = request.POST.get("subject")
-        send_mail(str(name)+' || '+str(email), subject,
-                  EMAIL_HOST_USER, ['support@miettesdart.com'])
-
-        return render(request, 'miettes/contactus.html')
+        content = request.POST.get("content")
+        contact = models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
+        send_html_mail(subject= "we have received your complaint", html_content="<h1> we love you<h1>",recipient_list=[email],sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+        return render(request, 'miettes/contactus.html',{"sent": True})
 
     return render(request, 'miettes/contactus.html')
 
@@ -47,11 +50,14 @@ def products_view(request):
     #Country, US = get_country(request)
     Allproducts = models.Product.objects.all()
     return render(request, 'miettes/productsgrid.html', {'Allproducts': Allproducts})
+
+
+   #_______________________________________For Searching____________________________ 
 # def searchbooksadmin(request):
 #     #get the search input as POST
 
 #         #search by book name
-
+ 
 #         Books = models.Book.objects.filter(name__contains = searched).filter(Active =True)
 #         try:
 #             #search by isbn, ignore query if input is not int
@@ -63,6 +69,10 @@ def products_view(request):
 #         Books = list(chain(Books,Booksbyisbn))
 #         print("books",Books)
 #         return render(request, 'library/searchbooksadmin.html',{'books':Books})
+
+#_______________________________________For Searching____________________________
+
+
 
 
 def productsearch_view(request):
@@ -112,10 +122,8 @@ def cart_view(request):
         customer = request.user.Customer
     except:
         Device = request.session.session_key
-        print(Device)
         customer, created = models.Customer.objects.get_or_create(
             Device=Device)
-        print(created)
     order, created = models.Order.objects.get_or_create(
         Customer=customer, Ordered=False)
     orderitems = models.OrderItem.objects.filter(Order=order.pk)
@@ -160,12 +168,12 @@ def checkout_view(request):
             order.Shipping_address = models.Address.objects.create(
                 Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip)
             order.Ordered = True
-            order.Ordered_date = datetime.now(pytz.timezone('Asia/Beirut'))
+            order.Ordered_date = generate_timestamp() 
             order.Total = total
             order.Customer = customer
             order.save()
             send_html_mail(subject=f"You have received your order {order.Customer.Name}!", html_content=render_to_string(
-                'miettes/orderemail.html', {'orderItems': orderitems}), recipient_list=[order.Customer.Email], sender="gradesoutaub@outlook.com")
+                'miettes/orderemail.html', {'orderItems': orderitems}), recipient_list=[order.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
             request.session.flush()
             request.session.cycle_key()
 

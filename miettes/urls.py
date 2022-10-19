@@ -19,7 +19,7 @@ from MA import views
 from django.conf.urls import include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('taymaa-and-sara-only-secret/', admin.site.urls),
     path('homepage', views.homepage),
     path('', views.homepage),
     path('aboutus', views.aboutus_view, name='aboutus'),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('products', views.products_view, name='products'),
     #path('productcard', views.productcard_view,name='productcard'),
     path('discover/<str:Title>/', views.discover_view, name='discover'),
+    path('basedev', views.base_dev,name='basedev'),
     path('addproduct', views.addproduct_view, name='addproduct'),
     path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
     path('cart', views.cart_view, name='cart'),

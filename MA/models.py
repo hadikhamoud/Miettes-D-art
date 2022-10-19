@@ -1,18 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime,timedelta,timezone
+from datetime import datetime
 from django_countries.fields import CountryField
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
-import uuid
-from shortuuidfield import ShortUUIDField
-import random
-import string
+
 from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.validators import MaxLengthValidator
+# from django.core.validators import MaxLengthValidator
 from .utils import *
-
+import os
 
 
 
@@ -62,7 +59,7 @@ class Product(models.Model):
     Optional = models.CharField(max_length=30,choices=optionalchoice,default='new arrivals',null = True, blank=True)
     Discover = models.ForeignKey('Discover',on_delete=models.CASCADE,null = True, blank = True)
     Image = models.ImageField(upload_to='static/images',null = True, blank=True)
-    PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
+    PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
 
     def __str__(self):
@@ -112,7 +109,7 @@ class OrderItem(models.Model):
     Quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.Item.Name} \n------ {self.Size} \n----- {self.Color}"
+        return f"{self.Item.Name} \t- {self.Size} \t- {self.Color}"
 
     def get_total_item_price(self):
         return self.Quantity * self.Item.Price
@@ -125,7 +122,8 @@ class Order(models.Model):
     Customer = models.ForeignKey('Customer',
                              on_delete=models.CASCADE,null = True, blank = True)
     #Ref_code = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True, editable=False)
-    Ref_code = ShortUUIDField()
+    Ref_code = models.CharField(max_length=12,null=True, blank=True, unique=True)
+
 
     #Items = models.ManyToManyField(OrderItem)
     Start_date = models.DateTimeField(auto_now=True,null = True)
@@ -143,17 +141,27 @@ class Order(models.Model):
         ordering=['-Ordered']
 
     def __str__(self):
-        return str(self.Customer) + str(self.Ref_code)
+        return str(self.Customer) +" "+ str(self.Ref_code)
 
     
     def save(self, *args, **kwargs):
+
+        if not self.Ref_code:
+            self.Ref_code = generate_Ref_code()
+            while Order.objects.filter(Ref_code=self.Ref_code).exists():
+                self.Ref_code = generate_Ref_code()
         
+
+        #admin should press shipped then delivered(in that order)
         if self.Shipped and not self.Delivered:
             print("shipped")
-            send_html_mail(subject = "order shipped!" , recipient_list=[self.Customer.Email], html_content="",sender='gradesoutaub@outlook.com')
+            send_html_mail(subject = "order shipped!" , recipient_list=[self.Customer.Email], html_content="",sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+            self.Shipped_date = generate_timestamp() 
         elif self.Shipped and self.Delivered: 
             print("delivered")
-            send_html_mail(subject = "order delivered!" , recipient_list=[self.Customer.Email], html_content="",sender=settings.EMAIL_HOST_USER)
+            send_html_mail(subject = "order delivered!" , recipient_list=[self.Customer.Email], html_content="",sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+            self.Delivered_date = generate_timestamp()
+
 
         super(Order, self).save(*args, **kwargs)
 
@@ -192,3 +200,25 @@ class Address(models.Model):
 
     class Meta:
         verbose_name_plural = 'Addresses'
+
+
+
+
+
+class ContactUs(models.Model):
+    Name = models.CharField(max_length=200, null=True, blank=True,editable=False)
+    Email = models.EmailField(max_length=254,null=True, blank=True,editable=False)
+    Content = models.TextField(null = True, blank=True)
+    Response = models.TextField(null = True, blank = True)
+
+
+    def __str__(self):
+        return f"{str(self.Name)} : {str(self.Email)}"
+
+    
+    def save(self, *args, **kwargs):
+
+        if self.Response:
+            send_html_mail("Support!",f"<h1> we have received your complaint! {self.Response}</h1>", recipient_list=[self.Email],sender=os.environ.get("EMAIL_HOST_USER_SUPPORT"))
+
+        super(ContactUs, self).save(*args, **kwargs)

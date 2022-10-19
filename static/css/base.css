@@ -1,0 +1,125 @@
+@font-face {
+  font-family: "fatface";
+  src: local("fatface"),
+    url("../fonts/AbrilFatface-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "latoLight";
+  src: local("latoLight"),
+    url("../fonts/lato/Lato-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "lato";
+  src: local("lato"), url("../fonts/Lato-Thin.ttf") format("truetype");
+}
+
+/* Main navbar reference (parent container)*/
+.navbar-miettes {
+  font-family: latoLight;
+  overflow: hidden;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.logoSVG {
+  max-width: 180px;
+}
+/* links available in navbar, (ul)*/
+.navbar-menu {
+  list-style: none;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.navbar-menu li {
+  display: inline;
+}
+
+/*spacing and styling anchor tags navbar menu items (li) */
+
+#navbar-menu-item {
+  margin-right: 20px;
+  font-size: 23px;
+  text-align: center;
+}
+
+.navbar-miettes a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*shopping cart styling */
+
+.shoppingCart {
+  position: absolute;
+  top: 40%;
+  right: 30px;
+}
+
+.navbar-menu-mobile {
+  height: 100%;
+  width: 0%;
+  position: fixed;
+  list-style: none;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #ffff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.navbar-menu-mobile a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
+
+.navbar-menu-mobile a:hover,
+.navbar-menu a:hover {
+  font-weight: 900;
+}
+
+.navbar-menu-mobile .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.navbar-menu-mobile-items {
+  list-style: none;
+}
+
+.open-navbar-button {
+  font-size: 0;
+}
+
+@media screen and (max-width: 890px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .logo {
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+  .open-navbar-button {
+    font-size: 30px;
+    cursor: pointer;
+  }
+}

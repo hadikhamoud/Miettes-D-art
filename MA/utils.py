@@ -7,6 +7,8 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 import os
 from email.mime.image import MIMEImage
+from datetime import datetime
+import pytz
 
 
 # ___________________________For view.py_______________________________________________
@@ -36,10 +38,9 @@ def get_total_and_items(queryset):
 
 
 def generate_Ref_code():
-    current_date = datetime.now()
-    Ref_code = str(int(current_date.strftime("%y%m%d")))+''.join(
-        random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
-    return Ref_code
+    chars = ''.join(random.choice(string.ascii_uppercase) for _ in range(2))
+    numbers = random.randint(100000,999999)
+    return chars+str(numbers)
 
 
 # ___________________________For models.py_______________________________________________
@@ -50,6 +51,15 @@ def get_default_size():
 
 def get_default_color():
     return ['Gold', 'Silver']
+
+
+def generate_timestamp():
+    dateNow = datetime.now()
+    tzNow = pytz.timezone("Asia/Beirut")
+    return tzNow.localize(dateNow)
+
+
+print(generate_timestamp())
 
 # _________________________To send Emails seperate from main thread________________________
 
@@ -66,8 +76,8 @@ class EmailThread(threading.Thread):
         msg = EmailMessage(self.subject, self.html_content,
                            self.sender, self.recipient_list)
         msg.content_subtype = 'html'
-        img = handleImage("logo.png")
-        msg.attach(img)
+        # img = handleImage("logo.png")
+        # msg.attach(img)
         msg.send(fail_silently=False)
 
 
@@ -86,3 +96,6 @@ def handleImage(imgName):
         img.add_header('Content-Disposition', 'inline', filename=image)
 
     return img
+
+
+

@@ -93,10 +93,13 @@
             <input type="text" id="contactUsName" name="name" placeholder="Your name...">
             <label for="lname">Email</label>
             <input type="text" id="contactUsEmail" name="email" placeholder="Your email...">
-            <label for="subject">Subject</label>
-            <textarea id="contactUsArea" placeholder="Write something.." style="height:170px"></textarea>
+            <label for="content">Subject</label>
+            <textarea id="contactUsArea" placeholder="Write something.." name="content" style="height:170px"></textarea>
             <input type="submit" class="contactUsSubmit" value="Submit">
         </form>
+        {%if sent%}
+            {%include 'miettes/complaintreceived.html'%}
+        {%endif%}
     </div>
 </div>
 
