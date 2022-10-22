@@ -17,18 +17,21 @@ from miettes.settings import EMAIL_HOST_USER
 from .utils import *
 from django.template.loader import render_to_string
 import os
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
 
+
+
 def homepage(request):
-    Discovers = models.Discover.objects.all()
-    return render(request, 'miettes/index.html', {'Discovers': Discovers})
+    Picks = models.Product.objects.filter(Pick=True)
+    return render(request, 'miettes/indexdev.html', {'Picks': Picks})
 
 
 def base_dev(request):
-    return render(request, 'miettes/basedev.html')
-
+    Picks = models.Product.objects.filter(Pick=True)
+    return render(request, 'miettes/indexdev.html', {'Picks': Picks})
 
 def aboutus_view(request):
     return render(request, 'miettes/aboutus.html')
@@ -49,7 +52,11 @@ def contactus_view(request):
 def products_view(request):
     #Country, US = get_country(request)
     Allproducts = models.Product.objects.all()
-    return render(request, 'miettes/productsgrid.html', {'Allproducts': Allproducts})
+    return render(request, 'miettes/productsdev.html', {'Allproducts': Allproducts})
+
+
+def grid_view(request):
+    return render(request, "miettes/productsdev.html")
 
 
    #_______________________________________For Searching____________________________ 
@@ -130,24 +137,21 @@ def cart_view(request):
     total, numberofitems = get_total_and_items(orderitems)
     if request.method == 'POST':
         Name = request.POST.get('number')
-        print(Name)
 
-    return render(request, 'miettes/cart.html', {'Order': orderitems, "total": total, "numberofitems": numberofitems})
+    return {'Order': orderitems, "total": total, "numberofitems": numberofitems}
 
 
 def removeitem_view(request, orderItemID):
     orderItem = models.OrderItem.objects.get(id=int(orderItemID))
     orderItem.delete()
-    return redirect('cart')
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
 def checkout_view(request):
     try:
         customer = request.user.Customer
-        print("found customer")
     except:
         Device = request.session.session_key
-        print(Device)
         customer, created = models.Customer.objects.get_or_create(
             Device=Device)
     form = forms.AddressForm()
@@ -162,7 +166,6 @@ def checkout_view(request):
         customer.Name = Name
         customer.Email = Email
         customer.save()
-        print(form.is_valid())
         if form.is_valid():
             Address = form.save()
             order.Shipping_address = models.Address.objects.create(

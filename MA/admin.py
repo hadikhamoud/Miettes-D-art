@@ -72,7 +72,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = [
          "Category", 
     ]
-    actions = ['multiplier']
+    actions = ['multiplier','set_as_pick',"remove_as_pick"]
 
     def get_ordering(self, request):
         return [Lower('SKU')]
@@ -85,6 +85,18 @@ class ProductAdmin(admin.ModelAdmin):
             product.Price.amount = ceil(float(product.PriceLBP.amount) / multiplier.USDtoLBP)  
             product.save(update_fields=['Price'])
     multiplier.short_description = "set new exchange rate"
+
+    def set_as_pick(self,request,queryset):
+        for product in queryset:
+            product.Pick=True
+            product.save(update_fields={"Pick"})
+    set_as_pick.short_description = "choose as pick"
+
+    def remove_as_pick(self,request,queryset):
+        for product in queryset:
+            product.Pick=False
+            product.save(update_fields={"Pick"})
+    remove_as_pick.short_description = "remove as pick"
 
 
 

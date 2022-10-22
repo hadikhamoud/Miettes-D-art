@@ -23,6 +23,7 @@ urlpatterns = [
     path('homepage', views.homepage),
     path('', views.homepage),
     path('aboutus', views.aboutus_view, name='aboutus'),
+    path('grid', views.grid_view, name='grid'),
     path('contactus', views.contactus_view, name='contactus'),
     path('products', views.products_view, name='products'),
     #path('productcard', views.productcard_view,name='productcard'),

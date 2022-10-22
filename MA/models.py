@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -50,6 +51,7 @@ class Product(models.Model):
 
     Name = models.CharField(max_length=40,null = True, blank=True)
     SKU = models.CharField(max_length=40,unique = True)
+    Pick=models.BooleanField(default=False)
     Size = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_size)
     Color = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_color)
     Description = models.TextField(max_length=400,null = True, blank=True)
