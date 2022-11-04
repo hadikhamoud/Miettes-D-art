@@ -1,67 +1,79 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html>
 
-   <body>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width-device-width, intial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="{% static 'stylee.css' %} ">
-  <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <body>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-device-width, intial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="{% static 'stylee.css' %} ">
+        <link rel="stylesheet" type="text/css" href="{% static 'font.css' %} ">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
-     <style>
+        <style>
 
-      body{
-        position: relative;
-      }
+            body {
+                position: relative;
+            }
 
-      .container2 {
-         position: absolute;
-         bottom: 0;
-         text-align: center;
-         margin-top: 5px;
-         width: 100%; }
+            .container2 {
+                position: absolute;
+                bottom: 0;
+                text-align: center;
+                margin-top: 5px;
+                width: 100%;
+            }
 
-      .container2 a {
-         padding: 16px;
-         font-size: 20px;
-         text-align: center;
-         text-decoration: none;
-         color:rgb(67, 80, 124)
-      }
-      .container2 a:hover {font-weight:600}
-      .facebook, .instagram ,.twitter {
-         color: rgb(67, 80, 124);}
+            .container2 a {
+                padding: 16px;
+                font-size: 20px;
+                text-align: center;
+                text-decoration: none;
+                color: rgb(67, 80, 124)
+            }
+            .container2 a:hover {
+                font-weight: 600
+            }
+            .facebook,
+            .instagram,
+            .twitter {
+                color: rgb(67, 80, 124);
+            }
 
-      .link {
-        font-family: quicksand;
-        font-size: 20px;
-        margin-left: 10px;
-      }
-      @media screen and (max-width: 700px) {
-        .container2 {
-          width: 100%;
-          display: block;
-  
-        }
+            .link {
+                font-family: quicksand;
+                font-size: 20px;
+                margin-left: 10px;
+            }
+            @media screen and(max-width: 700px) {
+                .container2 {
+                    width: 100%;
+                    display: block;
 
-    </style>
+                }
+            }
+        </style>
 
-     <hr>
-       <div class="container2">
-         <div class="link">
-           <a class="home" href="/homepage">Home</a>
-           <a href="/aboutus">About us </a>
-           <a href="/products">Shop</a>
-           <a href="/shipping">Shipping</a>
-           <a href="/contactus">Contact</a>
-         </div>
-       <h3> Don't forget to follow us on: </h2>
-       <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-       <a href="https://www.instagram.com/miettesdart/?hl=en" class="instagram"><i class="fa fa-instagram"></i></a>
-     </div>
-   </body>
+        <hr>
+        <div class="container2">
+            <div class="link">
+                <a class="home" href="/homepage">Home</a>
+                <a href="/aboutus">About us
+                </a>
+                <a href="/products">Shop</a>
+                <a href="/shipping">Shipping</a>
+                <a href="/contactus">Contact</a>
+            </div>
+            <h3>
+                Don't forget to follow us on:
+            </h2>
+            <a href="#" class="facebook">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <a href="https://www.instagram.com/miettesdart/?hl=en" class="instagram">
+                <i class="fa fa-instagram"></i>
+            </a>
+        </div>
+    </body>
 </html>

@@ -1,198 +1,250 @@
 <!DOCTYPE html>
 {% load static %}
 
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %} " />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- {% block cont %}{% endblock %} -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %} ">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<nav class="navbar-miettes" id="navbar">
+  <span class="open-navbar-button" onclick="openNav()">
+    <svg
+      width="30"
+      height="30"
+      viewbox="0 0 20 20"
+      fill="var(--color_fill)"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M16.54 5.48H3.5a.48.48 0 01-.463-.662.47.47 0 01.443-.288h13A.48.48 0 0117 5a.49.49 0 01-.46.48zM16.54 15.48H3.5A.49.49 0 013 15a.48.48 0 01.48-.47h13A.471.471 0 0117 15a.48.48 0 01-.46.48zM16.54 10.48H3.5A.49.49 0 013 10a.48.48 0 01.48-.47h13A.48.48 0 0117 10a.49.49 0 01-.46.48z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </span>
 
+  <div class="logo">
+    <a href="/homepage">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="var(--color_fill)"
+        class="logoSVG"
+        version="1.0"
+        width="60px"
+        preserveaspectratio="xMidYMid meet"
+        viewbox="68.7 1 157.3 110.69"
+      >
+        <metadata>
+          Created by potrace 1.10, written by Peter Selinger 2001-2011
+        </metadata>
+        <g
+          transform="translate(0.000000,120.000000) scale(0.100000,-0.100000)"
+          stroke="none"
+        >
+          <path
+            d="M1179 1167 c-122 -51 -291 -169 -388 -272 -98 -105 -126 -181 -87 -239 14 -23 23 -27 53 -24 51 4 52 24 3 32 -22 3 -43 13 -46 21 -9 23 40 116 87 166 132 138 341 275 459 300 43 9 55 8 77 -6 24 -16 25 -21 20 -74 -6 -66 -46 -188 -93 -285 -24 -49 -58 -94 -113 -150 -155 -158 -281 -345 -281 -418 0 -43 10 -47 56 -19 67 41 182 203 295 415 56 104 73 127 129 174 72 59 147 102 181 102 20 0 21 -4 16 -45 -10 -68 -70 -221 -162 -412 -46 -94 -80 -174 -77 -177 3 -3 15 -6 28 -6 16 0 50 34 129 129 86 104 113 130 139 135 52 9 336 29 341 24 3 -3 -7 -34 -23 -69 -76 -168 -99 -288 -68 -348 10 -17 23 -34 31 -37 38 -15 252 163 227 188 -7 7 -29 -9 -69 -49 -61 -61 -144 -110 -164 -97 -29 18 22 195 103 358 l30 59 96 -7 c54 -3 109 -9 125 -12 20 -5 27 -2 27 9 0 21 -16 25 -130 33 -55 4 -100 9 -100 11 0 2 15 27 33 56 129 202 147 235 147 276 0 31 -7 48 -28 73 -29 31 -29 31 -75 19 -93 -27 -243 -145 -444 -354 -91 -94 -119 -117 -149 -123 -20 -4 -35 -3 -33 2 49 114 94 243 103 293 10 63 10 63 -17 87 -16 13 -35 24 -43 24 -22 0 -104 -44 -148 -79 -22 -17 -41 -29 -43 -27 -2 2 10 43 27 92 17 48 33 114 37 145 6 57 5 59 -30 94 -31 31 -41 35 -83 35 -28 0 -73 -11 -105 -23z m989 -220 c2 -10 -28 -71 -66 -135 -38 -64 -83 -144 -100 -178 l-31 -61 -158 -11 c-87 -7 -169 -15 -183 -18 -34 -8 239 263 342 340 109 82 188 107 196 63z m-1038 -424 c-69 -115 -188 -283 -200 -283 -17 0 38 109 96 194 69 98 144 189 152 182 3 -3 -19 -45 -48 -93z m383 -35 c-47 -63 -87 -108 -91 -103 -9 9 40 104 57 108 33 9 44 7 34 -5z"
+          />
+        </g>
+      </svg>
+    </a>
+  </div>
 
-    <nav class="navbar-miettes" id="navbar">
+  <ul class="navbar-menu">
+    <li id="navbar-menu-item">
+      <a href="/products">Shop</a>
+    </li>
+    <li id="navbar-menu-item">
+      <a href="/aboutus">About Us</a>
+    </li>
+    <li id="navbar-menu-item">
+      <a href="/contactus">Contact us</a>
+    </li>
 
-        <span class="open-navbar-button" onclick="openNav()">
-            <svg width="30" height="30" viewbox="0 0 20 20" fill="var(--color_fill)" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16.54 5.48H3.5a.48.48 0 01-.463-.662.47.47 0 01.443-.288h13A.48.48 0 0117 5a.49.49 0 01-.46.48zM16.54 15.48H3.5A.49.49 0 013 15a.48.48 0 01.48-.47h13A.471.471 0 0117 15a.48.48 0 01-.46.48zM16.54 10.48H3.5A.49.49 0 013 10a.48.48 0 01.48-.47h13A.48.48 0 0117 10a.49.49 0 01-.46.48z" fill="currentColor"></path>
+    <li id="navbar-menu-item">
+      <a href="/shipping">FAQ</a>
+    </li>
+  </ul>
+
+  <div class="search-Container">
+    {% csrf_token %}
+    <form
+      class="d-flex"
+      method="get"
+      action="{% url 'search' %}"
+      onsubmit="handle"
+    >
+      <input
+        class="search expandright"
+        onkeyup="checkTyping()"
+        id="searchright"
+        type="search"
+        name="q"
+        placeholder="What are you looking for?"
+      />
+      <button
+        onclick="verify()"
+        type="submit"
+        class="searchButton"
+        id="search-button"
+        disabled
+      >
+        <label for="searchright">
+          <svg
+            width="25"
+            height="25"
+            viewbox="0 0 20 20"
+            fill="var(--color_fill)"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.17 16.48L12 11.36a5.5 5.5 0 10-4.22 2 5.41 5.41 0 003.51-1.27l5.14 5.13a.51.51 0 00.7 0 .5.5 0 00.04-.74zm-9.35-4.15a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"
+              fill="currentColor"
+            ></path>
+          </svg>
+        </label>
+      </button>
+    </form>
+  </div>
+
+  <div class="shoppingCartIcon">
+    <!-- <a href="/cart"class="cartIcon"> -->
+    <i
+      id="cartButton"
+      class="fa fa-shopping-cart fa-lg"
+      onclick="openCart()"
+    ></i>
+  </div>
+
+  <div id="shopping-cart" class="shoppingCart">
+    <a href="javascript:void(0)" class="closebtnCart" onclick="closeCart()"
+      >&times;</a
+    >
+    {% if Order %}
+    <h1 class="shoppingCart-Title">Your Cart</h1>
+    <ul class="shoppingCartItems">
+      {% for Cartitem in Order %}
+      <li class="shoppingCartItem">
+        <h3 class="shoppingCartItem-name">{{ Cartitem.Item.Name }}</h3>
+        <p class="shoppingCartItem-sizeAndColor">
+          {{ Cartitem.Color }} - {{ Cartitem.Size }}
+        </p>
+        <img class="shoppingCartItem-img" src="/{{ Cartitem.Item.Image }}" />
+        <a
+          href="{% url 'removeitem' Cartitem.id %}"
+          class="shoppingCartItem-rmv"
+          >Remove</a
+        >
+        <p class="shoppingCartItem-price">{{ Cartitem.Item.Price }}</p>
+      </li>
+
+      {% endfor %}
+
+      <button
+        onclick="window.location.href='/checkout'"
+        class="checkout-button"
+      >
+        PROCEED TO CHECKOUT
+      </button>
+    </ul>
+
+    {% else %}
+    <h1 class="shoppingCart-Title">Your Cart is empty!</h1>
+
+    {% endif %}
+  </div>
+</nav>
+
+<div class="navbar-menu-mobile" id="mobile-navbar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+  <ul class="navbar-menu-mobile-items">
+    <li id="navbar-menu-item-mobile">
+      <form
+        class="d-flex"
+        method="get"
+        action="{% url 'search' %}"
+        onsubmit="handle"
+      >
+        <input
+          class="search-mobile"
+          onkeyup="checkTypingMobile()"
+          id="searchright-mobile"
+          type="search"
+          name="q"
+          placeholder="Search"
+        />
+        <button
+          onclick="verify()"
+          type="submit"
+          class="searchButton-mobile"
+          id="search-button-mobile"
+          disabled
+        >
+          <label for="searchright-mobile">
+            <svg
+              width="25"
+              height="25"
+              viewbox="0 0 20 20"
+              fill="var(--color_fill)"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.17 16.48L12 11.36a5.5 5.5 0 10-4.22 2 5.41 5.41 0 003.51-1.27l5.14 5.13a.51.51 0 00.7 0 .5.5 0 00.04-.74zm-9.35-4.15a4.5 4.5 0 110-9 4.5 4.5 0 010 9z"
+                fill="currentColor"
+              ></path>
             </svg>
-        </span>
+          </label>
+        </button>
+      </form>
+    </li>
 
-        <div class="logo">
-            <a href="/homepage">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="var(--color_fill)" class="logoSVG" version="1.0" width="60px" preserveaspectratio="xMidYMid meet" viewbox="68.7 1 157.3 110.69">
-                    <metadata>
-                        Created by potrace 1.10, written by Peter Selinger 2001-2011
-                    </metadata>
-                    <g transform="translate(0.000000,120.000000) scale(0.100000,-0.100000)" stroke="none">
-                        <path d="M1179 1167 c-122 -51 -291 -169 -388 -272 -98 -105 -126 -181 -87 -239 14 -23 23 -27 53 -24 51 4 52 24 3 32 -22 3 -43 13 -46 21 -9 23 40 116 87 166 132 138 341 275 459 300 43 9 55 8 77 -6 24 -16 25 -21 20 -74 -6 -66 -46 -188 -93 -285 -24 -49 -58 -94 -113 -150 -155 -158 -281 -345 -281 -418 0 -43 10 -47 56 -19 67 41 182 203 295 415 56 104 73 127 129 174 72 59 147 102 181 102 20 0 21 -4 16 -45 -10 -68 -70 -221 -162 -412 -46 -94 -80 -174 -77 -177 3 -3 15 -6 28 -6 16 0 50 34 129 129 86 104 113 130 139 135 52 9 336 29 341 24 3 -3 -7 -34 -23 -69 -76 -168 -99 -288 -68 -348 10 -17 23 -34 31 -37 38 -15 252 163 227 188 -7 7 -29 -9 -69 -49 -61 -61 -144 -110 -164 -97 -29 18 22 195 103 358 l30 59 96 -7 c54 -3 109 -9 125 -12 20 -5 27 -2 27 9 0 21 -16 25 -130 33 -55 4 -100 9 -100 11 0 2 15 27 33 56 129 202 147 235 147 276 0 31 -7 48 -28 73 -29 31 -29 31 -75 19 -93 -27 -243 -145 -444 -354 -91 -94 -119 -117 -149 -123 -20 -4 -35 -3 -33 2 49 114 94 243 103 293 10 63 10 63 -17 87 -16 13 -35 24 -43 24 -22 0 -104 -44 -148 -79 -22 -17 -41 -29 -43 -27 -2 2 10 43 27 92 17 48 33 114 37 145 6 57 5 59 -30 94 -31 31 -41 35 -83 35 -28 0 -73 -11 -105 -23z m989 -220 c2 -10 -28 -71 -66 -135 -38 -64 -83 -144 -100 -178 l-31 -61 -158 -11 c-87 -7 -169 -15 -183 -18 -34 -8 239 263 342 340 109 82 188 107 196 63z m-1038 -424 c-69 -115 -188 -283 -200 -283 -17 0 38 109 96 194 69 98 144 189 152 182 3 -3 -19 -45 -48 -93z m383 -35 c-47 -63 -87 -108 -91 -103 -9 9 40 104 57 108 33 9 44 7 34 -5z"/>
-                    </g>
-                </svg>
-                <!-- </svg><img class="logoSVG" style="fill: var(--color_fill)" src="{% static "images/logo.svg" %}" alt=""></a> -->
-            </div>
+    <li id="navbar-menu-item-mobile">
+      <input type="checkbox" id="list-item-2" />
+      <label class="collapsibleItem" for="list-item-2"
+        >Jewelry Collections</label
+      >
 
-            <ul class="navbar-menu">
-                <li id="navbar-menu-item">
-                    <a href="/products">Shop</a>
-                </li>
-                <li id="navbar-menu-item">
-                    <a href="/aboutus">About Us</a>
-                </li>
-                <li id="navbar-menu-item">
-                    <a href="/contactus">Contact us</a>
-                </li>
+      <ul class="navbar-menu-mobile-items">
+        <li id="navbar-menu-item-mobile" class="list-item-sub">By Category</li>
+        <li id="navbar-menu-item-mobile" class="list-item-sub">
+          By Collection
+        </li>
+      </ul>
+    </li>
+    <li id="navbar-menu-item-mobile">
+      <a href="/aboutus">About Us</a>
+    </li>
+    <li id="navbar-menu-item-mobile">
+      <a href="/contactus">Contact us</a>
+    </li>
 
-                <li id="navbar-menu-item">
-                    <a href="/shipping">FAQ</a>
-                </li>
-            </ul>
+    <li id="navbar-menu-item-mobile">
+      <a href="/shipping">FAQ</a>
+    </li>
+  </ul>
+</div>
 
-            <div class="search-Container">
-                <input class="search expandright" id="searchright" type="search" name="q" placeholder="What are you looking for?">
-                <label class="searchButton" for="searchright">
-                    <svg width="25" height="25" viewbox="0 0 20 20" fill="var(--color_fill)" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.17 16.48L12 11.36a5.5 5.5 0 10-4.22 2 5.41 5.41 0 003.51-1.27l5.14 5.13a.51.51 0 00.7 0 .5.5 0 00.04-.74zm-9.35-4.15a4.5 4.5 0 110-9 4.5 4.5 0 010 9z" fill="currentColor"></path>
-                    </svg>
-                </label>
-            </div>
+<body>
+  {% block content %}{% endblock %}
+</body>
+<div>
+  <a
+    href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202."
+    class="float"
+    target="_blank"
+  >
+    <i class="fa fa-whatsapp my-float" aria-hidden="true"></i>
+  </a>
 
-
-            <div
-                class="shoppingCartIcon">
-                <!-- <a href="/cart"class="cartIcon"> -->
-                <i id="cartButton" class="fa fa-shopping-cart fa-lg" onclick="openCart()"></i>
-
-            </div>
-
-            <div id="shopping-cart" class="shoppingCart">
-                <a href="javascript:void(0)" class="closebtnCart" onclick="closeCart()">&times;</a>
-                {% csrf_token %}
-                {%if Order%}
-                    <h1 class="shoppingCart-Title">Your Cart</h1>
-                    <ul class="shoppingCartItems">
-
-
-                        {%for Cartitem in Order %}
-                            <li class="shoppingCartItem">
-                                <h3 class="shoppingCartItem-name">
-                                    {{Cartitem.Item.Name}}</h3>
-                                <img class="shoppingCartItem-img" src={{Cartitem.Item.Image}}>
-                                <p class="shoppingCartItem-price">{{Cartitem.Item.PriceLBP}}</p>
-                                <a href="{%url 'removeitem' Cartitem.id %}" class="shoppingCartItem-rmv">Remove</a>
-                            </li>
-
-                            {%endfor%}
-
-
-                        </ul>
-
-                        <button class="checkout-button">PROCEED TO CHECKOUT</button>
-
-                        {%else%}
-                        <h1 class="shoppingCart-Title">Your Cart is empty!</h1>
-
-                        {%endif%}
-                    </div>
-
-
-                    <div class="navbar-menu-mobile" id="mobile-navbar">
-                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-                        <ul class="navbar-menu-mobile-items">
-
-                            <li id="navbar-menu-item-mobile">
-
-                                <input class="search-mobile" id="searchright-mobile" type="search" name="q" placeholder="Search">
-                                <label class="searchButton-mobile" for="searchright-mobile">
-                                    <svg width="25" height="25" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17.17 16.48L12 11.36a5.5 5.5 0 10-4.22 2 5.41 5.41 0 003.51-1.27l5.14 5.13a.51.51 0 00.7 0 .5.5 0 00.04-.74zm-9.35-4.15a4.5 4.5 0 110-9 4.5 4.5 0 010 9z" fill="currentColor"></path>
-                                    </svg>
-                                </label>
-                            </li>
-
-                            <li id="navbar-menu-item-mobile">
-
-                                <input type="checkbox" id="list-item-2">
-                                <label class="collapsibleItem" for="list-item-2">Jewelry Collections</label>
-
-                                <ul class="navbar-menu-mobile-items">
-                                    <li id="navbar-menu-item-mobile" class="list-item-sub">
-                                        By Category</li>
-                                    <li id="navbar-menu-item-mobile" class="list-item-sub">
-                                        By Collection</li>
-                                </ul>
-
-
-                            </li>
-                            <li id="navbar-menu-item-mobile">
-                                <a href="/aboutus">About Us</a>
-                            </li>
-                            <li id="navbar-menu-item-mobile">
-                                <a href="/contactus">Contact us</a>
-                            </li>
-
-                            <li id="navbar-menu-item-mobile">
-                                <a href="/shipping">FAQ</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </head>
-            <body>
-
-                {%block content%}
-
-                {%endblock%}
-            </body>
-            <a href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202." class="float" target="_blank">
-                <i class="fa fa-whatsapp my-float" aria-hidden="true"></i>
-            </a>
-
-            <input type="submit" class="inButton" onclick="window.location.href='/taymaa-and-sara-only-secret';">
-
-            <script>
-                function openNav() {
-                    document.getElementById("mobile-navbar").setAttribute("style", "width:60%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
-                    // document.getElementsByTagName("BODY")[0].setAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
-                }
-
-                function closeNav() {
-                    document.getElementById("mobile-navbar").setAttribute("style", "width:0");
-                    document.getElementById("mobile-navbar").removeAttribute("style", "box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
-
-                    // document.getElementsByTagName("BODY")[0].removeAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
-
-                }
-
-                function openCart() {
-                    const width = window.innerWidth;
-                    if (width > 769) {
-                        document.getElementById("shopping-cart").setAttribute("style", "width:40%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
-                    } else {
-                        document.getElementById("shopping-cart").setAttribute("style", "width:80%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
-
-                    }
-                    // document.getElementById("shopping-cart").setAttribute("style", ");
-                    // document.getElementsByTagName("BODY")[0].setAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
-                }
-
-                function closeCart() {
-
-                    document.getElementById("shopping-cart").removeAttribute("style", "box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
-                    document.getElementById("shopping-cart").setAttribute("style", "width:0;");
-                    // document.getElementsByTagName("BODY")[0].removeAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
-
-                }
-
-
-                addEventListener('resize', (event) => {
-
-                    const width = window.innerWidth;
-
-                    if (width > 890) {
-                        closeNav();
-                    }
-
-                });
-            </script>
+  <input
+    type="submit"
+    class="inButton"
+    onclick="window.location.href='/taymaa-and-sara-only-secret';"
+  />
+</div>
+<script src="{% static 'js/base.js' %}"></script>

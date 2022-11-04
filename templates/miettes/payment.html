@@ -1,0 +1,34 @@
+{% extends "miettes/basecheckout.html" %} {% load static %} {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="{% static 'css/checkout.css' %} " />
+
+<form method="POST">
+  {% csrf_token %}
+  <div class="review-order">
+    <h2 class="review-order-title">Review order</h2>
+    <div class="review-area">
+      <p class="contact-row">Contact &nbsp;&nbsp;{{Customer.Name}}</p>
+      <hr />
+      <p class="ship-row">Ship to&nbsp;&nbsp; {{Address}}</p>
+      <hr />
+      <div class="cost">
+        <p class="cost-row">Shipping cost</p>
+
+        <p class="cost-dynamic">Zone {{Zone.ZoneNumber}}: {{Zone.Cost}}</p>
+      </div>
+    </div>
+
+    <div class="review-area total-area">
+      <p class="subtotal">Subtotal&nbsp;&nbsp; {{subtotal}}</p>
+
+      <p class="cost-row">Shipping&nbsp;&nbsp; {{Zone.Cost}}</p>
+      <hr />
+
+      <p class="total">Total&nbsp;&nbsp; {{total}}</p>
+    </div>
+    <input type="submit" value="Order" class="orderBtn" />
+  </div>
+
+  {% endblock %}
+</form>

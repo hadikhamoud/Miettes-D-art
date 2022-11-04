@@ -11,6 +11,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 # from django.core.validators import MaxLengthValidator
 from .utils import *
 import os
+from colorfield.fields import ColorField
+
 
 
 
@@ -24,10 +26,10 @@ def ConvertCheck():
 
 class Product(models.Model):
     catchoice= [
-        ('earrings', 'Earrings'),
+        ('earrings', 'earrings'),
         ('objet dart', "objet d'art"),
-        ('rings', 'Rings'),
-        ('necklaces', 'Necklaces'),
+        ('rings', 'rings'),
+        ('necklaces', 'necklaces'),
         ]
     statuschoice= [
         ('active', 'Active'),
@@ -53,19 +55,39 @@ class Product(models.Model):
     SKU = models.CharField(max_length=40,unique = True)
     Pick=models.BooleanField(default=False)
     Size = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_size)
-    Color = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_color)
+    Color = ArrayField(models.CharField(max_length=30,null=True,blank=True),null = True, blank=True,default = get_default_color)
+    ColorHex = ArrayField(models.CharField(max_length=30,null=True,blank=True),null = True, blank=True,default = get_default_color)
     Description = models.TextField(max_length=400,null = True, blank=True)
     Price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Category = models.CharField(max_length=30,choices=catchoice,default='earrings',null = True, blank=True)
-    Status = models.CharField(max_length=30,choices=statuschoice,default='Active',null = True, blank=True)
+    Status = models.CharField(max_length=30,choices=statuschoice,default='active',null = True, blank=True)
     Optional = models.CharField(max_length=30,choices=optionalchoice,default='new arrivals',null = True, blank=True)
     Discover = models.ForeignKey('Discover',on_delete=models.CASCADE,null = True, blank = True)
+    Collection = models.ForeignKey('Collection',on_delete=models.CASCADE,null = True, blank = True)
     Image = models.ImageField(upload_to='static/images',null = True, blank=True)
     PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
 
     def __str__(self):
-        return self.Name+" "+self.SKU
+        try:
+            return self.Name+" "+self.SKU
+        except:
+            return ""
+    
+
+    def delete(self):
+        self.Status = "disabled"
+        super(Product, self).save()
+      
+
+
+class Color(models.Model):
+    colorHex = models.CharField(max_length=7,unique = True)
+    colorName = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.colorName
+    
 
 
 class Multiplier(models.Model):
@@ -172,11 +194,34 @@ class Order(models.Model):
 
 
 class Discover(models.Model):
-    Title = models.CharField(max_length=40,null = True, blank=True)
-    Image1 = models.ImageField(upload_to='static/images',null = True, blank=True)
-    Image2 =  models.ImageField(upload_to='static/images',null = True, blank=True)
-    Image3 =  models.ImageField(upload_to='static/images',null = True, blank=True)
+    Title = models.CharField(max_length=80,null = True, blank=True)
+    Image = models.ImageField(upload_to='static/images',null = True, blank=True)
+    Description = models.TextField(null = True, blank = True)
+    Active = models.BooleanField(default = False)
     Items = models.ManyToManyField(Product)
+
+
+
+    def __str__(self):
+        return self.Title
+    
+
+    def save(self, *args, **kwargs):
+        if self.Active:
+            Discover.objects.all().update(Active = False)
+            self.Active = True
+        super(Discover, self).save(*args, **kwargs)
+ 
+        
+
+
+
+class Collection(models.Model):
+    Title = models.CharField(max_length=80,null = True, blank=True)
+    Description = models.TextField(null = True, blank = True)
+    Image = models.ImageField(upload_to='static/images',null = True, blank=True)
+    Items = models.ManyToManyField(Product)
+    Show = models.BooleanField(default = False)
 
 
 
@@ -214,6 +259,7 @@ class ContactUs(models.Model):
     Response = models.TextField(null = True, blank = True)
 
 
+
     def __str__(self):
         return f"{str(self.Name)} : {str(self.Email)}"
 
@@ -221,6 +267,33 @@ class ContactUs(models.Model):
     def save(self, *args, **kwargs):
 
         if self.Response:
-            send_html_mail("Support!",f"<h1> we have received your complaint! {self.Response}</h1>", recipient_list=[self.Email],sender=os.environ.get("EMAIL_HOST_USER_SUPPORT"))
+            send_html_mail("Support!",f"<h1> we have received your complaint!<br></br> {self.Response}</h1>", recipient_list=[self.Email],sender=os.environ.get("EMAIL_HOST_USER_SUPPORT"))
 
         super(ContactUs, self).save(*args, **kwargs)
+    
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Contact Us'
+        verbose_name_plural= "Contact Us"
+        
+
+
+
+class Zone(models.Model):
+    ZoneNumber = models.IntegerField(null=True,blank=True)
+    Cost = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
+
+    def __str__(self):
+        return "Zone " + str(self.ZoneNumber)
+
+
+class Country(models.Model):
+    Country = models.CharField(max_length=120,null=True,blank=True)
+    Zone = models.ForeignKey("Zone",null=True,blank=True,on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Country'
+        verbose_name_plural = 'Countries'
+
+    def __str__(self):
+        return str(self.Country)

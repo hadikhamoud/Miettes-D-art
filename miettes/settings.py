@@ -31,8 +31,8 @@ GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3u#f^rx1z&=8pizo5phbj^8r2m+j5)xka*=wqv8q%z))+&!7ja'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECURITY WARNING: don't run with debug turned on in production! 
+DEBUG = True 
 
 ALLOWED_HOSTS = ['*']
 
@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'MA',
     'djmoney',
     'phonenumber_field',
+    'livereload',
+    'colorfield',
+    
 
 ]
 
@@ -60,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'livereload.middleware.LiveReloadScript',
 ]
 
 ROOT_URLCONF = 'miettes.urls'

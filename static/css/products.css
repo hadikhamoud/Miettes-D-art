@@ -3,7 +3,7 @@
 }
 .products-grid-table {
   width: 100%;
-  margin-top: 200px;
+  margin-top: 100px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -47,11 +47,18 @@
 .ProductName,
 .ProductPrice {
   color: black;
-  font-family: lato;
+  font-family: var(--title_font);
   text-align: center;
 }
 
 .ProductPrice {
   padding: 0;
   margin-top: -15px;
+  font-family: var(--title_font);
+}
+
+.searchResults {
+  text-align: center;
+  padding-top: 70px;
+  font-family: var(--title_font);
 }

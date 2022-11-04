@@ -1,63 +1,10 @@
 <!DOCTYPE html>
-{%extends 'miettes/base.html'%}
+{%extends 'miettes/basedev.html'%}
 {%block content%}
 {% load static %}
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'css/contactus.css' %} ">
 
-<style>
-
-
-    * {
-        box-sizing: border-box;
-    }
-
-    #contactUsName,
-    #contactUsEmail,
-    select,
-    #contactUsArea {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        margin-top: 6px;
-        margin-bottom: 16px;
-        resize: vertical;
-    }
-
-    .contactUsSubmit {
-        background-color: rgb(211, 224, 234);
-        color: rgb(68, 76, 87);
-        padding: 12px 20px;
-        border: none;
-        cursor: pointer;
-    }
-
-    .contactUsSubmit:hover {
-        font-weight: 600;
-    }
-
-
-    .column {
-        float: left;
-        width: 50%;
-        margin-top: 6px;
-        padding: 20px;
-    }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-        margin-bottom: 100px;
-    }
-
-
-    @media screen and (max-width: 550px) {
-        .column {
-            width: 100%;
-
-        }
-    }
-</style>
 
 <div style="text-align:center">
     <h2>Contact Us</h2>
@@ -71,7 +18,7 @@
         </div>
 
         <div class="mySlides fade">
-            <img src="{% static 'images/DSC_0604.jpeg'%}" style="width:100%">
+            <img src="{% static 'images/discover.jpeg'%}" style="width:100%">
         </div>
 
         <div class="mySlides fade">
@@ -99,32 +46,32 @@
         </form>
         {%if sent%}
             {%include 'miettes/complaintreceived.html'%}
-        {%endif%}
+            {%endif%}
+        </div>
     </div>
-</div>
 
 
-<script>
-    var slideIndex = 0;
-    showSlides();
+    <script>
+        var slideIndex = 0;
+        showSlides();
 
-    function showSlides() {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("dot");
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            setTimeout(showSlides, 2000);
         }
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        setTimeout(showSlides, 2000);
-    }
-</script>
-{%endblock%}
+    </script>
+    {%endblock%}

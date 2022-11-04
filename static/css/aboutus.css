@@ -1,0 +1,99 @@
+body {
+  font-family: var(--other_font);
+  margin: 0;
+  background-color: white;
+  /* background-color: rgb(246, 246, 246); */
+  /* color: rgb(68, 76, 87); */
+  color: black;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.navbar-miettes {
+  background-color: white;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  margin-bottom: 16px;
+  padding: 0 30px;
+}
+
+.card {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  margin: 5px;
+  border-radius: 10%;
+}
+
+.about-section {
+  padding: 0 100px;
+  text-align: center;
+
+  color: rgb(68, 76, 87);
+  line-height: 50px;
+  font-size: 15px;
+  margin-top: 100px;
+}
+
+.container {
+  padding: 0 20px;
+}
+
+.container::after,
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.team {
+  font-size: 50px;
+}
+.img {
+  border-radius: 10%;
+}
+.button {
+  width: 50%;
+  /* background-color: rgba(255, 248, 220, 0); */
+  background-color: white;
+  font-size: 16px;
+  padding: 10px 35px;
+  border-width: 50px;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #000000;
+  font-family: var(--other_font);
+  border-radius: 50px;
+}
+
+.button:hover {
+  font-weight: 700;
+}
+.line {
+  border: 1px solid rgb(128, 139, 151);
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 700px) {
+  .column {
+    width: 100%;
+  }
+  .about-section {
+    padding: 0 20px;
+    text-align: center;
+  }
+}

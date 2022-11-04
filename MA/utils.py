@@ -19,7 +19,7 @@ def get_total_and_items(queryset):
     number = 0
     for item in queryset:
         number += item.Quantity
-        total += item.Item.PriceLBP * item.Quantity
+        total += item.Item.Price * item.Quantity
     return total, number
 
 

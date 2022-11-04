@@ -23,12 +23,11 @@ urlpatterns = [
     path('homepage', views.homepage),
     path('', views.homepage),
     path('aboutus', views.aboutus_view, name='aboutus'),
-    path('grid', views.grid_view, name='grid'),
     path('contactus', views.contactus_view, name='contactus'),
     path('products', views.products_view, name='products'),
     #path('productcard', views.productcard_view,name='productcard'),
     path('discover/<str:Title>/', views.discover_view, name='discover'),
-    path('basedev', views.base_dev,name='basedev'),
+    path('collections/<str:Title>/', views.collection_view, name='collections'),
     path('addproduct', views.addproduct_view, name='addproduct'),
     path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
     path('cart', views.cart_view, name='cart'),
@@ -36,7 +35,12 @@ urlpatterns = [
     path('orderemail', views.orderemail_view, name='orderemail'),
     path('removeitem/<str:orderItemID>',
          views.removeitem_view, name='removeitem'),
-    path('productsearch', views.productsearch_view, name = "productsearch"),
+    path('search/', views.search_view,name='search'),
+    path('payment/', views.payment_view,name='payment'),
 
 
 ]
+
+
+handler404 = 'MA.views.page_not_found_view'
+# handler500 = 'MA.views.page_not_found_view'

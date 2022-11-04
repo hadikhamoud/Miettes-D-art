@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from . import models
+from django.forms.widgets import TextInput
 
 
 class ProductForm(forms.ModelForm):
@@ -19,3 +20,12 @@ class AddressForm(forms.ModelForm):
         exclude=['Customer','Apartment_address','Default']
 
     
+
+
+# class ProductForm(forms.ModelForm):
+#     class Meta:
+#         model = models.Product
+#         fields = '__all__'
+#         widgets = {
+#             'Color': TextInput(attrs={'type': 'Color'}),
+#         }

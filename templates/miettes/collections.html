@@ -1,0 +1,33 @@
+{% extends 'miettes/basedev.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/products.css' %} ">
+
+
+        <section title="products-grid">
+
+            {% csrf_token %}
+            {% if Allproducts %}
+
+                <div class="products-grid-table">
+                    {% for product in Allproducts %}
+                        <div class="grid-item grid-medium">
+                            <a href="{% url 'viewproduct' product.SKU %}">
+                                <img src="/{{ product.Image }}" class="cardImg"></a>
+                                <h1 class="ProductName">{{ product.Name }}</h1>
+                                <h3 class="ProductPrice">
+                                    {{ product.Price }}</h3>
+
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+
+
+                </section>
+
+            {% endblock %}

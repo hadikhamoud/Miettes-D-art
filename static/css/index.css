@@ -1,9 +1,34 @@
+.coverPhoto {
+  position: relative;
+}
+
 .coverImg {
   width: 100%;
-  max-height: 800px;
+  /* max-height: 800px; */
+  height: 100vh;
   object-fit: cover;
   overflow: hidden;
   animation: fadeIn 2s;
+}
+
+.btn {
+  position: absolute;
+  top: 0;
+  opacity: 0.5;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-appearance: none;
+  border-radius: 0;
+  font-family: philosopher;
+  color: white;
+  background-color: transparent;
+  border-radius: 50px;
+  font-size: 20px;
+  padding: 10px 35px;
+  cursor: pointer;
+  border: 1px solid white;
 }
 
 @keyframes fadeIn {
@@ -43,10 +68,15 @@
   object-fit: cover;
 }
 .productTitle,
-.productPrice,
-.slider-title {
-  font-family: latoRegular;
+.slider-title,
+.productPrice {
+  font-family: philosopher;
   text-align: center;
+}
+
+.productPrice {
+  font-family: garamondco;
+  margin-top: -15px;
 }
 
 .slider-title {
@@ -106,7 +136,10 @@
   height: 100%;
   object-fit: cover;
 }
-
+.cardCollection:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  transition: all 0.25s ease-out;
+}
 /* @media (min-width: 600px) {
   .cards {
     grid-template-columns: repeat(2, 1fr);
@@ -120,17 +153,46 @@
   left: 0;
   bottom: 0;
   display: flex;
-  font-family: lato;
+  font-family: var(--title_font);
   align-items: center;
   justify-content: center;
   justify-items: center;
 }
 
-@media only screen and (max-width: 769px) {
-  .coverImg {
-    height: 800px;
-  }
+.collection-title-content {
+  position: relative;
+  display: inline-block;
+  z-index: 3;
 }
+
+.collection-title-content::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.collection-title-content:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.cardCollection:hover img {
+  filter: brightness(50%);
+  transition: filter 0.25s ease-out;
+}
+
+/* @media only screen and (max-width: 769px) {
+  .coverImg {
+    height: 10;
+  }
+} */
 
 @media only screen and (min-width: 769px) {
   .cardCollection {
@@ -138,9 +200,4 @@
     width: calc(25% - 40px);
     height: 15vw;
   }
-}
-
-.shoppingCart-Title {
-  font-family: latoRegular;
-  text-align: center;
 }

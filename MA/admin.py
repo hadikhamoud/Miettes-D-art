@@ -4,14 +4,14 @@ from .models import *
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models.functions import Lower
 from django.contrib.sessions.models import Session
-
 # Register your models here.
 
 
 
 class CustomerAdmin(admin.ModelAdmin):
     model = Customer
-    readonly_fields=['Name','Email','Device','Phone_number']
+    readonly_fields=['Name','Email','Phone_number']
+    exclude=["Device"]
 
 class MultiplierAdmin(admin.ModelAdmin):
     model = Multiplier
@@ -37,7 +37,7 @@ class AddresslInline(admin.StackedInline):
 
 class OrderAdmin(admin.ModelAdmin):
     model = Order
-    list_display=('Customer', 'get_customer_email', 'Ref_code','Total','Ordered_date')
+    list_display=('Customer', 'get_customer_email', 'Ref_code','Ordered_date')
     inlines = [OrderItemlInline]
     search_fields = ['Customer__Email','Customer__Name','Ref_code']
     list_filter = [
@@ -66,13 +66,16 @@ class PictureInline(admin.StackedInline):
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
-    list_display=('Name','SKU','PriceLBP','Price')
+    
+    list_display=('Name','SKU','Price')
     inlines = [PictureInline]
     search_fields = ['Name','SKU']
     list_filter = [
          "Category", 
     ]
     actions = ['multiplier','set_as_pick',"remove_as_pick"]
+
+    exclude = ["PriceLBP"]
 
     def get_ordering(self, request):
         return [Lower('SKU')]
@@ -107,6 +110,15 @@ class DiscoverAdmin(admin.ModelAdmin):
     #inlines = [ProductlInline,]
 
 
+class ProductAdminInLine(admin.TabularInline):
+    model = Product
+    extra = 0
+    readonly_fields = ["Name", "SKU","Description","Size","Color","Price","Category","Status","Optional","Discover","Image","PriceLBP"]
+
+class CollectionAdmin(admin.ModelAdmin):
+    model = Collection
+    list_display=('Title', )
+    inlines = (ProductAdminInLine,)
 
 class SessionAdmin(admin.ModelAdmin):
     def _session_data(self, obj):
@@ -114,10 +126,26 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ['session_key', '_session_data', 'expire_date']
 
 
+
+
+
+
+
 class ContactUsAdmin(admin.ModelAdmin):
     
     list_display = ['Name', 'Email']
     readonly_fields = ["Name", "Email","Content"]
+
+
+class ZoneAdmin(admin.ModelAdmin):
+
+    list_display = ['ZoneNumber', 'Cost']
+
+
+class CountryAdmin(admin.ModelAdmin):
+
+    list_display = ['Country', 'Zone']
+    readonly_fields = ["Country"]
 
 
 
@@ -130,5 +158,8 @@ admin.site.register(Discover,DiscoverAdmin)
 admin.site.register(Multiplier,MultiplierAdmin)
 admin.site.register(ContactUs,ContactUsAdmin)
 admin.site.register(Session, SessionAdmin)
+admin.site.register(Collection, CollectionAdmin)
+admin.site.register(Zone, ZoneAdmin)
+admin.site.register(Country, CountryAdmin)
 
 #admin.site.register(ShippingAddress)

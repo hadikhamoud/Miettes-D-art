@@ -1,0 +1,36 @@
+body {
+  height: 100vh;
+}
+.content-404 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.title-404 {
+  margin: 0 0 0 -30px;
+  font-family: var(--title_font);
+  font-size: max(20vw, 220px);
+  letter-spacing: -20px;
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.subheader-404 {
+  margin: 0 0 -30px;
+}
+
+.explanation-404 {
+  text-align: center;
+  margin: -30px 0 0;
+}
+
+.mainpage-404,
+.mainpage-404 a:visited {
+  color: inherit;
+  text-align: center;
+  margin: 30px 0 100px;
+  font-size: 25px;
+}
