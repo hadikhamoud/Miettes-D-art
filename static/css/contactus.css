@@ -11,6 +11,16 @@ body {
   box-sizing: border-box;
 }
 
+/* make input of type text placeholder the same font as body */
+input[type="text"] {
+  font-family: var(--other_font);
+}
+
+/*make textarea placeholder the same font as body */
+textarea {
+  font-family: var(--other_font);
+}
+
 #contactUsName,
 #contactUsEmail,
 select,

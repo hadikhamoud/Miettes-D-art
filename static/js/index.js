@@ -3,7 +3,6 @@ function loaderEnd() {
   preloader.style.display = "none";
 }
 window.addEventListener("load", loaderEnd);
-
 function reveal() {
   var reveals = document.querySelectorAll(
     ".reveal-horizontal, .reveal-vertical"
@@ -19,13 +18,14 @@ function reveal() {
     }
   }
 }
+
 function changeNavBarColor() {
   var topper = window.pageYOffset || document.documentElement.scrollTop;
   var navbar = document.getElementById("navbar");
   var v = document.querySelector(":root");
   if (topper > 200) {
     navbar.setAttribute("style", "background-color: white;");
-    v.style.setProperty("--color_fill", "black");
+    v.style.setProperty("--color_fill", "#444c57");
   } else {
     navbar.removeAttribute("style", "background-color: white;");
     v.style.setProperty("--color_fill", "white");
@@ -36,4 +36,5 @@ addEventListener("scroll", (event) => {
 });
 window.addEventListener("scroll", reveal);
 changeNavBarColor();
+window.addEventListener("scroll", reveal);
 reveal();

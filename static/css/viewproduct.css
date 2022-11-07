@@ -288,7 +288,7 @@ label.checkmark {
   margin-top: 30px;
   /* background-color: black; */
   text-align: center;
-  width: 100%;
+  min-width: 300px;
   color: black;
   /* border-radius: 10px; */
   border-color: black;
@@ -301,7 +301,7 @@ label.checkmark {
   color: black;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
+  min-width: 300px;
   border: none;
   text-align: left;
   outline: none;
@@ -340,6 +340,19 @@ label.checkmark {
 
 .product-description {
   margin-top: 20px;
+  width: 80%;
+}
+
+.marker-label {
+  position: relative;
+  width: 100vw;
+}
+
+.image-navigator {
+  position: absolute;
+  bottom: 10%;
+  right: 50%;
+  color: white;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -419,6 +432,9 @@ label.checkmark {
   .product-details {
     margin-top: 30vmin;
   } */
+  .addToCart {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 900px) {

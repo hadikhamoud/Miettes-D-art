@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load static %}
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -71,7 +70,6 @@
   </ul>
 
   <div class="search-Container">
-    {% csrf_token %}
     <form
       class="d-flex"
       method="get"
@@ -118,6 +116,12 @@
       class="fa fa-shopping-cart fa-lg"
       onclick="openCart()"
     ></i>
+    {% if numOfItems > 0 %}
+    <span class="numOfCartItems">{{numOfItems}}</span>
+
+    {%else%}
+    <span class="numOfCartItems"></span>
+    {%endif%}
   </div>
 
   <div id="shopping-cart" class="shoppingCart">
@@ -125,6 +129,7 @@
       >&times;</a
     >
     {% if Order %}
+    <!-- <a href class="shoppingCartItem-rmv">clear cart</a> -->
     <h1 class="shoppingCart-Title">Your Cart</h1>
     <ul class="shoppingCartItems">
       {% for Cartitem in Order %}
@@ -229,22 +234,168 @@
   </ul>
 </div>
 
-<body>
-  {% block content %}{% endblock %}
-</body>
-<div>
-  <a
-    href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202."
-    class="float"
-    target="_blank"
-  >
-    <i class="fa fa-whatsapp my-float" aria-hidden="true"></i>
-  </a>
+<div class="body-content">{% block content %}{% endblock %}</div>
 
-  <input
-    type="submit"
-    class="inButton"
-    onclick="window.location.href='/taymaa-and-sara-only-secret';"
-  />
+<div class="botnav">
+  <div class="newsletter reveal-vertical active">
+    <h2>Join our Community!</h2>
+    <p>Stay updated with our latest news, releases and special offers</p>
+    <div class="newsletter-form">
+      {%if sent%}
+      <div class="newsletter-thankyou">
+        <h2>Thank you for subscribing!</h2>
+      </div>
+
+      {%else%}
+      <form method="POST">
+        {% csrf_token %}
+        <input
+          type="email"
+          placeholder="Enter your email"
+          name="contact[email]"
+          class="newsletter-input"
+        />
+        <button type="submit" class="newsletter-button">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="icon icon-email"
+            viewBox="0 0 64 64"
+          >
+            <path
+              d="M63 52H1V12h62zM1 12l25.68 24h9.72L63 12M21.82 31.68L1.56 51.16m60.78.78L41.27 31.68"
+            ></path>
+          </svg>
+        </button>
+      </form>
+      {%endif%}
+    </div>
+  </div>
+
+  <div class="socials">
+    <ul class="socials-icons">
+      <!--instagram svg-->
+
+      <li>
+        <a
+          href="https://www.instagram.com/miettesdart/"
+          target="_blank"
+          class="socials-links"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="icon icon-instagram"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="var( --font_color)"
+              d="M16 3.094c4.206 0 4.7.019 6.363.094 1.538.069 2.369.325 2.925.544.738.287 1.262.625 1.813 1.175s.894 1.075 1.175 1.813c.212.556.475 1.387.544 2.925.075 1.662.094 2.156.094 6.363s-.019 4.7-.094 6.363c-.069 1.538-.325 2.369-.544 2.925-.288.738-.625 1.262-1.175 1.813s-1.075.894-1.813 1.175c-.556.212-1.387.475-2.925.544-1.663.075-2.156.094-6.363.094s-4.7-.019-6.363-.094c-1.537-.069-2.369-.325-2.925-.544-.737-.288-1.263-.625-1.813-1.175s-.894-1.075-1.175-1.813c-.212-.556-.475-1.387-.544-2.925-.075-1.663-.094-2.156-.094-6.363s.019-4.7.094-6.363c.069-1.537.325-2.369.544-2.925.287-.737.625-1.263 1.175-1.813s1.075-.894 1.813-1.175c.556-.212 1.388-.475 2.925-.544 1.662-.081 2.156-.094 6.363-.094zm0-2.838c-4.275 0-4.813.019-6.494.094-1.675.075-2.819.344-3.819.731-1.037.4-1.913.944-2.788 1.819S1.486 4.656 1.08 5.688c-.387 1-.656 2.144-.731 3.825-.075 1.675-.094 2.213-.094 6.488s.019 4.813.094 6.494c.075 1.675.344 2.819.731 3.825.4 1.038.944 1.913 1.819 2.788s1.756 1.413 2.788 1.819c1 .387 2.144.656 3.825.731s2.213.094 6.494.094 4.813-.019 6.494-.094c1.675-.075 2.819-.344 3.825-.731 1.038-.4 1.913-.944 2.788-1.819s1.413-1.756 1.819-2.788c.387-1 .656-2.144.731-3.825s.094-2.212.094-6.494-.019-4.813-.094-6.494c-.075-1.675-.344-2.819-.731-3.825-.4-1.038-.944-1.913-1.819-2.788s-1.756-1.413-2.788-1.819c-1-.387-2.144-.656-3.825-.731C20.812.275 20.275.256 16 .256z"
+            ></path>
+            <path
+              fill="var( --font_color)"
+              d="M16 7.912a8.088 8.088 0 0 0 0 16.175c4.463 0 8.087-3.625 8.087-8.088s-3.625-8.088-8.088-8.088zm0 13.338a5.25 5.25 0 1 1 0-10.5 5.25 5.25 0 1 1 0 10.5zM26.294 7.594a1.887 1.887 0 1 1-3.774.002 1.887 1.887 0 0 1 3.774-.003z"
+            ></path>
+          </svg>
+        </a>
+      </li>
+
+      <!--facebook svg -->
+
+      <li>
+        <a
+          href="https://www.facebook.com/miettesdart"
+          target="_blank"
+          class="socials-links"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="icon icon-facebook"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="var( --font_color)"
+              d="M18.56 31.36V17.28h4.48l.64-5.12h-5.12v-3.2c0-1.28.64-2.56 2.56-2.56h2.56V1.28H19.2c-3.84 0-7.04 2.56-7.04 7.04v3.84H7.68v5.12h4.48v14.08h6.4z"
+            ></path>
+          </svg>
+        </a>
+      </li>
+
+      <!--pinterest svg -->
+
+      <li>
+        <a href="https://pin.it/7oo3bFP/" target="_blank" class="socials-links">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="icon icon-pinterest"
+            viewBox="0 0 32 32"
+          >
+            <path
+              fill="var( --font_color)"
+              d="M27.52 9.6c-.64-5.76-6.4-8.32-12.8-7.68-4.48.64-9.6 4.48-9.6 10.24 0 3.2.64 5.76 3.84 6.4 1.28-2.56-.64-3.2-.64-4.48-1.28-7.04 8.32-12.16 13.44-7.04 3.2 3.84 1.28 14.08-4.48 13.44-5.12-1.28 2.56-9.6-1.92-11.52-3.2-1.28-5.12 4.48-3.84 7.04-1.28 4.48-3.2 8.96-1.92 15.36 2.56-1.92 3.84-5.76 4.48-9.6 1.28.64 1.92 1.92 3.84 1.92 6.4-.64 10.24-7.68 9.6-14.08z"
+            ></path>
+          </svg>
+        </a>
+      </li>
+
+      <!--tiktok svg -->
+
+      <li>
+        <a
+          href="https://www.tiktok.com/@miettesdart"
+          target="_blank"
+          class="socials-links"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            id="icons"
+            viewBox="47.96 16 416.04 480.02"
+            class="icon"
+            fill="var( --font_color)"
+          >
+            <path
+              d="M412.19,118.66a109.27,109.27,0,0,1-9.45-5.5,132.87,132.87,0,0,1-24.27-20.62c-18.1-20.71-24.86-41.72-27.35-56.43h.1C349.14,23.9,350,16,350.13,16H267.69V334.78c0,4.28,0,8.51-.18,12.69,0,.52-.05,1-.08,1.56,0,.23,0,.47-.05.71,0,.06,0,.12,0,.18a70,70,0,0,1-35.22,55.56,68.8,68.8,0,0,1-34.11,9c-38.41,0-69.54-31.32-69.54-70s31.13-70,69.54-70a68.9,68.9,0,0,1,21.41,3.39l.1-83.94a153.14,153.14,0,0,0-118,34.52,161.79,161.79,0,0,0-35.3,43.53c-3.48,6-16.61,30.11-18.2,69.24-1,22.21,5.67,45.22,8.85,54.73v.2c2,5.6,9.75,24.71,22.38,40.82A167.53,167.53,0,0,0,115,470.66v-.2l.2.2C155.11,497.78,199.36,496,199.36,496c7.66-.31,33.32,0,62.46-13.81,32.32-15.31,50.72-38.12,50.72-38.12a158.46,158.46,0,0,0,27.64-45.93c7.46-19.61,9.95-43.13,9.95-52.53V176.49c1,.6,14.32,9.41,14.32,9.41s19.19,12.3,49.13,20.31c21.48,5.7,50.42,6.9,50.42,6.9V131.27C453.86,132.37,433.27,129.17,412.19,118.66Z"
+            />
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="links">
+    <ul class="botnav-links">
+      <li>Shop</li>
+      <li>About us</li>
+      <li>Contact us</li>
+      <li>FAQ</li>
+    </ul>
+  </div>
 </div>
+
+<input
+  type="submit"
+  class="inButton"
+  onclick="window.location.href='/taymaa-and-sara-only-secret';"
+/>
+
+<a
+  href="https://api.whatsapp.com/send?phone=51955081075&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Varela%202."
+  class="float"
+  target="_blank"
+>
+  <i class="fa fa-whatsapp my-float" aria-hidden="true"></i>
+</a>
+
 <script src="{% static 'js/base.js' %}"></script>
+
+{%if messages %} {% for message in messages %} {% endfor %}
+<script>
+  openCart();
+</script>
+{%endif%}

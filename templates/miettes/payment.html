@@ -3,32 +3,63 @@
 
 <link rel="stylesheet" href="{% static 'css/checkout.css' %} " />
 
-<form method="POST">
-  {% csrf_token %}
-  <div class="review-order">
-    <h2 class="review-order-title">Review order</h2>
-    <div class="review-area">
-      <p class="contact-row">Contact &nbsp;&nbsp;{{Customer.Name}}</p>
-      <hr />
-      <p class="ship-row">Ship to&nbsp;&nbsp; {{Address}}</p>
-      <hr />
-      <div class="cost">
-        <p class="cost-row">Shipping cost</p>
+<div class="review-order">
+  <h2 class="review-order-title">Review order</h2>
 
-        <p class="cost-dynamic">Zone {{Zone.ZoneNumber}}: {{Zone.Cost}}</p>
-      </div>
+  <div class="review-area">
+    <div class="contact-row">
+      <div class="contact-label">Contact</div>
+
+      <span class="contact-value">{{Customer.Email}}</span>
     </div>
 
-    <div class="review-area total-area">
-      <p class="subtotal">Subtotal&nbsp;&nbsp; {{subtotal}}</p>
+    <hr />
 
-      <p class="cost-row">Shipping&nbsp;&nbsp; {{Zone.Cost}}</p>
-      <hr />
+    <div class="ship-row">
+      <div class="address-label">Ship to</div>
 
-      <p class="total">Total&nbsp;&nbsp; {{total}}</p>
+      <address class="address-value">
+        {{Address.Street_address}} <br />
+        {{Address.City}}, {{Address.Country.name}}<br />
+        {{Address.Phone_number}}
+      </address>
     </div>
-    <input type="submit" value="Order" class="orderBtn" />
+    <hr />
+    <div class="cost-row">
+      <div class="cost-label">Shipping cost</div>
+
+      <span class="cost-value">Zone {{Zone.ZoneNumber}}: {{Zone.Cost}}</span>
+    </div>
   </div>
 
-  {% endblock %}
-</form>
+  <div class="review-area total-area">
+    <div class="cost-row">
+      <div class="cost-label">Subtotal</div>
+
+      <span class="cost-value">{{subtotal}}</span>
+    </div>
+
+    <div class="cost-row">
+      <div class="cost-label">Shipping</div>
+
+      <span class="cost-value">{{Zone.Cost}}</span>
+    </div>
+    <hr />
+
+    <div class="cost-row">
+      <div class="cost-label">Total</div>
+
+      <span class="total-value">{{total}}</span>
+    </div>
+  </div>
+  <div class="process-button">
+    <button onclick="history.back()" id="changeBtn">Change</button>
+    <form method="POST">
+      {% csrf_token %}
+
+      <input type="submit" value="Order" id="orderBtn" />
+    </form>
+  </div>
+</div>
+
+{% endblock %}

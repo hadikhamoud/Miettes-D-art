@@ -52,9 +52,9 @@
     <div class="card">
       <a href="{% url 'viewproduct' pick.SKU %}">
         <!-- <div class="anim_gradient"></div> -->
-
-        <img src="{{ pick.Image }}" class="cardImg"
-      /></a>
+        <div class="cardImg anim_gradient">
+          <img src="{{ pick.Image }}" class="cardImg product_image" /></div
+      ></a>
 
       <h2 class="productTitle">{{ pick.Name }}</h2>
       <h3 class="productPrice">{{ pick.Price }}</h3>
@@ -63,9 +63,9 @@
   </div>
 </section>
 
-<section title="byCollection" class="collectionSection reveal-vertical">
-  <h1 class="slider-title">Shop By Collection</h1>
-  <div class="cards">
+<section title="byCollection" class="collectionSection">
+  <h1 class="slider-title reveal-vertical">Shop By Collection</h1>
+  <div class="cards reveal-vertical">
     {% if Collections %} {% for collection in Collections %}
 
     <div class="cardCollection">
@@ -73,9 +73,12 @@
         <div class="collection-title">
           <h2 class="collection-title-content">{{ collection.Title }}</h2>
         </div>
-
-        <img src="/{{ collection.Image }}" class="cardCollectionImg"
-      /></a>
+        <div class="cardCollectionImg anim_gradient">
+          <img
+            src="/{{ collection.Image }}"
+            class="cardCollectionImg product_image"
+          /></div
+      ></a>
     </div>
 
     {% endfor %}

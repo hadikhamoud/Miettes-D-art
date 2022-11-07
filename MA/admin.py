@@ -10,7 +10,7 @@ from django.contrib.sessions.models import Session
 
 class CustomerAdmin(admin.ModelAdmin):
     model = Customer
-    readonly_fields=['Name','Email','Phone_number']
+    readonly_fields=['First_name',"Last_name",'Email','Phone_number']
     exclude=["Device"]
 
 class MultiplierAdmin(admin.ModelAdmin):
@@ -39,7 +39,7 @@ class OrderAdmin(admin.ModelAdmin):
     model = Order
     list_display=('Customer', 'get_customer_email', 'Ref_code','Ordered_date')
     inlines = [OrderItemlInline]
-    search_fields = ['Customer__Email','Customer__Name','Ref_code']
+    search_fields = ['Customer__Email','Customer__First_name','Ref_code']
     list_filter = [
             'Ordered',
             'Ordered_date',
@@ -137,6 +137,28 @@ class ContactUsAdmin(admin.ModelAdmin):
     readonly_fields = ["Name", "Email","Content"]
 
 
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ['Email']
+    readonly_fields = ["Email"]
+
+    actions = ['get_email_list']
+
+    def get_email_list(self,request,queryset):
+        from django.http import HttpResponse
+        f = open("email_list.txt", "w")
+        email_list = []
+        for email in queryset:
+            email_list.append(email.Email)
+        mailingList = ";".join(email_list)
+        f.write(mailingList)
+        f.close()
+        f = open("email_list.txt", "r")
+        response = HttpResponse(f, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename="email_list.txt"'
+        return response
+    get_email_list.short_description = "get email list"
+
+
 class ZoneAdmin(admin.ModelAdmin):
 
     list_display = ['ZoneNumber', 'Cost']
@@ -145,7 +167,7 @@ class ZoneAdmin(admin.ModelAdmin):
 class CountryAdmin(admin.ModelAdmin):
 
     list_display = ['Country', 'Zone']
-    readonly_fields = ["Country"]
+    # readonly_fields = ["Country"]
 
 
 
@@ -161,5 +183,5 @@ admin.site.register(Session, SessionAdmin)
 admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Zone, ZoneAdmin)
 admin.site.register(Country, CountryAdmin)
-
+admin.site.register(Newsletter, NewsletterAdmin)
 #admin.site.register(ShippingAddress)

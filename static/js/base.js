@@ -54,6 +54,22 @@ addEventListener("resize", (event) => {
   }
 });
 
+function reveal() {
+  var reveals = document.querySelectorAll(
+    ".reveal-horizontal, .reveal-vertical"
+  );
+  for (var i = 0; i < reveals.length; i++) {
+    var windowHeight = window.innerHeight;
+    var elementTop = reveals[i].getBoundingClientRect().top;
+    var elementVisible = 150;
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add("active");
+    } else {
+      reveals[i].classList.remove("active");
+    }
+  }
+}
+
 addEventListener("click", (event) => {
   var sidebar = document.getElementById("mobile-navbar");
   var sidebarPos = sidebar.getBoundingClientRect();
@@ -89,3 +105,20 @@ function checkTypingMobile() {
 function handle(event) {
   event.preventDefault();
 }
+
+var images = document.querySelectorAll(".product_image");
+console.log(images);
+
+images.forEach(function (image) {
+  image.addEventListener("load", (event) => {
+    var img = event.target;
+    var parent = img.parentElement;
+    console.log(parent);
+    parent.classList.add("loaded");
+  });
+
+  if (image.complete) {
+    var parent = image.parentElement;
+    parent.classList.add("loaded");
+  }
+});

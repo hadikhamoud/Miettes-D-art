@@ -83,28 +83,6 @@
   font-size: 50px;
 }
 
-.reveal-horizontal {
-  position: relative;
-  transform: translateX(150px);
-  opacity: 0;
-  transition: 2s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.reveal-horizontal.active {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.reveal-vertical {
-  position: relative;
-  transform: translateY(150px);
-  opacity: 0;
-  transition: 2s all cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.reveal-vertical.active {
-  transform: translateY(0);
-  opacity: 1;
-}
-
 .cards {
   display: flex;
 

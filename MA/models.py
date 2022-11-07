@@ -13,6 +13,9 @@ from .utils import *
 import os
 from colorfield.fields import ColorField
 
+from django.template.loader import render_to_string
+from django_resized import ResizedImageField
+
 
 
 
@@ -100,12 +103,13 @@ class Multiplier(models.Model):
 
 class Picture(models.Model):
     Product = models.ForeignKey('Product',on_delete=models.CASCADE,null = True, blank = True)
-    picture = models.ImageField(upload_to='static/images')
+    picture = ResizedImageField(force_format="WebP",quality=83, upload_to='static/images',null=True,blank=True)
 
 
 class Customer(models.Model):
     User = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE,editable=False)
-    Name = models.CharField(max_length=200, null=True, blank=True,editable=False)
+    First_name = models.CharField(max_length=200, null=True, blank=True,editable=False)
+    Last_name = models.CharField(max_length=200, null=True, blank=True,editable=False)
     Email = models.EmailField(max_length=254,null=True, blank=True,editable=False)
     Device = models.CharField(max_length=200, null=True, blank=True,editable=False)
     Phone_number = PhoneNumberField(max_length=200,null=True, blank=True,editable=False)
@@ -113,8 +117,9 @@ class Customer(models.Model):
 
 
     def __str__(self):
-        if self.Name:
-            name = self.Name
+        if self.First_name and self.Last_name:
+            name  = f'{self.First_name} {self.Last_name}'
+
         else:
             name = self.Device
         return str(name)
@@ -157,6 +162,8 @@ class Order(models.Model):
     Ordered = models.BooleanField(default=False)
     Shipping_address = models.OneToOneField(
         'Address', on_delete=models.SET_NULL, blank=True, null=True)
+    Subtotal = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
+    Shipping = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Shipped = models.BooleanField(default=False)
     Delivered = models.BooleanField(default=False)
@@ -179,11 +186,13 @@ class Order(models.Model):
         #admin should press shipped then delivered(in that order)
         if self.Shipped and not self.Delivered:
             print("shipped")
-            send_html_mail(subject = "order shipped!" , recipient_list=[self.Customer.Email], html_content="",sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+            send_html_mail(subject = "Your order is on its way", html_content=render_to_string(
+            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
             self.Shipped_date = generate_timestamp() 
         elif self.Shipped and self.Delivered: 
             print("delivered")
-            send_html_mail(subject = "order delivered!" , recipient_list=[self.Customer.Email], html_content="",sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+            send_html_mail(subject = "Order delivered", html_content=render_to_string(
+            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
             self.Delivered_date = generate_timestamp()
 
 
@@ -195,7 +204,7 @@ class Order(models.Model):
 
 class Discover(models.Model):
     Title = models.CharField(max_length=80,null = True, blank=True)
-    Image = models.ImageField(upload_to='static/images',null = True, blank=True)
+    Image = ResizedImageField(force_format="WebP",quality=83, upload_to='static/images',null=True,blank=True)
     Description = models.TextField(null = True, blank = True)
     Active = models.BooleanField(default = False)
     Items = models.ManyToManyField(Product)
@@ -219,7 +228,7 @@ class Discover(models.Model):
 class Collection(models.Model):
     Title = models.CharField(max_length=80,null = True, blank=True)
     Description = models.TextField(null = True, blank = True)
-    Image = models.ImageField(upload_to='static/images',null = True, blank=True)
+    Image =ResizedImageField(force_format="WebP",quality=83, upload_to='static/images',null=True,blank=True)
     Items = models.ManyToManyField(Product)
     Show = models.BooleanField(default = False)
 
@@ -297,3 +306,16 @@ class Country(models.Model):
 
     def __str__(self):
         return str(self.Country)
+
+
+
+class Newsletter(models.Model):
+    Email = models.EmailField(max_length=254,null=True, blank=True)
+    Name = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.Email
+
+    class Meta:
+        verbose_name = 'Newsletter'
+        verbose_name_plural = 'Newsletters'

@@ -74,21 +74,6 @@
         text-align: center;
         text-decoration: none;
       }
-      .value-label {
-        width: 100%;
-        margin-bottom: 50px;
-      }
-      .value-label div {
-        width: 49%;
-        display: inline-block;
-      }
-      .value {
-        text-align: right;
-      }
-      .total-value {
-        font-weight: bold;
-        font-size: 35px;
-      }
     </style>
   </head>
   <body>
@@ -99,7 +84,7 @@
       />
     </div>
     <div class="orderDetails">
-      <h2>We received your order</h2>
+      <h2>Your order has been delivered</h2>
       <p>ORDER NO. &nbsp;<strong>{{orderNumber}}</strong></p>
       <p>YOU WILL RECEIVE YOUR DELIVERY SOON</p>
     </div>
@@ -114,7 +99,7 @@
       </p>
     </div>
     <hr />
-    <div class="products">
+    <!-- <div class="products">
       <h2>Products</h2>
       {% for item in orderItems %}
 
@@ -126,23 +111,7 @@
       </h3>
       <p class="productPrice">{{item.Item.Price}}</p>
       {% endfor %}
-    </div>
-    <hr />
-    <div class="total">
-      <div class="value-label">
-        <div class="label">Subtotal</div>
-        <div class="value"><span>{{subtotal}}</span></div>
-      </div>
-      <div class="value-label">
-        <div class="label">Shipping</div>
-        <div class="value"><span>{{shipping}}</span></div>
-      </div>
-      <hr />
-      <div class="value-label">
-        <div class="label">Total</div>
-        <div class="value"><span class="total-value">{{total}}</span></div>
-      </div>
-    </div>
+    </div> -->
 
     <div class="bottomNav">
       <a href="#">privacy policy</a>
