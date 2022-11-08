@@ -41,7 +41,9 @@
     <img src="{% static 'images/discover.jpeg' %}" class="coverImg" />
   </div>
   {% endif %}
-  <button type="submit" class="btn">Discover</button>
+  <button type="submit" class="btn" onclick="window.location.href='/discover'">
+    Discover
+  </button>
 </section>
 
 <section title="picks" class="slider-picks">
@@ -69,7 +71,7 @@
     {% if Collections %} {% for collection in Collections %}
 
     <div class="cardCollection">
-      <a href="{% url 'collections' collection.Title %}">
+      <a href="{% url 'collections' collection.Title_en %}">
         <div class="collection-title">
           <h2 class="collection-title-content">{{ collection.Title }}</h2>
         </div>

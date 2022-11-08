@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models.functions import Lower
 from django.contrib.sessions.models import Session
+from . import forms
 # Register your models here.
 
 
@@ -105,8 +106,10 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class DiscoverAdmin(admin.ModelAdmin):
+    form = forms.DiscoverForm
     model = Discover
     list_display=('Title', )
+
     #inlines = [ProductlInline,]
 
 
@@ -116,6 +119,7 @@ class ProductAdminInLine(admin.TabularInline):
     readonly_fields = ["Name", "SKU","Description","Size","Color","Price","Category","Status","Optional","Discover","Image","PriceLBP"]
 
 class CollectionAdmin(admin.ModelAdmin):
+    form=forms.CollectionForm
     model = Collection
     list_display=('Title', )
     inlines = (ProductAdminInLine,)

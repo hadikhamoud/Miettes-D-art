@@ -20,12 +20,46 @@ class AddressForm(forms.ModelForm):
         exclude=['Customer','Apartment_address','Default']
 
     
+class CollectionForm(forms.ModelForm):
+    class Meta:
+        model = models.Collection
+        fields=['Title','Description','Image',"Show","Title_en"]
+        exclude=['Items']
 
 
-# class ProductForm(forms.ModelForm):
-#     class Meta:
-#         model = models.Product
-#         fields = '__all__'
-#         widgets = {
-#             'Color': TextInput(attrs={'type': 'Color'}),
-#         }
+    products = forms.ModelMultipleChoiceField(queryset=models.Product.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super(CollectionForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields['products'].initial = self.instance.product_set.all()
+
+    def save(self, *args, **kwargs):
+ 
+        instance = super(CollectionForm, self).save(commit=False)
+        self.fields['products'].initial.update(Collection=None)
+        self.cleaned_data['products'].update(Collection=instance)
+        return instance
+
+
+
+class DiscoverForm(forms.ModelForm):
+    class Meta:
+        model = models.Discover
+        fields=['Title','Description','Image',"Active"]
+        exclude=['Items']
+
+
+    products = forms.ModelMultipleChoiceField(queryset=models.Product.objects.all())
+
+    def __init__(self, *args, **kwargs):
+        super(DiscoverForm, self).__init__(*args, **kwargs)
+        if self.instance:
+            self.fields['products'].initial = self.instance.product_set.all()
+
+    def save(self, *args, **kwargs):
+ 
+        instance = super(DiscoverForm, self).save(commit=False)
+        self.fields['products'].initial.update(Discover=None)
+        self.cleaned_data['products'].update(Discover=instance)
+        return instance

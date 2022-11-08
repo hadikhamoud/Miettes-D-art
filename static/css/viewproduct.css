@@ -310,10 +310,9 @@ label.checkmark {
   border-bottom: 2px solid black;
 }
 
-.activate,
+/* .activate,
 .accordionDetails:hover {
-  background-color: #ccc;
-}
+  /* background-color: #ccc; */
 
 .accordionDescription {
   max-width: 300px;
@@ -329,6 +328,11 @@ label.checkmark {
 
 .activate:after {
   content: "\2212";
+}
+
+.dot-selected {
+  background-color: black;
+  border-color: black;
 }
 
 .panel {
@@ -349,10 +353,20 @@ label.checkmark {
 }
 
 .image-navigator {
+  padding: 0;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
   position: absolute;
   bottom: 10%;
-  right: 50%;
+  /* right: 50%; */
   color: white;
+  list-style: none;
+  width: 100%;
+}
+
+.image-navigator li {
+  display: inline-block;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -432,8 +446,14 @@ label.checkmark {
   .product-details {
     margin-top: 30vmin;
   } */
-  .addToCart {
+  .addToCart,
+  .accordionDetails,
+  .product-description {
     width: 100%;
+  }
+
+  .accordionDescription {
+    max-width: 100%;
   }
 }
 

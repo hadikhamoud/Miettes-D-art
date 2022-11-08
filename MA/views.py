@@ -62,7 +62,7 @@ def homepage(request):
     # mainScraper()
     Picks = models.Product.objects.filter(Pick=True)
     Collections = models.Collection.objects.filter(Show = True)
-    Discover = models.Discover.objects.filter(Active = True)[0]
+    Discover = models.Discover.objects.get(Active = True)
 
     if request.method == 'POST':
         email = request.POST.get("contact[email]")
@@ -88,34 +88,33 @@ def contactus_view(request):
     return render(request, 'miettes/contactus.html')
 
 
-def clean_filters(filters):
-    filters = {k: v for k, v in filters.items() if v}
-    return filters
+# def clean_filters(filters):
+#     filters = {k: v for k, v in filters.items() if v}
+#     return filters
 
 def products_view(request):
 
     GET_params = request.GET.copy()
-    print(GET_params)
 
-    if GET_params.get("page"):
-        del GET_params['page']
-
-
+    filters = {
+        'title-ascending': 'Name',
+        'title-descending': '-Name',
+        'price-ascending': 'Price',
+        'price-descending': '-Price',
+    }
+  
+    GET_params.pop('page',0)
 
 
     results = models.Product.objects.filter(Status="active")
+    results = results.order_by("Status")
     if GET_params.get("Category"):
         results = results.filter(Category=GET_params.get("Category"))
     if GET_params.get("Color"):
         results = results.filter(Color__contains=[GET_params.get("Color")])
-    if GET_params.get("sort_by") == "price-ascending":
-        results = results.order_by("Price")
-    elif GET_params.get("sort_by") == "price-descending":
-        results = results.order_by("-Price")
-    elif GET_params.get("sort_by") == "title-ascending":
-        results = results.order_by("Name")
-    elif GET_params.get("sort_by") == "title-descending":
-        results = results.order_by("-Name")
+    if GET_params.get("sort_by"):
+        results = results.order_by(filters[GET_params.get("sort_by")])
+
     
 
 
@@ -165,15 +164,19 @@ def search_view(request):
     return render(request, 'miettes/search.html',{"Allproducts":results,"queryInput":queryInput, "page_obj":page_obj})
 
 
-def discover_view(request, Title):
-    discover = models.Discover.objects.get(Title=Title)
-    Allproducts = discover.Items.all()
-    return render(request, 'miettes/discover.html', {'Allproducts': Allproducts})
+def discover_view(request):
+    discover = models.Discover.objects.get(Active=True)
+    results = models.Product.objects.filter(Discover = discover)
+    paginator = Paginator(results, 24)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'miettes/collections.html', {'page_obj': page_obj})
 
 
-def collection_view(request, Title):
-    collection = models.Collection.objects.get(Title=Title)
+def collection_view(request, Title_en):
+    collection = models.Collection.objects.get(Title_en=Title_en)
     results = models.Product.objects.filter(Collection = collection)
+    print(results)
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number) 
@@ -184,10 +187,11 @@ def collection_view(request, Title):
 
 def viewproduct_view(request, SKU):
     Selectedproduct = models.Product.objects.filter(SKU=SKU)[0]
+    numOfPictures = 1
     Pictures = models.Picture.objects.filter(Product=Selectedproduct)
-    print(Selectedproduct.collection_set.all())
     if not Pictures.exists():
         Pictures = models.Picture.objects.none()
+    numOfPictures+=Pictures.count()
 
     if request.method == "POST":
         Color_choice = request.POST.getlist("color")[0]
@@ -211,7 +215,10 @@ def viewproduct_view(request, SKU):
     
     colors = zip(Selectedproduct.Color,Selectedproduct.ColorHex)
     colorsMobile = zip(Selectedproduct.Color,Selectedproduct.ColorHex)
-    return render(request, 'miettes/viewproductdev.html', {'Selectedproduct': Selectedproduct, 'Pictures': Pictures,"Colors":colors,"ColorsMobile":colorsMobile})
+    context = {'Selectedproduct': Selectedproduct, 'Pictures': Pictures,"Colors":colors,"ColorsMobile":colorsMobile,"numOfPictures":range(numOfPictures)}
+    if numOfPictures <= 1:
+        del context["numOfPictures"]
+    return render(request, 'miettes/viewproductdev.html',context)
 
 
 def cart_view(request):
@@ -275,7 +282,8 @@ def checkout_view(request):
         First_name = request.POST.get("fname")
         Last_name = request.POST.get("lname")
         Email = request.POST.get("email")
-        customer.Name = f'{First_name} {Last_name}'
+        customer.First_name = First_name 
+        customer.Last_name = Last_names
         customer.Email = Email
         
         if form.is_valid():

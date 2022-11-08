@@ -226,7 +226,7 @@ input[type="reset"] {
   width: 0%;
   position: fixed;
   list-style: none;
-  z-index: 1;
+  z-index: 100;
   top: 0;
   left: 0;
   background-color: #ffff;
@@ -237,7 +237,7 @@ input[type="reset"] {
 
 .navbar-menu-mobile a,
 .collapsibleItem {
-  padding: 8px 8px 8px 32px;
+  padding: 8px 8px 8px 2px;
   text-decoration: none;
   font-size: 25px;
   color: var(--font_color);
@@ -260,6 +260,11 @@ input[type="reset"] {
 
 .navbar-menu-mobile-items {
   list-style: none;
+  padding-inline: 10px;
+}
+
+.sub {
+  padding-inline: 20px;
 }
 
 .open-navbar-button {
@@ -670,6 +675,9 @@ input[type="search"] {
     max-width: 90vw;
     padding: 0 20px;
   }
+  .closebtn {
+    display: block;
+  }
 }
 
 .pagination {
@@ -717,4 +725,8 @@ input[type="search"] {
   display: inline-block;
   font-size: 10px;
   color: var(--color_fill);
+}
+
+.closebtn {
+  display: none;
 }

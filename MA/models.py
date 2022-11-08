@@ -12,6 +12,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from .utils import *
 import os
 from colorfield.fields import ColorField
+import string
 
 from django.template.loader import render_to_string
 from django_resized import ResizedImageField
@@ -227,11 +228,17 @@ class Discover(models.Model):
 
 class Collection(models.Model):
     Title = models.CharField(max_length=80,null = True, blank=True)
+    Title_en = models.CharField(max_length=80,null = True, blank=True)
     Description = models.TextField(null = True, blank = True)
     Image =ResizedImageField(force_format="WebP",quality=83, upload_to='static/images',null=True,blank=True)
     Items = models.ManyToManyField(Product)
     Show = models.BooleanField(default = False)
 
+    def save(self, *args, **kwargs):
+        self.Title_en = self.Title.replace(" ","-").lower()
+        # self.Title_en = self.Title
+        self.Title_en = self.Title_en.strip(string.punctuation)
+        super(Collection, self).save(*args, **kwargs)
 
 
     def __str__(self):

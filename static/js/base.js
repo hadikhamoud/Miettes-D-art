@@ -107,13 +107,11 @@ function handle(event) {
 }
 
 var images = document.querySelectorAll(".product_image");
-console.log(images);
-
 images.forEach(function (image) {
   image.addEventListener("load", (event) => {
     var img = event.target;
     var parent = img.parentElement;
-    console.log(parent);
+
     parent.classList.add("loaded");
   });
 

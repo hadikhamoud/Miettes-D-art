@@ -140,7 +140,12 @@
       </div>
       {% endfor %}
     </div>
-    <div class="image-navigator">. . .</div>
+    <!-- <div class="image-navigator"> -->
+    <ul class="image-navigator">
+      {% if numOfPictures %} {% for i in numOfPictures %}
+      <li class="dot"></li>
+      {% endfor %} {% endif %}
+    </ul>
   </div>
 
   <div class="product-details">

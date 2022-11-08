@@ -29,7 +29,7 @@ for (i = 0; i < acc.length; i++) {
 
 const slider = document.querySelector(".wrapper-container-mobile"),
   slides = Array.from(document.querySelectorAll(".slide-mobile")),
-  dots = Array.from(document.querySelectorAll(".dots"));
+  dots = Array.from(document.querySelectorAll(".dot"));
 
 let isDragging = false,
   startPos = 0,
@@ -37,6 +37,8 @@ let isDragging = false,
   prevTranslate = 0,
   animationID = 0,
   currentIndex = 0;
+
+dots[0].classList.add("dot-selected");
 
 slides.forEach((slide, index) => {
   const slideImage = slide.querySelector("img");
@@ -79,9 +81,17 @@ function touchEnd() {
 
   const movedBy = currentTranslate - prevTranslate;
 
-  if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
+  if (movedBy < -100 && currentIndex < slides.length - 1) {
+    dots[currentIndex].classList.remove("dot-selected");
+    currentIndex += 1;
+    dots[currentIndex].classList.add("dot-selected");
+  }
 
-  if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
+  if (movedBy > 100 && currentIndex > 0) {
+    dots[currentIndex].classList.remove("dot-selected");
+    currentIndex -= 1;
+    dots[currentIndex].classList.add("dot-selected");
+  }
 
   setPositionByIndex();
 
