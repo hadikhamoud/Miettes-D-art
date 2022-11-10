@@ -19,6 +19,7 @@ miettes/__pycache__/
 miettes/__init__.py
 miettes/pyvenv.cfg
 miettes/asgi.py
+env/
 
 
 MiettesDB

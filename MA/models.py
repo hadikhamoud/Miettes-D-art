@@ -204,11 +204,11 @@ class Order(models.Model):
 
 
 class Discover(models.Model):
-    Title = models.CharField(max_length=80,null = True, blank=True)
+    id = models.IntegerField(unique = True, primary_key = True)
+    Title = models.CharField(max_length=80)
     Image = ResizedImageField(force_format="WebP",quality=83, upload_to='static/images',null=True,blank=True)
     Description = models.TextField(null = True, blank = True)
     Active = models.BooleanField(default = False)
-    Items = models.ManyToManyField(Product)
 
 
 
@@ -231,7 +231,6 @@ class Collection(models.Model):
     Title_en = models.CharField(max_length=80,null = True, blank=True)
     Description = models.TextField(null = True, blank = True)
     Image =ResizedImageField(force_format="WebP",quality=83, upload_to='static/images',null=True,blank=True)
-    Items = models.ManyToManyField(Product)
     Show = models.BooleanField(default = False)
 
     def save(self, *args, **kwargs):

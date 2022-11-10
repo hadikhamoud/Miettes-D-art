@@ -30,12 +30,12 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3u#f^rx1z&=8pizo5phbj^8r2m+j5)xka*=wqv8q%z))+&!7ja'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production! 
 DEBUG = True 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['13.38.107.224']
 
 
 # Application definition
@@ -101,23 +101,13 @@ DATABASES = {
         'USER': os.environ.get("USER_DB"),
         'PASSWORD': os.environ.get("PASSWORD"),
         'HOST': os.environ.get("HOST"),
-        'POST': os.environ.get("POST"),
+        'PORT': os.environ.get("PORT"),
+    },
+    "example_db": {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
-
-# DATABASES2 = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'miettesdb',
-#         'USER': 'postgres',
-#         'PASSWORD': 'qwertyuiop[]',
-#         'HOST': 'localhost',
-#         'POST': '5432',
-#     }
-# }
-
-
 
 
 
