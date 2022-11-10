@@ -70,7 +70,8 @@ function reveal() {
   }
 }
 
-addEventListener("click", (event) => {
+['click','ontouchstart'].forEach(function(event) {
+  element.addEventListener(event,function(){
   var sidebar = document.getElementById("mobile-navbar");
   var sidebarPos = sidebar.getBoundingClientRect();
   var cart = document.getElementById("shopping-cart");
@@ -83,7 +84,8 @@ addEventListener("click", (event) => {
   if (sidebarPos.width > 0 && !sidebar.contains(event.target)) {
     closeNav();
   }
-});
+}
+)});
 
 function checkTyping() {
   var input = document.getElementById("searchright");

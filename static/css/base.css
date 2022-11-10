@@ -40,10 +40,20 @@
 
 * {
   box-sizing: border-box;
+
 }
+
+
+input, select, button{
+  -webkit-appearance: none;
+  -webkit-border-radius:0px;
+
+}
+
 
 .body-content {
   min-height: 100vh;
+  
 }
 
 :root {
@@ -194,7 +204,7 @@ input[type="reset"] {
 }
 
 ::placeholder {
-  color: var(--color_fill);
+  color: var(--font_color) 
 }
 
 .navbar-miettes:hover {
@@ -600,6 +610,7 @@ background: linear-gradient(
 .botnav-links {
   text-align: center;
   padding: 0;
+  margin-bottom: 100px;
 }
 
 .botnav-links a li {

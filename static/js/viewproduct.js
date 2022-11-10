@@ -99,6 +99,7 @@ function touchEnd() {
 }
 
 function touchMove(event) {
+  event.preventDefault();
   if (isDragging) {
     const currentPosition = getPositionX(event);
     currentTranslate = prevTranslate + currentPosition - startPos;
@@ -124,7 +125,7 @@ function setPositionByIndex() {
   setSliderPosition();
 }
 
-window.addEventListener("resize", function (event) {
-  currentTranslate = 0;
-  setSliderPosition();
-});
+// window.addEventListener("resize", function (event) {
+//   currentTranslate = 0;
+//   setSliderPosition();
+// });
