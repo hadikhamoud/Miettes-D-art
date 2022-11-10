@@ -40,20 +40,17 @@
 
 * {
   box-sizing: border-box;
-
 }
 
-
-input, select, button{
+input,
+select,
+button {
   -webkit-appearance: none;
-  -webkit-border-radius:0px;
-
+  -webkit-border-radius: 0px;
 }
-
 
 .body-content {
   min-height: 100vh;
-  
 }
 
 :root {
@@ -204,7 +201,7 @@ input[type="reset"] {
 }
 
 ::placeholder {
-  color: var(--font_color) 
+  color: var(--font_color);
 }
 
 .navbar-miettes:hover {
@@ -771,4 +768,14 @@ background: linear-gradient(
 
 .closebtn {
   display: none;
+}
+
+.disable-else {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
 }

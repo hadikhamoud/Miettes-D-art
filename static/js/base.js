@@ -1,10 +1,13 @@
 function openNav() {
-  document
-    .getElementById("mobile-navbar")
-    .setAttribute(
-      "style",
-      "width:60%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);"
-    );
+  var navbar = document.getElementById("mobile-navbar");
+  navbar.setAttribute(
+    "style",
+    "width:60%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);"
+  );
+
+  // var disable = document.getElementById("disable-else-nav");
+  // disable.style.display = "block";
+
   // document.getElementsByTagName("BODY")[0].setAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
 }
 
@@ -13,6 +16,8 @@ function closeNav() {
   document
     .getElementById("mobile-navbar")
     .removeAttribute("style", "box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
+  // var disable = document.getElementById("disable-else-nav");
+  // disable.style.display = "none";
 
   // document.getElementsByTagName("BODY")[0].removeAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
 }
@@ -34,6 +39,9 @@ function openCart() {
         "width:80%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);"
       );
   }
+  // var disable = document.getElementById("disable-else-cart");
+  // disable.style.display = "block";
+
   // document.getElementById("shopping-cart").setAttribute("style", ");
   // document.getElementsByTagName("BODY")[0].setAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
 }
@@ -43,6 +51,9 @@ function closeCart() {
     .getElementById("shopping-cart")
     .removeAttribute("style", "box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);");
   document.getElementById("shopping-cart").setAttribute("style", "width:0;");
+  // var disable = document.getElementById("disable-else-nav");
+  // disable.style.display = "none";
+
   // document.getElementsByTagName("BODY")[0].removeAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
 }
 
@@ -70,22 +81,28 @@ function reveal() {
   }
 }
 
-['click','ontouchstart'].forEach(function(event) {
-  element.addEventListener(event,function(){
-  var sidebar = document.getElementById("mobile-navbar");
-  var sidebarPos = sidebar.getBoundingClientRect();
-  var cart = document.getElementById("shopping-cart");
-  var cartPos = cart.getBoundingClientRect();
+function handleSideBars(target) {}
 
-  if (cartPos.width > 0 && !cart.contains(event.target)) {
-    closeCart();
-  }
+["click", "ontouchstart"].forEach(function (event) {
+  window.addEventListener(
+    event,
+    function (ev) {
+      var sidebar = document.getElementById("mobile-navbar");
+      var sidebarPos = sidebar.getBoundingClientRect();
+      var cart = document.getElementById("shopping-cart");
+      var cartPos = cart.getBoundingClientRect();
 
-  if (sidebarPos.width > 0 && !sidebar.contains(event.target)) {
-    closeNav();
-  }
-}
-)});
+      if (cartPos.width > 0 && !cart.contains(ev.target)) {
+        closeCart();
+      }
+
+      if (sidebarPos.width > 0 && !sidebar.contains(ev.target)) {
+        closeNav();
+      }
+    },
+    false
+  );
+});
 
 function checkTyping() {
   var input = document.getElementById("searchright");
