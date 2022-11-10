@@ -224,12 +224,13 @@ def viewproduct_view(request, SKU):
         Color_choice = request.POST.getlist("color")[0]
         Size_choice = request.POST.getlist("size")[0]
 
-        try:
-            customer = request.user.customer
-        except:
-            Device = request.session.session_key
-            customer, created = models.Customer.objects.get_or_create(
+    
+           
+   
+        Device = request.session.session_key
+        customer, created = models.Customer.objects.get_or_create(
                 Device=Device)
+     
 
         order, created = models.Order.objects.get_or_create(
             Customer=customer, Ordered=False)
@@ -251,12 +252,10 @@ def viewproduct_view(request, SKU):
 def cart_view(request):
     sent = False
 
-    try:
-        customer = request.user.Customer
-    except:
-        Device = request.session.session_key
-        customer, created = models.Customer.objects.get_or_create(
+    Device = request.session.session_key
+    customer, created = models.Customer.objects.get_or_create(
             Device=Device)
+       
     order, created = models.Order.objects.get_or_create(
         Customer=customer, Ordered=False)
     orderitems = models.OrderItem.objects.filter(Order=order.pk)
@@ -293,12 +292,13 @@ def clearcart_view(request):
 
 
 def checkout_view(request):
-    try:
-        customer = request.user.Customer
-    except:
-        Device = request.session.session_key
-        customer, created = models.Customer.objects.get_or_create(
+
+      
+ 
+    Device = request.session.session_key
+    customer, created = models.Customer.objects.get_or_create(
             Device=Device)
+    
     
     order, created = models.Order.objects.get_or_create(
         Customer=customer, Ordered=False)

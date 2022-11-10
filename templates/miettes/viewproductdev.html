@@ -35,6 +35,13 @@
         {% endfor %}
       </ul>
       <ul class="slides">
+        {% for element in Pictures %}
+        <li id="slide{{ forloop.counter }}">
+          <div class="anim_gradient">
+            <img src="/{{ element.picture }}" class="product_image" alt=" " />
+          </div>
+        </li>
+        {% endfor %}
         <li id="slide0">
           <div class="anim_gradient">
             <img
@@ -44,13 +51,6 @@
             />
           </div>
         </li>
-        {% for element in Pictures %}
-        <li id="slide{{ forloop.counter }}">
-          <div class="anim_gradient">
-            <img src="/{{ element.picture }}" class="product_image" alt=" " />
-          </div>
-        </li>
-        {% endfor %}
       </ul>
     </div>
 
