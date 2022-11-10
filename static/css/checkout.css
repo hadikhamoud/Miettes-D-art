@@ -5,7 +5,7 @@
 
 .checkoutHandling {
   width: 70%;
-  background-color: var(--checkout_bg_color);
+  /* background-color: var(--checkout_bg_color); */
   padding-left: 10%;
   padding-right: 10%;
 }
@@ -54,7 +54,7 @@
 
 .checkoutCartItem-sizeAndColor {
   position: absolute;
-  top: 35%;
+  top: 50%;
   margin: 0;
   left: 20%;
   right: 0;
@@ -88,10 +88,11 @@
 }
 
 .input-container {
-  border: solid 1px #ccc;
+  border: solid 1px var(--lighter_accent_color);
   position: relative;
   font-family: var(--other_font);
   margin-bottom: 20px;
+  border-radius: 5px;
 }
 .input-container input,
 .input-container select {
@@ -110,6 +111,10 @@
   padding-left: 5px;
   padding-top: 14px;
 }
+
+.input-container label {
+  color: var(--lighter_accent_color);
+}
 label {
   white-space: nowrap;
   font-size: 16px;
@@ -122,9 +127,9 @@ label {
   transform: translate(0, 4px) scale(0.75);
 }
 
-.inputLabel {
+/* .inputLabel {
   opacity: 0.5;
-}
+} */
 
 .fullName {
   display: flex;
@@ -152,7 +157,7 @@ label {
     display: block;
   }
   .checkoutPage {
-    background-color: var(--checkout_bg_color);
+    /* background-color: var(--checkout_bg_color); */
     flex-direction: column-reverse;
   }
   .checkoutHandling {
@@ -168,9 +173,6 @@ label {
   }
   #checkout-cart {
     display: none;
-  }
-  body {
-    background-color: var(--checkout_bg_color);
   }
 
   .checkoutCartItem-price {
@@ -190,6 +192,9 @@ label {
   flex-direction: column;
 }
 
+.review-order-title {
+  font-family: var(--title_font);
+}
 .review-area {
   background-color: white;
   width: 100%;
@@ -218,7 +223,7 @@ label {
   flex-direction: row;
 }
 
-.cartItem-row {
+.cartItem-row div {
   opacity: 1;
 }
 
@@ -243,9 +248,7 @@ label {
 #changeBtn {
   text-align: end;
   margin-top: 20px;
-  background: white;
-  color: inherit;
-  border: 1px solid var(--font_color);
+  /* border: 1px solid var(--font_color); */
   padding: 10px;
   font: inherit;
   cursor: pointer;
@@ -253,6 +256,8 @@ label {
   border-radius: 5px;
   margin-bottom: 40px;
   margin-top: 0;
+  background-color: var(--lighter_accent_color);
+  color: white;
 }
 
 #changeBtn {
@@ -269,8 +274,8 @@ label {
 }
 
 .accordionDetails {
-  background-color: #eee;
-  color: black;
+  background-color: var(--lighter_accent_color);
+  color: white;
   cursor: pointer;
   padding: 18px 10% 18px 10%;
   width: 100%;
@@ -279,16 +284,11 @@ label {
   outline: none;
   font-size: 15px;
   transition: 0.4s;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  /* border-bottom: 1px solid black;
+  border-top: 1px solid black; */
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.activate,
-.accordionDetails:hover {
-  background-color: #ccc;
 }
 
 .accordionDescription {
@@ -304,6 +304,7 @@ label {
 
 .summary-label {
   width: 100%;
+  font-size: 19px;
 }
 .summary-label:after {
   content: "  \25BC";
@@ -322,7 +323,7 @@ label {
 
 .total-value {
   font-size: 30px;
-  font-weight: bold;
+  /* font-weight: bold; */
   opacity: 1;
 }
 
@@ -340,4 +341,8 @@ address {
 .cost-value {
   opacity: 1;
   color: var(--font_color);
+}
+
+.h2-infoLabel {
+  font-family: var(--title_font);
 }

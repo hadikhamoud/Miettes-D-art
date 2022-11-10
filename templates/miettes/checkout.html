@@ -6,7 +6,7 @@
 <form method="POST">
   {% csrf_token %}
   <div class="contact-info">
-    <h2>Contact Information</h2>
+    <h2 class="h2-infoLabel">Contact Information</h2>
 
     <div class="input-container">
       <label for="email" class="inputLabel"> Email</label>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="shipping-info">
-    <h2>Shipping Information</h2>
+    <h2 class="h2-infoLabel">Shipping Information</h2>
 
     {% for field in form %}
 

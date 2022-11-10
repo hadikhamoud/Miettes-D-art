@@ -130,7 +130,10 @@ class SessionAdmin(admin.ModelAdmin):
     list_display = ['session_key', '_session_data', 'expire_date']
 
 
-
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    list_display=('Name', )
+    search_fields = ['Name']
 
 
 
@@ -177,6 +180,7 @@ class CountryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Customer,CustomerAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(OrderItem,OrderItemAdmin)

@@ -10,15 +10,11 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 
 from django.template import RequestContext
+from django.db.models import Avg, Case, F, FloatField, Value, When
+from django_countries import countries
 
-
-# from django.http import HttpResponseRedirect
-# from django.contrib.auth.models import Group
-# from django.contrib import auth
-# from django.contrib.auth.decorators import login_required, user_passes_test
-# from django.conf import settings
-# from django.contrib.gis.geoip2 import GeoIP2
-# from django.utils.html import strip_tags
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 from django.core.mail import send_mail
@@ -30,31 +26,31 @@ from django.http import HttpResponseRedirect
 from bs4 import BeautifulSoup as bsoup
 # Create your views here.
 
-def mainScraper():
-    productsDir = os.listdir("/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages")
-    for i in range(len(productsDir)):
-        print("heree")
-        try:
-            with open(os.path.join("/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages",productsDir[i]), 'r') as f:
-        # with open(dir, 'r') as f:
+# def mainScraper():
+#     productsDir = os.listdir("/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages")
+#     for i in range(len(productsDir)):
+#         print("heree")
+#         try:
+#             with open(os.path.join("/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages",productsDir[i]), 'r') as f:
+#         # with open(dir, 'r') as f:
             
-                contents = f.read()
+#                 contents = f.read()
 
-                reader = bsoup(contents,"lxml")
+#                 reader = bsoup(contents,"lxml")
                 
-                # print(extract_images(reader))
-                # print(extract_title(reader))
-                # print(extract_category(reader))
-                # print(extract_price(reader))
-                # print(extract_status(reader))
-                # print(extract_SKU(reader))
-                # print(extract_description(reader))
+#                 # print(extract_images(reader))
+#                 # print(extract_title(reader))
+#                 # print(extract_category(reader))
+#                 # print(extract_price(reader))
+#                 # print(extract_status(reader))
+#                 # print(extract_SKU(reader))
+#                 # print(extract_description(reader))
 
-                models.Product.objects.create(SKU = extract_SKU(reader), Name = extract_title(reader), Description = extract_description(reader), Category = extract_category(reader), Price = extract_price(reader), Status = extract_status(reader),Image="static/images/discover.jpeg")
-                print("here")
+#                 models.Product.objects.create(SKU = extract_SKU(reader), Name = extract_title(reader), Description = extract_description(reader), Category = extract_category(reader), Price = extract_price(reader), Status = extract_status(reader),Image="static/images/discover.jpeg")
+#                 print("here")
         
-        except Exception as e:
-            print(e)
+#         except Exception as e:
+#             print(e)
 
 
 
@@ -76,6 +72,29 @@ def aboutus_view(request):
     return render(request, 'miettes/aboutus.html')
 
 
+def faq_view(request):
+    form = forms.CountryForm(initial={'Country': "LB"})
+    Zone = models.Country.objects.get(Country="Lebanon")
+    response = f'Shipping Cost: {Zone.Zone.Cost}' 
+    if request.method == 'POST':
+
+        form = forms.CountryForm(request.POST)
+        if form.is_valid():
+      
+        
+            country = dict(countries)[form.cleaned_data['Country']]
+      
+            Zone = models.Country.objects.filter(Country=country)
+            if Zone:
+
+                response = f'Shipping Cost: {Zone[0].Zone.Cost}'
+            else:
+                response = "Sorry, we don't ship to your country yet"
+
+            return JsonResponse({"Zone":response}) 
+            
+    return render(request, 'miettes/faq.html', {'form': form, "Zone": response})
+
 def contactus_view(request):
     if request.method == 'POST':
         email = request.POST.get("email")
@@ -83,16 +102,16 @@ def contactus_view(request):
         content = request.POST.get("content")
         contact = models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
         send_html_mail(subject= "we have received your complaint", html_content="<h1> we love you<h1>",recipient_list=[email],sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
-        return render(request, 'miettes/contactus.html',{"sent": True})
+        return render(request, 'miettes/contactus.html',{"sentComplaint": True})
 
     return render(request, 'miettes/contactus.html')
 
 
-# def clean_filters(filters):
-#     filters = {k: v for k, v in filters.items() if v}
-#     return filters
-
 def products_view(request):
+
+    categories = models.Category.objects.all()
+
+    #TODO: work on Colors
 
     GET_params = request.GET.copy()
 
@@ -109,7 +128,7 @@ def products_view(request):
     results = models.Product.objects.filter(Status="active")
     results = results.order_by("Status")
     if GET_params.get("Category"):
-        results = results.filter(Category=GET_params.get("Category"))
+        results = results.filter(Category__Name=GET_params.get("Category"))
     if GET_params.get("Color"):
         results = results.filter(Color__contains=[GET_params.get("Color")])
     if GET_params.get("sort_by"):
@@ -122,39 +141,46 @@ def products_view(request):
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'miettes/productsdev.html', {'page_obj': page_obj,"GET_params":GET_params})
+    return render(request, 'miettes/productsdev.html', {'page_obj': page_obj,"GET_params":GET_params, "categories":categories})
 
 
 
 
-   #_______________________________________For Searching____________________________ 
-# def searchbooksadmin(request):
-#     #get the search input as POST
-
-#         #search by book name
- 
-#         Books = models.Book.objects.filter(name__contains = searched).filter(Active =True)
-#         try:
-#             #search by isbn, ignore query if input is not int
-#             Booksbyisbn = models.Book.objects.filter(isbn__contains = int(searched)).filter(Active =True)
-#             print(Booksbyisbn)
-#         except:
-#             Booksbyisbn = models.Book.objects.none()
-#         #merge both queries
-#         Books = list(chain(Books,Booksbyisbn))
-#         print("books",Books)
-#         return render(request, 'library/searchbooksadmin.html',{'books':Books})
-
-#_______________________________________For Searching____________________________
 
 
+def initial_query(queryInput):
+    return Q(Name__icontains=queryInput)|Q(SKU=queryInput)|Q(Description__icontains=queryInput)|Q(Category__icontains=queryInput)
+
+
+def query(inpt):
+    return models.Product.objects.annotate(
+        k1=Case(
+            When(Name__icontains=inpt, then=Value(2.0)),
+            default=Value(0.0),
+            output_field=FloatField(),
+        ),
+        k2=Case(
+            When(SKU=inpt, then=Value(10.0)),
+            default=Value(0.0),
+            output_field=FloatField(),
+        ),
+        k3=Case(
+            When(Description__icontains=inpt, then=Value(1.0)),
+            default=Value(0.0),
+            output_field=FloatField(),
+        ),
+        k4=Case(
+            When(Category__Name__contains=inpt, then=Value(1.0)),
+            default=Value(0.0),
+            output_field=FloatField(),
+        ),
+        rank=F("k1") + F("k2") + F("k3") + F("k4"),
+    ).order_by("-rank").exclude(rank=0.0)
 
 
 def search_view(request):
     queryInput = request.GET.get("q").strip().strip(punctuation)
-    print(queryInput)
-    fullQuery = Q(Name__icontains=queryInput)|Q(SKU=queryInput)|Q(Description__icontains=queryInput)|Q(Category__icontains=queryInput)
-    results = models.Product.objects.filter(fullQuery).filter(Status="active")
+    results = query(queryInput)
         
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
@@ -180,7 +206,8 @@ def collection_view(request, Title_en):
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number) 
-    return render(request, 'miettes/collections.html', {'page_obj': page_obj})
+    return render(request, 'miettes/collections.html', {'page_obj': page_obj, "collection":collection})
+
 
 
 
@@ -222,6 +249,8 @@ def viewproduct_view(request, SKU):
 
 
 def cart_view(request):
+    sent = False
+
     try:
         customer = request.user.Customer
     except:
@@ -233,10 +262,19 @@ def cart_view(request):
     orderitems = models.OrderItem.objects.filter(Order=order.pk)
     total, numberofitems = get_total_and_items(orderitems)
     if request.method == 'POST':
-        Name = request.POST.get('number')
+        if request.POST.get("contact[email]"):
+            sent = True
+            email = request.POST.get("contact[email]")
+            
 
-    return {'Order': orderitems, "total": total, "numberofitems": numberofitems,"numOfItems":len(orderitems)}
 
+    return {'Order': orderitems, "total": total, "numberofitems": numberofitems,"numOfItems":len(orderitems),"sent":sent}
+
+
+def navbar_view(request):
+    categories = models.Category.objects.all()
+    collections = models.Collection.objects.all()
+    return {'categories': categories, 'collections': collections}
 
 def removeitem_view(request, orderItemID):
     orderItem = models.OrderItem.objects.get(id=int(orderItemID))
@@ -283,7 +321,7 @@ def checkout_view(request):
         Last_name = request.POST.get("lname")
         Email = request.POST.get("email")
         customer.First_name = First_name 
-        customer.Last_name = Last_names
+        customer.Last_name = Last_name
         customer.Email = Email
         
         if form.is_valid():
@@ -302,8 +340,7 @@ def checkout_view(request):
 
 def get_shipping_cost(order):
     country = order.Shipping_address.Country.name
-    # if country=="Lebanon":
-    #     return 
+
     countryZone = models.Country.objects.get(Country = country)
     return countryZone.Zone
 
@@ -349,18 +386,6 @@ def payment_view(request):
     return render(request,"miettes/payment.html",{'Customer':customer,"Address":order.Shipping_address,"Zone":shippingZone,"subtotal":subtotal,"total":shippingZone.Cost+subtotal})
     
 
-# def thankyou_view(request):
-#     try:
-#         customer = request.user.Customer
-#     except:
-#         Device = request.session.session_key
-#         customer, created = models.Customer.objects.get_or_create(
-#             Device=Device)
-    
-#     order, created = models.Order.objects.get_or_create(
-#         Customer=customer, Ordered=False)
-#     return render(request, 'miettes/thankyou.html',{"orderNumber":order.Ref_code})
-
 
 def addproduct_view(request):
     form = forms.ProductForm()
@@ -372,6 +397,8 @@ def addproduct_view(request):
 
 def orderemail_view(request):
     return render(request, 'miettes/orderemail.html')
+
+
 
 
 

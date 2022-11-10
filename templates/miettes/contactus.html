@@ -1,77 +1,88 @@
 <!DOCTYPE html>
-{%extends 'miettes/basedev.html'%}
-{%block content%}
-{% load static %}
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" type="text/css" href="{% static 'css/contactus.css' %} ">
+{%extends 'miettes/basedev.html'%} {%block content%} {% load static %}
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/contactus.css' %} "
+/>
 
-
-<div style="text-align:center">
-    <h2>Contact Us</h2>
-    <p>
-        Leave us a message:</p>
+<div style="text-align: center">
+  <h1>Contact Us</h1>
+  <p style="font-size: 19px">Leave us a message:</p>
 </div>
 <div class="row">
-    <div class="column">
-        <div class="mySlides fade">
-            <img src="{% static 'images/DSC_0604.jpeg'%}" style="width:100%">
-        </div>
-
-        <div class="mySlides fade">
-            <img src="{% static 'images/discover.jpeg'%}" style="width:100%">
-        </div>
-
-        <div class="mySlides fade">
-            <img src="{% static 'images/DSC_0604.jpeg'%}" style="width:100%">
-        </div>
-
-
-        <div style="text-align:center">
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-        </div>
+  <div class="column">
+    <div class="mySlides fade">
+      <img src="{% static 'images/DSC_0604.jpeg'%}" style="width: 100%" />
     </div>
 
-    <div class="column">
-        <form method='POST'>
-            {%csrf_token%}
-            <label for="fname">Name</label>
-            <input type="text" id="contactUsName" name="name" placeholder="Your name...">
-            <label for="lname">Email</label>
-            <input type="text" id="contactUsEmail" name="email" placeholder="Your email...">
-            <label for="content">Subject</label>
-            <textarea id="contactUsArea" placeholder="Write something.." name="content" style="height:170px"></textarea>
-            <input type="submit" class="contactUsSubmit" value="Submit">
-        </form>
-        {%if sent%}
-            {%include 'miettes/complaintreceived.html'%}
-            {%endif%}
-        </div>
+    <div class="mySlides fade">
+      <img src="{% static 'images/discover.jpeg'%}" style="width: 100%" />
     </div>
 
+    <div class="mySlides fade">
+      <img src="{% static 'images/DSC_0604.jpeg'%}" style="width: 100%" />
+    </div>
 
-    <script>
-        var slideIndex = 0;
-        showSlides();
+    <div style="text-align: center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+  </div>
 
-        function showSlides() {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {
-                slideIndex = 1
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            setTimeout(showSlides, 2000);
-        }
-    </script>
-    {%endblock%}
+  <div class="column">
+    <form method="POST">
+      {%csrf_token%}
+      <label for="fname">Name</label>
+      <input
+        type="text"
+        id="contactUsName"
+        name="name"
+        placeholder="Your name..."
+      />
+      <label for="lname">Email</label>
+      <input
+        type="text"
+        id="contactUsEmail"
+        name="email"
+        placeholder="Your email..."
+      />
+      <label for="content">Subject</label>
+      <textarea
+        id="contactUsArea"
+        placeholder="Write something.."
+        name="content"
+        style="height: 170px"
+      ></textarea>
+      <input type="submit" id="contactUsSubmit" value="Submit" />
+    </form>
+    {%if sentComplaint%} {%include 'miettes/complaintreceived.html'%} {%endif%}
+  </div>
+</div>
+
+<script>
+  var slideIndex = 0;
+  showSlides();
+
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+      slideIndex = 1;
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 2000);
+  }
+</script>
+{%endblock%}

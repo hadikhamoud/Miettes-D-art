@@ -23,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
 
 # Quick-start development settings - unsuitable for production
@@ -79,7 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'MA.views.cart_view'
+                'MA.views.cart_view',
+                'MA.views.navbar_view'
 
             ],
         },
@@ -169,10 +171,20 @@ IMG_DIR = 'static/images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = os.environ.get("EMAIL_HOST")
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
-EMAIL_PORT = 465
+# MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = os.environ.get("EMAIL_HOST")
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+# EMAIL_PORT = 465
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER_NOREPLY") 
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+
+#
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp-mail.outlook.com'
+# EMAIL_HOST_USER = 'gradesoutaub@outlook.com'
+# EMAIL_HOST_PASSWORD = 'Password11@'
+# EMAIL_PORT = 587
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

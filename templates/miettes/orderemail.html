@@ -21,8 +21,14 @@
         margin: 0 auto;
         height: auto;
         text-align: center; /* Add This*/
-        background-color: rgb(246, 246, 246);
+        background-color: #91aabf;
         overflow-x: hidden;
+        color: white;
+        width: 100%;
+      }
+
+      .bottomNav a {
+        color: white;
       }
 
       .imgLogo {
@@ -55,8 +61,14 @@
 
       .productImage {
         max-width: 70%;
-        height: 300px;
+        height: 100px;
         object-fit: cover;
+      }
+      .productImage-table {
+        height: 20vmin;
+
+        object-fit: cover;
+        width: 15vmin;
       }
 
       .productPrice {
@@ -65,12 +77,13 @@
       }
 
       a {
-        color: black;
+        color: white;
         margin-top: 10px;
         margin-bottom: 10px;
       }
 
       .socials {
+        color: white;
         text-align: center;
         text-decoration: none;
       }
@@ -87,7 +100,7 @@
       }
       .total-value {
         font-weight: bold;
-        font-size: 35px;
+        font-size: 23px;
       }
     </style>
   </head>
@@ -95,7 +108,7 @@
     <div class="mainLogo">
       <img
         class="imgLogo"
-        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667720412/Miettes%20D%27art/logo_tosw14_yvvqw2.png"
+        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981271/logo-white_vwrxiv.png"
       />
     </div>
     <div class="orderDetails">
@@ -114,19 +127,27 @@
       </p>
     </div>
     <hr />
-    <div class="products">
-      <h2>Products</h2>
-      {% for item in orderItems %}
 
-      <img class="productImage" src="cid:{{ item.Item.Image }}" />
-      <h3>
-        {{item.Item.Name}}
-        <br />
-        {{item.Color}} - {{item.Size}}
-      </h3>
-      <p class="productPrice">{{item.Item.Price}}</p>
-      {% endfor %}
-    </div>
+    <hr />
+
+    <table style="width: 100%; text-align: center">
+      {% for item in orderItems %}
+      <tr>
+        <td style="text-align: start" rowspan="2">
+          <img class="productImage-table" src="cid:{{ item.Item.Image }}" />
+        </td>
+        <td style="vertical-align: bottom">{{item.Item.Name}}</td>
+
+        <td style="text-align: end; vertical-align: baseline" rowspan="2">
+          {{item.Item.Price}}
+        </td>
+      </tr>
+      <tr>
+        <td>{{item.Color}} - {{item.Size}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+
     <hr />
     <div class="total">
       <div class="value-label">
@@ -145,17 +166,18 @@
     </div>
 
     <div class="bottomNav">
-      <a href="#">privacy policy</a>
+      <!-- <a href="#">privacy policy</a>
       <p>
         <a href="#"> shipping conditions</a>
-      </p>
+      </p> -->
       <p>Follow us:</p>
 
       <div class="socials">
         <a href="#" style="text-decoration: none">
           <img
             class="facebook"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574859/facebook-brands_sxjqdh.png"
+            style="height: 22px"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981399/416-4169142_facebook-logo-facebook-white-icon-png-2018_ucnevx.png"
           />
         </a>
         <a
@@ -165,7 +187,7 @@
         >
           <img
             class="instagram"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574856/instagram-brands_k92vwr.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981619/instagram-white_xajpee.png"
           />
         </a>
       </div>

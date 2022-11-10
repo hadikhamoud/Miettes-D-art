@@ -1,0 +1,13 @@
+<div class="products">
+  <h2>Products</h2>
+  {% for item in orderItems %}
+
+  <img class="productImage" src="cid:{{ item.Item.Image }}" />
+  <h3>
+    {{item.Item.Name}}
+    <br />
+    {{item.Color}} - {{item.Size}}
+  </h3>
+  <p class="productPrice">{{item.Item.Price}}</p>
+  {% endfor %}
+</div>

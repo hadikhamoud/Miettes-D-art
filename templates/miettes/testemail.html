@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <head>
+    <style>
+      body {
+        font-family: "verdana", courier sans-serif;
+        margin: 0;
+      }
+
+      .mainLogo,
+      .bottomNav {
+        position: relative;
+        margin: 0 auto;
+        height: auto;
+        text-align: center; /* Add This*/
+        background-color: #91aabf;
+        overflow-x: hidden;
+        color: white;
+        width: 100%;
+      }
+
+      .bottomNav a {
+        color: white;
+      }
+
+      .imgLogo {
+        margin: 30px 0;
+      }
+      .facebook,
+      .instagram {
+        width: 20px;
+      }
+
+      .orderDetails,
+      .delivery,
+      .products {
+        text-align: center;
+        margin: 130px auto;
+      }
+
+      .bottomNav {
+        text-align: center;
+      }
+
+      hr {
+        border: 0;
+        clear: both;
+        display: block;
+        width: 96%;
+        background-color: rgb(246, 246, 246);
+        height: 3px;
+      }
+
+      .productImage {
+        max-width: 70%;
+        height: 100px;
+        object-fit: cover;
+      }
+      .productImage-table {
+        height: 20vmin;
+
+        object-fit: cover;
+        width: 15vmin;
+      }
+
+      .productPrice {
+        font-size: 30px;
+        margin-top: -10px;
+      }
+
+      a {
+        color: white;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .socials {
+        color: white;
+        text-align: center;
+        text-decoration: none;
+      }
+      .value-label {
+        width: 100%;
+        margin-bottom: 50px;
+      }
+      .value-label div {
+        width: 49%;
+        display: inline-block;
+      }
+      .value {
+        text-align: right;
+      }
+      .total-value {
+        font-weight: bold;
+        font-size: 35px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainLogo">
+      <img
+        class="imgLogo"
+        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981271/logo-white_vwrxiv.png"
+      />
+    </div>
+    <div class="orderDetails">
+      <h2>We received your order</h2>
+      <p>ORDER NO. &nbsp;<strong>IT286511</strong></p>
+      <p>YOU WILL RECEIVE YOUR DELIVERY SOON</p>
+    </div>
+    <hr />
+    <div class="delivery">
+      <h2>Delivery</h2>
+      <p>HOME DELIVERY</p>
+      <p>
+        Abdallah Yafi Rd. Near Evangelical Church<br />
+        Ashrafieh, Lebanon<br />
+        +96170033229
+      </p>
+    </div>
+    <hr />
+    <div class="products">
+      <h2>Products</h2>
+
+      <img
+        class="productImage"
+        src="cid:static/images/E0A3F286-4BEC-494C-BEA5-1B03DAE856B3.jpeg"
+      />
+      <h3>
+        Wanam Spring
+        <br />
+        Silver - S
+      </h3>
+      <p class="productPrice">$43.00</p>
+
+      <img
+        class="productImage"
+        src="cid:static/images/E0A3F286-4BEC-494C-BEA5-1B03DAE856B3.jpeg"
+      />
+      <h3>
+        Wanam Spring
+        <br />
+        Gold - XS
+      </h3>
+      <p class="productPrice">$43.00</p>
+
+      <img
+        class="productImage"
+        src="cid:static/images/E0A3F286-4BEC-494C-BEA5-1B03DAE856B3.jpeg"
+      />
+      <h3>
+        Wanam Spring
+        <br />
+        Silver - XL
+      </h3>
+      <p class="productPrice">$43.00</p>
+    </div>
+    <hr />
+
+    <table style="width: 100%; text-align: center">
+      <tr>
+        <td rowspan="2">
+          <img
+            class="productImage-table"
+            src="cid:static/images/E0A3F286-4BEC-494C-BEA5-1B03DAE856B3.jpeg"
+          />
+        </td>
+        <td>Wanam Spring</td>
+        <td style="text-align: end" rowspan="2">$43.00</td>
+      </tr>
+      <tr>
+        <td>Silver - S</td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">
+          <img
+            class="productImage-table"
+            src="cid:static/images/E0A3F286-4BEC-494C-BEA5-1B03DAE856B3.jpeg"
+          />
+        </td>
+        <td>Wanam Spring</td>
+        <td style="text-align: end" rowspan="2">$43.00</td>
+      </tr>
+      <tr>
+        <td>Gold - XS</td>
+      </tr>
+
+      <tr>
+        <td rowspan="2">
+          <img
+            class="productImage-table"
+            src="cid:static/images/E0A3F286-4BEC-494C-BEA5-1B03DAE856B3.jpeg"
+          />
+        </td>
+        <td>Wanam Spring</td>
+        <td style="text-align: end" rowspan="2">$43.00</td>
+      </tr>
+      <tr>
+        <td>Silver - XL</td>
+      </tr>
+    </table>
+
+    <hr />
+    <div class="total">
+      <div class="value-label">
+        <div class="label">Subtotal</div>
+        <div class="value"><span>$129.00</span></div>
+      </div>
+      <div class="value-label">
+        <div class="label">Shipping</div>
+        <div class="value"><span>$10.00</span></div>
+      </div>
+      <hr />
+      <div class="value-label">
+        <div class="label">Total</div>
+        <div class="value"><span class="total-value">$139.00</span></div>
+      </div>
+    </div>
+
+    <div class="bottomNav">
+      <p>Follow us:</p>
+
+      <div class="socials">
+        <a href="#" style="text-decoration: none">
+          <img
+            class="facebook"
+            style="height: 22px"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981399/416-4169142_facebook-logo-facebook-white-icon-png-2018_ucnevx.png"
+          />
+        </a>
+        <a
+          href="https://www.instagram.com/miettesdart/?hl=en"
+          class="instagram"
+          style="text-decoration: none"
+        >
+          <img
+            class="instagram"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981619/instagram-white_xajpee.png"
+          />
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

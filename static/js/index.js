@@ -26,9 +26,11 @@ function changeNavBarColor() {
   if (topper > 200) {
     navbar.setAttribute("style", "background-color: white;");
     v.style.setProperty("--color_fill", "#444c57");
+    v.style.setProperty("--second_color_fill", "#91aabf");
   } else {
     navbar.removeAttribute("style", "background-color: white;");
     v.style.setProperty("--color_fill", "white");
+    v.style.setProperty("--second_color_fill", "white");
   }
 }
 addEventListener("scroll", (event) => {
@@ -38,3 +40,17 @@ window.addEventListener("scroll", reveal);
 changeNavBarColor();
 window.addEventListener("scroll", reveal);
 reveal();
+
+function openForm() {
+  document.getElementById("newsletter-Form").style.display = "flex";
+}
+
+function closeForm() {
+  document.getElementById("newsletter-Form").style.display = "none";
+}
+
+function delayOpenForm() {
+  setTimeout(openForm, 5000);
+}
+
+window.addEventListener("load", delayOpenForm);

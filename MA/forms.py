@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.models import User
 from . import models
 from django.forms.widgets import TextInput
+from django_countries.fields import CountryField
+
 
 
 class ProductForm(forms.ModelForm):
@@ -19,6 +21,13 @@ class AddressForm(forms.ModelForm):
         model = models.Address
         exclude=['Customer','Apartment_address','Default']
 
+
+class CountryForm(forms.ModelForm):
+    class Meta:
+        model = models.Address
+        fields = ['Country']
+    
+#
     
 class CollectionForm(forms.ModelForm):
     class Meta:

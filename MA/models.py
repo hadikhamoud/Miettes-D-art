@@ -30,10 +30,10 @@ def ConvertCheck():
 
 class Product(models.Model):
     catchoice= [
-        ('earrings', 'earrings'),
-        ('objet dart', "objet d'art"),
-        ('rings', 'rings'),
-        ('necklaces', 'necklaces'),
+        ('earrings', 'Earrings'),
+        ('objet dart', "Objet d'art"),
+        ('rings', 'Rings'),
+        ('necklaces', 'Necklaces'),
         ]
     statuschoice= [
         ('active', 'Active'),
@@ -63,7 +63,7 @@ class Product(models.Model):
     ColorHex = ArrayField(models.CharField(max_length=30,null=True,blank=True),null = True, blank=True,default = get_default_color)
     Description = models.TextField(max_length=400,null = True, blank=True)
     Price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
-    Category = models.CharField(max_length=30,choices=catchoice,default='earrings',null = True, blank=True)
+    Category = models.ForeignKey("Category",null = True, blank=True, on_delete=models.SET_NULL)
     Status = models.CharField(max_length=30,choices=statuschoice,default='active',null = True, blank=True)
     Optional = models.CharField(max_length=30,choices=optionalchoice,default='new arrivals',null = True, blank=True)
     Discover = models.ForeignKey('Discover',on_delete=models.CASCADE,null = True, blank = True)
@@ -259,7 +259,7 @@ class Address(models.Model):
     Default = models.BooleanField(default=False,null = True, blank = True)
 
     def __str__(self):
-        return self.Street_address+ '\n' +self.Zip + '\n' + str(self.Country) + '\n' + 'Phone Number: ' + str(self.Phone_number)
+        return self.Street_address+ '\n' +self.Zip + '\n' + str(self.City)+', '+str(self.Country.name) + '\n' + 'Phone Number: ' + str(self.Phone_number)
 
     class Meta:
         verbose_name_plural = 'Addresses'
@@ -314,10 +314,26 @@ class Country(models.Model):
     def __str__(self):
         return str(self.Country)
 
+class Category(models.Model):
+    Name = models.CharField(max_length=120,null=True,blank=True)
+    Display_name = models.CharField(max_length=120,null=True,blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.Display_name:
+            self.Display_name = self.Name
+        super(Category, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.Name)
+
+    
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 class Newsletter(models.Model):
-    Email = models.EmailField(max_length=254,null=True, blank=True)
+    Email = models.EmailField(max_length=254,null=True, blank=True,unique=True)
     Name = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):

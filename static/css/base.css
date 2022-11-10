@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: "latoLight";
   src: local("latoLight"),
     url("../fonts/lato/Lato-Light.ttf") format("truetype");
@@ -19,8 +19,11 @@
   src: local("garamondco"),
     url("../fonts/Cormorant_Garamond/CormorantGaramond-Light.ttf")
       format("truetype");
-}
-@font-face {
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Philosopher&display=swap");
+/* @font-face {
   font-family: "philosopher";
   src: local("philosopher"),
     url("../fonts/Philosopher/Philosopher-Regular.ttf") format("truetype");
@@ -33,7 +36,7 @@
 @font-face {
   font-family: "latoRegular";
   src: local("lato"), url("../fonts/lato/Lato-Regular.ttf") format("truetype");
-}
+} */
 
 * {
   box-sizing: border-box;
@@ -45,11 +48,14 @@
 
 :root {
   --color_fill: var(--font_color);
-  --title_font: philosopher;
-  --other_font: garamondco;
+  --title_font: "Philosopher", sans-serif;
+  --other_font: "Cormorant Garamond", sans-serif;
+  --second_color_fill: #91aabf;
   --bg_color: #edeae0;
   --font_color: #444c57;
   --checkout_bg_color: #cdd2ca;
+  --lighter_accent_color: #91aabf;
+  --darker_accent_color: #2d3e50;
 }
 
 html,
@@ -173,7 +179,7 @@ input[type="reset"] {
   max-width: 300px;
   padding: 0;
   width: 0;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 #cartButton {
@@ -231,7 +237,7 @@ input[type="reset"] {
   left: 0;
   background-color: #ffff;
   overflow-x: hidden;
-  transition: width 0.5s;
+  transition: width 0.2s;
   padding-top: 60px;
 }
 
@@ -285,6 +291,18 @@ input[type="checkbox"] {
 }
 
 #list-item-2:checked ~ ul {
+  height: 100%;
+  transform-origin: top;
+  transition: transform 0.2s ease-out;
+  transform: scaleY(1);
+}
+
+#list-item-3 ~ ul {
+  height: 0;
+  transform: scaleY(0);
+}
+
+#list-item-3:checked ~ ul {
   height: 100%;
   transform-origin: top;
   transition: transform 0.2s ease-out;
@@ -383,7 +401,8 @@ input[type="search"] {
 }
 
 .shoppingCartItem-sizeAndColor {
-  opacity: 0.5;
+  color: var(--lighter_accent_color);
+  opacity: 1;
   position: absolute;
   top: 20%;
   left: 50%;
@@ -418,10 +437,10 @@ input[type="search"] {
   align-items: center;
   margin-left: 10%;
   margin-right: 10%;
-  font-size: min(2vw, 20px);
+  font-size: xmax(2vw, 20px);
   font-weight: 900;
   min-height: 30px;
-  background-color: black;
+  background-color: var(--lighter_accent_color);
   color: white;
   font-family: var(--other_font);
   border-radius: 6px;
@@ -458,7 +477,7 @@ input[type="search"] {
   justify-content: center;
   align-items: center;
   justify-items: center;
-  color: var(--font_color);
+  color: var(--lighter_accent_color);
 }
 .shoppingCart-Title {
   font-family: var(--other_font);
@@ -511,13 +530,19 @@ input[type="search"] {
   bottom: 0;
   background: linear-gradient(
     90deg,
-    hsl(0deg 0% 89%) 0%,
-    hsla(30, 82%, 91%, 1) 100%
+    white 0%,
+    var(--lighter_accent_color) 100%
   );
   background-size: 400% 400%;
   animation: gradient 1s ease infinite;
   z-index: 1;
 }
+/* 
+background: linear-gradient(
+  90deg,
+  hsl(0deg 0% 89%) 0%,
+  hsla(30, 82%, 91%, 1) 100%
+); */
 
 .loaded::after {
   display: none;
@@ -543,6 +568,7 @@ input[type="search"] {
   width: 22px;
   height: 22px;
   margin-top: 0;
+  fill: var(--lighter_accent_color);
 }
 .socials {
   margin-top: 30px;
@@ -559,7 +585,7 @@ input[type="search"] {
 
 .socials-icons li {
   display: inline-block;
-  border: 2px solid var(--font_color);
+  border: 2px solid var(--lighter_accent_color);
   margin: 5px 5px 0;
   border-radius: 100%;
   padding: 15px;
@@ -576,15 +602,11 @@ input[type="search"] {
   padding: 0;
 }
 
-.botnav-links li:first-child {
-  margin-left: 0;
-}
-
-.botnav-links li {
+.botnav-links a li {
   display: inline-block;
   margin-left: 10px;
   list-style: none outside;
-  color: var(--font_color);
+  color: var(--lighter_accent_color) !important;
   vertical-align: middle;
 }
 
@@ -601,11 +623,11 @@ input[type="search"] {
   border: 0;
   height: 40px;
   max-width: 400px;
-  border-bottom: 1px solid var(--font_color);
+  border-bottom: 1px solid var(--lighter_accent_color);
   padding: 0 10px;
   margin: 10px 0;
   font-size: 16px;
-  color: var(--font_color);
+  color: var(--lighter_accent_color) !important;
   font-family: var(--other_font);
 }
 
@@ -634,10 +656,17 @@ input[type="search"] {
   fill: currentColor;
 }
 
+.newsletter p,
+.newsletter h2,
+.newsletter input,
+.newsletter input::placeholder {
+  color: var(--lighter_accent_color);
+}
+
 .icon-email {
   fill: none !important;
   stroke-width: 5px;
-  stroke: currentColor !important;
+  stroke: var(--lighter_accent_color) !important;
 }
 
 @media screen and (max-width: 890px) {
@@ -681,6 +710,7 @@ input[type="search"] {
 }
 
 .pagination {
+  color: var(--lighter_accent_color);
   font-family: var(--title_font);
   display: flex;
   justify-content: center;
@@ -703,7 +733,8 @@ input[type="search"] {
 
 .current-page {
   font-size: 40px;
-  opacity: 0.5;
+  /* opacity: 0.5; */
+  color: var(--darker_accent_color);
 }
 
 /* .arrow {

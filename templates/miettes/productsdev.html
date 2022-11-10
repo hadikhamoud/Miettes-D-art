@@ -16,19 +16,9 @@
           <select name="Category" id="Category" onchange="handleFilters()">
             <option value="Category" selected="selected">Category</option>
 
-            <!-- <option value="manual">Featured</option> -->
-
-            <!-- <option value="best-selling">Best selling</option> -->
-
-            <option value="earrings">Earrings</option>
-
-            <option value="necklaces">Necklaces</option>
-
-            <option value="rings">Rings</option>
-
-            <!-- <option value="created-ascending">Date, old to new</option>
-      
-                <option value="created-descending">Date, new to old</option> -->
+            {% for category in categories %}
+            <option value="{{category.Name}}">{{category.Display_name}}</option>
+            {% endfor %}
           </select>
         </div>
       </div>
@@ -38,19 +28,11 @@
           <select name="Color" id="Color" onchange="handleFilters()">
             <option value="Color" selected="selected">Color</option>
 
-            <!-- <option value="manual">Featured</option> -->
-
-            <!-- <option value="best-selling">Best selling</option> -->
-
             <option value="Gold">Gold</option>
 
             <option value="Silver">Silver</option>
 
             <option value="Black">Black</option>
-
-            <!-- <option value="created-ascending">Date, old to new</option>
-    
-              <option value="created-descending">Date, new to old</option> -->
           </select>
         </div>
       </div>
@@ -60,10 +42,6 @@
           <select name="sort_by" id="sort_by" onchange="handleFilters()">
             <option value="Sort" selected="selected">Sort</option>
 
-            <!-- <option value="manual">Featured</option> -->
-
-            <!-- <option value="best-selling">Best selling</option> -->
-
             <option value="title-ascending">Alphabetically, A-Z</option>
 
             <option value="title-descending">Alphabetically, Z-A</option>
@@ -71,10 +49,6 @@
             <option value="price-ascending">Price, low to high</option>
 
             <option value="price-descending">Price, high to low</option>
-
-            <!-- <option value="created-ascending">Date, old to new</option>
-
-          <option value="created-descending">Date, new to old</option> -->
           </select>
         </div>
       </div>
@@ -99,10 +73,6 @@
 <div class="pagination">
   <span class="step-links">
     {% if page_obj.has_previous %}
-    <!-- <a style="margin-right: 15px" href="?page=1&q={{ queryInput }}"
-      >&laquo;</a
-    > -->
-
     <a
       class="arrow"
       style="margin-right: 20px"
@@ -161,12 +131,7 @@
         ></path>
       </svg>
     </a>
-    <!-- <a
-      style="margin-left: 15px"
-      href="?page={{ page_obj.paginator.num_pages }}&q={{ queryInput }}"
-    >
-      &raquo;</a
-    > -->
+
     {% endif %}
   </span>
   {% endif %}

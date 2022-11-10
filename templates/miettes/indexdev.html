@@ -1,16 +1,11 @@
-{% extends 'miettes/basedev.html' %} {% load static %}
-<!-- {% block cont %}
-
-{% endblock %} -->
-
-{% block content %}
+{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} " />
 <div class="preloader" id="pre-loader">
   <div class="preloader-logo">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      fill="black"
+      fill="var(--lighter_accent_color)"
       version="1.0"
       width="200px"
       preserveaspectratio="xMidYMid meet"
@@ -30,8 +25,42 @@
     </svg>
   </div>
 </div>
+{% csrf_token %} {%if not sent%}
+<div class="newsletterForm" id="newsletter-Form">
+  <a href="javascript:void(0)" class="closebtnCart" onclick="closeForm()"
+    >&times;</a
+  >
+  <div class="newsletter" style="margin: auto">
+    <h2>Join our Community!</h2>
+    <p>Stay updated with our latest news, releases and special offers</p>
+    <div class="newsletter-form">
+      <form method="POST">
+        {% csrf_token %}
+        <input
+          type="email"
+          placeholder="Enter your email"
+          name="contact[email]"
+          class="newsletter-input"
+        />
+        <button type="submit" class="newsletter-button">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="icon icon-email"
+            viewBox="0 0 64 64"
+          >
+            <path
+              d="M63 52H1V12h62zM1 12l25.68 24h9.72L63 12M21.82 31.68L1.56 51.16m60.78.78L41.27 31.68"
+            ></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{%else%} {%endif%}
 
-{% csrf_token %}
 <section id="cover-photo">
   <div class="coverPhoto">
     {% if Discover %}
@@ -47,7 +76,7 @@
 </section>
 
 <section title="picks" class="slider-picks">
-  <h1 class="slider-title reveal-vertical">Taymaa and Sarah's Picks</h1>
+  <h1 class="slider-title reveal-vertical">Monthly Picks</h1>
   <div class="scrolling-wrapper reveal-horizontal">
     {% if Picks %} {% for pick in Picks %}
 

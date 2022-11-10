@@ -30,7 +30,7 @@ urlpatterns = [
     path('collections/<str:Title_en>/', views.collection_view, name='collections'),
     path('addproduct', views.addproduct_view, name='addproduct'),
     path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
-    path('cart', views.cart_view, name='cart'),
+    path('faq/', views.faq_view, name='faq'),
     path('checkout', views.checkout_view, name='checkout'),
     path('orderemail', views.orderemail_view, name='orderemail'),
     path('removeitem/<str:orderItemID>',
