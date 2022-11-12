@@ -16,7 +16,7 @@ from django_countries import countries
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-
+from miettes.settings import env
 from django.core.mail import send_mail
 from miettes.settings import EMAIL_HOST_USER
 from .utils import *
@@ -96,7 +96,7 @@ def contactus_view(request):
         name = request.POST.get("name")
         content = request.POST.get("content")
         models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
-        send_html_mail(subject= "we have received your complaint", html_content="<h1> we love you<h1>",recipient_list=[email],sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+        send_html_mail(subject= "we have received your complaint", html_content="<h1> we love you<h1>",recipient_list=[email],sender=env("EMAIL_HOST_USER_NOREPLY"))
         return render(request, 'miettes/contactus.html',{"sentComplaint": True})
     return render(request, 'miettes/contactus.html')
 
@@ -384,7 +384,7 @@ def payment_view(request):
         Images = [image.Item.Image.url for image in orderitems]
      
         send_html_mail(subject=f"Order completed {order.Ref_code}!", html_content=render_to_string(
-            'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'orderItems': orderitems,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"),Images=Images)
+            'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'orderItems': orderitems,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"),Images=Images)
         request.session.flush()
         request.session.cycle_key()
 
