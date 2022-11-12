@@ -41,6 +41,7 @@
         id="contactUsName"
         name="name"
         placeholder="Your name..."
+        required
       />
       <label for="lname">Email</label>
       <input
@@ -48,6 +49,7 @@
         id="contactUsEmail"
         name="email"
         placeholder="Your email..."
+        required
       />
       <label for="content">Subject</label>
       <textarea
@@ -55,8 +57,14 @@
         placeholder="Write something.."
         name="content"
         style="height: 170px"
+        required
       ></textarea>
-      <input type="submit" id="contactUsSubmit" value="Submit" />
+      <input
+        type="submit"
+        name="contactus"
+        id="contactUsSubmit"
+        value="Submit"
+      />
     </form>
     {%if sentComplaint%} {%include 'miettes/complaintreceived.html'%} {%endif%}
   </div>

@@ -15,6 +15,12 @@ addEventListener("click", (event) => {
 var acc = document.getElementsByClassName("accordionDetails");
 var i;
 
+var preloader = document.getElementById("pre-loader");
+function loaderEnd() {
+  preloader.style.display = "none";
+}
+window.addEventListener("load", loaderEnd);
+
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function () {
     this.classList.toggle("activate");

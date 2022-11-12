@@ -60,11 +60,6 @@ def homepage(request):
     Collections = models.Collection.objects.filter(Show = True)
     Discover = models.Discover.objects.get(Active = True)
 
-    if request.method == 'POST':
-        email = request.POST.get("contact[email]")
-        email = models.Newsletter.objects.get_or_create(Email=email)
-        return render(request, 'miettes/indexdev.html', {"Picks": Picks, "Collections": Collections, "Discover": Discover, "sent": True})
-
     return render(request, 'miettes/indexdev.html', {'Picks': Picks, 'Collections':Collections, "Discover":Discover})
 
 
@@ -76,7 +71,7 @@ def faq_view(request):
     form = forms.CountryForm(initial={'Country': "LB"})
     Zone = models.Country.objects.get(Country="Lebanon")
     response = f'Shipping Cost: {Zone.Zone.Cost}' 
-    if request.method == 'POST':
+    if request.method == 'POST' and "country" in request.POST:
 
         form = forms.CountryForm(request.POST)
         if form.is_valid():
@@ -96,16 +91,21 @@ def faq_view(request):
     return render(request, 'miettes/faq.html', {'form': form, "Zone": response})
 
 def contactus_view(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and "contactus" in request.POST:
         email = request.POST.get("email")
         name = request.POST.get("name")
         content = request.POST.get("content")
-        contact = models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
+        models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
         send_html_mail(subject= "we have received your complaint", html_content="<h1> we love you<h1>",recipient_list=[email],sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
         return render(request, 'miettes/contactus.html',{"sentComplaint": True})
-
     return render(request, 'miettes/contactus.html')
 
+# def newsletter_view(request):
+#     if request.method == 'POST':
+#         email = request.POST.get("email")
+#         models.Newsletter.objects.get_or_create(Email = email)
+#         return render(request, 'miettes/newsletter.html',{"sent": True})
+#     return render(request, 'miettes/newsletter.html')
 
 def products_view(request):
 
@@ -220,9 +220,15 @@ def viewproduct_view(request, SKU):
         Pictures = models.Picture.objects.none()
     numOfPictures+=Pictures.count()
 
-    if request.method == "POST":
-        Color_choice = request.POST.getlist("color")[0]
-        Size_choice = request.POST.getlist("size")[0]
+    if request.method == "POST" and "addtocart" in request.POST:
+        Color_choice = ""
+        Size_choice = ""
+        Color_choices = request.POST.getlist("color")
+        if Color_choices:
+            Color_choice = Color_choices[0]
+        Size_choices = request.POST.getlist("size")
+        if Size_choices:
+            Size_choice = Size_choices[0]
 
     
            
@@ -260,10 +266,11 @@ def cart_view(request):
         Customer=customer, Ordered=False)
     orderitems = models.OrderItem.objects.filter(Order=order.pk)
     total, numberofitems = get_total_and_items(orderitems)
-    if request.method == 'POST':
+    if request.method == 'POST' and "contact[email]" in request.POST:
         if request.POST.get("contact[email]"):
             sent = True
             email = request.POST.get("contact[email]")
+            models.Newsletter.objects.create(Email=email)
             
 
 
@@ -272,7 +279,7 @@ def cart_view(request):
 
 def navbar_view(request):
     categories = models.Category.objects.all()
-    collections = models.Collection.objects.all()
+    collections = models.Collection.objects.filter(Show = True)
     return {'categories': categories, 'collections': collections}
 
 def removeitem_view(request, orderItemID):
@@ -387,12 +394,12 @@ def payment_view(request):
     
 
 
-def addproduct_view(request):
-    form = forms.ProductForm()
-    if request.method == 'POST':
-        form = forms.ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            Product = form.save()
+# def addproduct_view(request):
+#     form = forms.ProductForm()
+#     if request.method == 'POST':
+#         form = forms.ProductForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             Product = form.save()
 
 
 def orderemail_view(request):

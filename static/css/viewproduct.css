@@ -186,7 +186,7 @@ ul.slides {
 .product-price {
   font-size: 30px;
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 }
 
 .product-colorTitle,
@@ -320,6 +320,7 @@ label.checkmark {
   /* background-color: #ccc; */
 
 .accordionDescription {
+  text-align: start;
   max-width: 300px;
   word-wrap: break-word;
 }

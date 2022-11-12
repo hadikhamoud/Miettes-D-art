@@ -106,9 +106,10 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class DiscoverAdmin(admin.ModelAdmin):
-    form = forms.DiscoverForm
+    # form = forms.DiscoverForm
     model = Discover
     list_display=('Title', )
+    exclude = ['id']
 
     #inlines = [ProductlInline,]
 
@@ -119,7 +120,7 @@ class ProductAdminInLine(admin.TabularInline):
     readonly_fields = ["Name", "SKU","Description","Size","Color","Price","Category","Status","Optional","Discover","Image","PriceLBP"]
 
 class CollectionAdmin(admin.ModelAdmin):
-    form=forms.CollectionForm
+    # form=forms.CollectionForm
     model = Collection
     list_display=('Title', )
     inlines = (ProductAdminInLine,)

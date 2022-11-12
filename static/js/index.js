@@ -50,7 +50,10 @@ function closeForm() {
 }
 
 function delayOpenForm() {
-  setTimeout(openForm, 5000);
+  if (localStorage.getItem("newsletter") !== "shown") {
+    setTimeout(openForm, 5000);
+    localStorage.setItem("newsletter", "shown");
+  }
 }
 
 window.addEventListener("load", delayOpenForm);

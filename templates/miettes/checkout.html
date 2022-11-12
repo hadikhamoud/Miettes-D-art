@@ -10,18 +10,18 @@
 
     <div class="input-container">
       <label for="email" class="inputLabel"> Email</label>
-      <input type="text" id="email" name="email" />
+      <input type="text" id="email" name="email" required />
     </div>
 
     <div class="fullName">
       <div class="input-container fname">
         <label for="fname" class="inputLabel"> First Name</label>
-        <input type="text" id="fname" name="fname" />
+        <input type="text" id="fname" name="fname" required />
       </div>
 
       <div class="input-container lname">
         <label for="lname" class="inputLabel"> Last Name</label>
-        <input type="text" id="lname" name="lname" />
+        <input type="text" id="lname" name="lname" required />
       </div>
     </div>
   </div>
@@ -34,7 +34,10 @@
       <label for=" {{ field.label }}" class="inputLabel">
         {{ field.label_tag }}</label
       >
-      {{ field }}
+      {%if field.name == "Phone_number" %}
+      <div class="phonenumber-field">{{field}}</div>
+
+      {%else%} {{ field }} {%endif%}
     </div>
 
     {% endfor %}
@@ -43,5 +46,7 @@
   <div class="process-button">
     <input type="submit" value="Process Order" id="processBtn" />
   </div>
-  {% endblock %}
 </form>
+
+<script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

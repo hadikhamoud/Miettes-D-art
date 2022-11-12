@@ -1,4 +1,4 @@
-function openNav() {
+function openNav(event) {
   var navbar = document.getElementById("mobile-navbar");
   navbar.setAttribute(
     "style",
@@ -8,6 +8,11 @@ function openNav() {
   // var disable = document.getElementById("disable-else-nav");
   // disable.style.display = "block";
 
+  document
+    .getElementsByTagName("BODY")[0]
+    .setAttribute("style", "overflow: hidden;");
+
+  return false;
   // document.getElementsByTagName("BODY")[0].setAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
 }
 
@@ -19,7 +24,9 @@ function closeNav() {
   // var disable = document.getElementById("disable-else-nav");
   // disable.style.display = "none";
 
-  // document.getElementsByTagName("BODY")[0].removeAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
+  document
+    .getElementsByTagName("BODY")[0]
+    .removeAttribute("style", "overflow: hidden;");
 }
 
 function openCart() {
@@ -39,6 +46,11 @@ function openCart() {
         "width:80%; box-shadow: 0 0 0 100vmax rgba(0,0,0,.7);"
       );
   }
+
+  document
+    .getElementsByTagName("BODY")[0]
+    .setAttribute("style", "overflow: hidden;");
+
   // var disable = document.getElementById("disable-else-cart");
   // disable.style.display = "block";
 
@@ -53,6 +65,10 @@ function closeCart() {
   document.getElementById("shopping-cart").setAttribute("style", "width:0;");
   // var disable = document.getElementById("disable-else-nav");
   // disable.style.display = "none";
+
+  document
+    .getElementsByTagName("BODY")[0]
+    .removeAttribute("style", "overflow: hidden;");
 
   // document.getElementsByTagName("BODY")[0].removeAttribute("style", "background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));")
 }

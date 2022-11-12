@@ -16,6 +16,8 @@
   min-height: 100vh;
   background-color: white;
   z-index: 3;
+  margin-top: 50px;
+  margin-right: 20px;
 }
 
 .checkout-logo-mobile {
@@ -166,6 +168,7 @@ label {
   .checkoutCart {
     width: 100%;
     min-height: 100%;
+    margin-top: 0;
   }
 
   .checkout-logo {
@@ -307,6 +310,7 @@ label {
   font-size: 19px;
 }
 .summary-label:after {
+  font-size: 10px;
   content: "  \25BC";
 }
 
@@ -345,4 +349,17 @@ address {
 
 .h2-infoLabel {
   font-family: var(--title_font);
+}
+
+.phonenumber-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+}
+
+.phonenumber-field select {
+  padding-right: 0;
+  margin-right: 0;
+  width: 15%;
 }

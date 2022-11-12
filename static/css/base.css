@@ -73,6 +73,7 @@ body {
   /* background-color: var(--bg_color); */
   font-family: var(--other_font);
   color: var(--font_color);
+  height: 100%;
 }
 .cardCollection a {
   color: inherit;
@@ -157,7 +158,7 @@ input[type="reset"] {
   position: relative;
   transform: translateX(150px);
   opacity: 0;
-  transition: 2s all cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: 0.7s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .reveal-horizontal.active {
   transform: translateX(0);
@@ -168,7 +169,7 @@ input[type="reset"] {
   position: relative;
   transform: translateY(150px);
   opacity: 0;
-  transition: 2s all cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: 0.7s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .reveal-vertical.active {
   transform: translateY(0);
@@ -507,7 +508,7 @@ input[type="search"] {
 
 .preloader-logo {
   opacity: 1;
-  animation: fade-in-out 1s ease infinite;
+  animation: fade-in-out 0.7s ease infinite;
 }
 
 @keyframes fade-in-out {
@@ -541,7 +542,7 @@ input[type="search"] {
     var(--lighter_accent_color) 100%
   );
   background-size: 400% 400%;
-  animation: gradient 1s ease infinite;
+  animation: gradient 0.7s ease infinite;
   z-index: 1;
 }
 /* 
@@ -608,6 +609,7 @@ background: linear-gradient(
   text-align: center;
   padding: 0;
   margin-bottom: 100px;
+  padding-bottom: 100px;
 }
 
 .botnav-links a li {
