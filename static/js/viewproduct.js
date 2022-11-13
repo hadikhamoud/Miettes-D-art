@@ -12,7 +12,7 @@ addEventListener("click", (event) => {
   }
 });
 
-var acc = document.getElementsByClassName("accordionDetails");
+// var acc = document.getElementsByClassName("accordionDetails");
 var i;
 
 var preloader = document.getElementById("pre-loader");
@@ -21,16 +21,27 @@ function loaderEnd() {
 }
 window.addEventListener("load", loaderEnd);
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function () {
-    this.classList.toggle("activate");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "flex") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "flex";
-    }
-  });
+// for (i = 0; i < acc.length; i++) {
+//   acc[i].addEventListener("click", function () {
+//     this.classList.toggle("activate");
+//     var panel = this.nextElementSibling;
+//     if (panel.style.display === "flex") {
+//       panel.style.display = "none";
+//     } else {
+//       panel.style.display = "flex";
+//     }
+//   });
+// }
+
+function handleAccordion(event) {
+  const accordion = event.target;
+  const accordionContent = accordion.nextElementSibling;
+  accordion.classList.toggle("activate");
+  if (accordionContent.style.display === "flex") {
+    accordionContent.style.display = "none";
+  } else {
+    accordionContent.style.display = "flex";
+  }
 }
 
 const slider = document.querySelector(".wrapper-container-mobile"),
