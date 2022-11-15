@@ -140,7 +140,9 @@
           Description
         </div>
         <div class="panel" style="display: flex">
-          <p class="accordionDescription">{{ Selectedproduct.Description }}</p>
+          <p class="accordionDescription">
+            {{ Selectedproduct.Description|linebreaks }}
+          </p>
         </div>
 
         <div onclick="handleAccordion(event)" class="accordionDetails">

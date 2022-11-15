@@ -5,6 +5,9 @@
 .faq-container {
   margin-top: 100px;
   font-family: var(--other_font);
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .faq-content {
@@ -14,6 +17,9 @@
   align-items: center;
   width: 100%;
   padding-inline: 20%;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .faq-title {
@@ -33,8 +39,10 @@
   text-align: left;
   outline: none;
   font-size: 14px;
-  transition: 0.4s;
   border-bottom: 1px solid var(--lighter_accent_color);
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 /* .activate,
@@ -46,6 +54,9 @@
   padding-inline: 18px;
   text-align: justify;
   padding-top: 10px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .accordionDescription-faq a {
@@ -73,6 +84,7 @@
   /* padding: 0 18px; */
   display: none;
   background-color: white;
+
   /* overflow: hidden; */
 }
 
@@ -86,6 +98,9 @@ td {
   white-space: nowrap;
   padding: 10px;
   text-align: center;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .sizing-table-row {
@@ -139,4 +154,12 @@ td {
 
 .input-container label {
   color: var(--lighter_accent_color);
+}
+
+.newsletter,
+.socials,
+.links {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }

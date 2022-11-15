@@ -313,6 +313,9 @@ label.checkmark {
   font-size: 15px;
   transition: 0.4s;
   border-bottom: 2px solid var(--lighter_accent_color);
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 /* .activate,
@@ -323,6 +326,9 @@ label.checkmark {
   text-align: start;
   max-width: 300px;
   word-wrap: break-word;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 .accordionDetails:after {
   content: "\002B";
@@ -345,6 +351,9 @@ label.checkmark {
   /* padding: 0 18px; */
   display: none;
   background-color: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
   /* overflow: hidden; */
 }
 
@@ -471,4 +480,12 @@ label.checkmark {
   .slides img {
     max-height: 600px;
   }
+}
+
+.newsletter,
+.socials,
+.links {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
