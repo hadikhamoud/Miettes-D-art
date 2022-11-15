@@ -3,21 +3,46 @@ function loaderEnd() {
   preloader.style.display = "none";
 }
 window.addEventListener("load", loaderEnd);
+var reveals = document.querySelectorAll(
+  ".reveal-horizontal"
+);
+
+console.log(reveals);
+
 function reveal() {
-  var reveals = document.querySelectorAll(
-    ".reveal-horizontal, .reveal-vertical"
-  );
+
   for (var i = 0; i < reveals.length; i++) {
     var windowHeight = window.innerHeight;
     var elementTop = reveals[i].getBoundingClientRect().top;
     var elementVisible = 150;
     if (elementTop < windowHeight - elementVisible) {
       reveals[i].classList.add("active");
-    } else {
-      reveals[i].classList.remove("active");
-    }
+    } 
   }
 }
+
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry)=> {
+    console.log(entry);
+    if (entry.isIntersecting){
+      entry.target.classList.add("activeV");
+    
+    }
+    else{
+      entry.target.classList.remove("activeV");
+    }
+    
+  })
+})
+
+const hiddenElements = document.querySelectorAll('.reveal-vertical');
+hiddenElements.forEach((el)=> observer.observe(el));
+
+
+
+
+
 
 function changeNavBarColor() {
   var topper = window.pageYOffset || document.documentElement.scrollTop;
@@ -33,14 +58,14 @@ function changeNavBarColor() {
     v.style.setProperty("--second_color_fill", "white");
   }
 }
-addEventListener("scroll", (event) => {
+document.addEventListener("scroll", (event) => {
   changeNavBarColor();
 });
-window.addEventListener("scroll", reveal);
+document.addEventListener("scroll", reveal,false);
 changeNavBarColor();
-window.addEventListener("scroll", reveal);
-reveal();
+document.addEventListener("touchmove",reveal,false);
 
+reveal();
 function openForm() {
   document.getElementById("newsletter-Form").style.display = "flex";
 }

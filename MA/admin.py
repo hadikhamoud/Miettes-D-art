@@ -52,7 +52,8 @@ class OrderAdmin(admin.ModelAdmin):
 
     @admin.display(ordering="Customer__Email",description="Email")
     def get_customer_email(self,obj):
-        return obj.Customer.Email
+        if obj.Customer:
+            return obj.Customer.Email
 
 
 

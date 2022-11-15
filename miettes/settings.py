@@ -42,7 +42,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production! 
 DEBUG = True 
 
-ALLOWED_HOSTS = ["13.36.238.105","localhost"]
+
+ALLOWED_HOSTS = ["13.38.163.93"]
 
 
 # Application definition
@@ -53,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+ 'django.contrib.staticfiles',
     'MA',
     'djmoney',
     'phonenumber_field',
@@ -62,6 +63,7 @@ INSTALLED_APPS = [
 
 
 ]
+   
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,7 +119,8 @@ DATABASES = {
 }
 
 
-
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
+FILE_UPLOAD_PERMISSIONS = 0o644
 
 
 # Password validation
@@ -161,13 +164,16 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+# STATIC_ROOT = os.path.join(BASE_DIR,"static")
+
 IMG_DIR = 'static/images'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = "/media/" 
 # MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = env("EMAIL_HOST")
 # EMAIL_USE_TLS = False

@@ -43,7 +43,7 @@
       <ul class="checkoutCart-items">
         {% for Cartitem in Order %}
         <li class="checkoutCartItem">
-          <img class="checkoutCartItem-img" src="/{{ Cartitem.Item.Image }}" />
+          <img class="checkoutCartItem-img" src="/media/{{ Cartitem.Item.Image }}" />
           <h3 class="checkoutCartItem-name">{{ Cartitem.Item.Name }}</h3>
           <p class="checkoutCartItem-sizeAndColor">
             {{ Cartitem.Color }} &nbsp; {{ Cartitem.Size }}
@@ -88,7 +88,7 @@
                 <div class="cost-label">
                   <img
                     class="checkoutCartItem-img"
-                    src="/{{ Cartitem.Item.Image }}"
+                    src="/media/{{ Cartitem.Item.Image }}"
                   />
                   <h3 class="checkoutCartItem-name">
                     {{ Cartitem.Item.Name }}

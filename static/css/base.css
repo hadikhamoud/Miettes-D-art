@@ -154,7 +154,7 @@ input[type="reset"] {
   outline: inherit;
 }
 
-.reveal-horizontal {
+/* .reveal-horizontal {
   position: relative;
   transform: translateX(150px);
   opacity: 0;
@@ -174,7 +174,7 @@ input[type="reset"] {
 .reveal-vertical.active {
   transform: translateY(0);
   opacity: 1;
-}
+} */
 
 /*shopping cart styling */
 
@@ -542,6 +542,7 @@ input[type="search"] {
     var(--lighter_accent_color) 100%
   );
   background-size: 400% 400%;
+  -webkit-animation: gradient 0.7s ease infinite;
   animation: gradient 0.7s ease infinite;
   z-index: 1;
 }

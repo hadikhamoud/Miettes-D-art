@@ -65,7 +65,7 @@
   <div class="coverPhoto">
     {% if Discover %}
 
-    <img src="/{{ Discover.Image }}" class="coverImg" />
+    <img src="/media/{{ Discover.Image }}" class="coverImg" />
     {% else %}
     <img src="{% static 'images/discover.jpeg' %}" class="coverImg" />
   </div>
@@ -84,7 +84,7 @@
       <a href="{% url 'viewproduct' pick.SKU %}">
         <!-- <div class="anim_gradient"></div> -->
         <div class="cardImg anim_gradient">
-          <img src="{{ pick.Image }}" class="cardImg product_image" /></div
+          <img src="/media/{{ pick.Image }}" class="cardImg product_image" /></div
       ></a>
 
       <h2 class="productTitle">{{ pick.Name }}</h2>
@@ -106,7 +106,7 @@
         </div>
         <div class="cardCollectionImg anim_gradient">
           <img
-            src="/{{ collection.Image }}"
+            src="/media/{{ collection.Image }}"
             class="cardCollectionImg product_image"
           /></div
       ></a>

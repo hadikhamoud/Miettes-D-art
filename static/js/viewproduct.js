@@ -44,6 +44,7 @@ function handleAccordion(event) {
   }
 }
 
+
 const slider = document.querySelector(".wrapper-container-mobile"),
   slides = Array.from(document.querySelectorAll(".slide-mobile")),
   dots = Array.from(document.querySelectorAll(".dot"));

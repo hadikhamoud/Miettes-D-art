@@ -155,3 +155,8 @@ images.forEach(function (image) {
     parent.classList.add("loaded");
   }
 });
+
+function onloaded(event){
+  var parent = event.target.parentElement;
+  parent.classList.add("loaded");
+}

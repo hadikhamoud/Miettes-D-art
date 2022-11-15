@@ -60,7 +60,7 @@
     <div class="grid-item grid-medium">
       <a href="{% url 'viewproduct' product.SKU %}">
         <div class="cardImg anim_gradient" data-content>
-          <img src="/{{ product.Image }}" class="cardImg product_image" />
+          <img src="/media/{{ product.Image }}" class="cardImg product_image" onload="onloaded(this)"/>
         </div>
       </a>
       <h1 class="ProductName">{{ product.Name }}</h1>

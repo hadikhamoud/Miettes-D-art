@@ -40,7 +40,7 @@
             <img
               id="0"
               class="product_image"
-              src="/{{ Selectedproduct.Image }}"
+              src="/media/{{ Selectedproduct.Image }}"
             />
           </div>
         </li>
@@ -51,7 +51,7 @@
             <img
               id="{{ forloop.counter }}"
               class="product_image"
-              src="/{{ element.picture }}"
+              src="/media/{{ element.picture }}"
             />
           </div>
         </li>
@@ -61,14 +61,14 @@
         {% for element in Pictures %}
         <li id="slide{{ forloop.counter }}">
           <div class="anim_gradient">
-            <img src="/{{ element.picture }}" class="product_image" alt=" " />
+            <img src="/media/{{ element.picture }}" class="product_image" alt=" " />
           </div>
         </li>
         {% endfor %}
         <li id="slide0">
           <div class="anim_gradient">
             <img
-              src="/{{ Selectedproduct.Image }}"
+              src="/media/{{ Selectedproduct.Image }}"
               class="product_image"
               alt=""
             />
@@ -136,14 +136,14 @@
         </button>
       </form>
       <div class="product-description">
-        <div onclick="handleAccordion(event)" class="accordionDetails activate">
+        <div onmousedown="handleAccordion(event)" class="accordionDetails activate">
           Description
         </div>
         <div class="panel" style="display: flex">
-          <p class="accordionDescription">{{ Selectedproduct.Description }}</p>
+          <p class="accordionDescription">{{ Selectedproduct.Description|linebreaks }}</p>
         </div>
 
-        <div onclick="handleAccordion(event)" class="accordionDetails">
+        <div onmousedown="handleAccordion(event)" class="accordionDetails">
           Section 2
         </div>
         <div class="panel">
@@ -152,7 +152,7 @@
           </p>
         </div>
 
-        <div onclick="handleAccordion(event)" class="accordionDetails">
+        <div onmousedown="handleAccordion(event)" class="accordionDetails">
           Section 3
         </div>
         <div class="panel">
@@ -170,11 +170,11 @@
   <div class="marker-label">
     <div class="wrapper-container-mobile">
       <div class="slide-mobile anim_gradient">
-        <img class="product_image" src="/{{ Selectedproduct.Image }}" />
+        <img class="product_image" src="/media/{{ Selectedproduct.Image }}" />
       </div>
       {% for element in Pictures %}
       <div class="slide-mobile anim_gradient">
-        <img src="/{{ element.picture }}" class="product_image" />
+        <img src="/media/{{ element.picture }}" class="product_image" />
       </div>
       {% endfor %}
     </div>
@@ -243,14 +243,14 @@
       </button>
     </form>
     <div class="product-description">
-      <div onclick="handleAccordion(event)" class="accordionDetails activate">
+      <div onmousedown="handleAccordion(event)" class="accordionDetails activate">
         Description
       </div>
       <div class="panel" style="display: flex">
         <p class="accordionDescription">{{ Selectedproduct.Description }}</p>
       </div>
 
-      <div onclick="handleAccordion(event)" class="accordionDetails">
+      <div onmousedown="handleAccordion(event)" class="accordionDetails">
         Section 2
       </div>
       <div class="panel">
@@ -259,7 +259,7 @@
         </p>
       </div>
 
-      <div onclick="handleAccordion(event)" class="accordionDetails">
+      <div onmousedown="handleAccordion(event)" class="accordionDetails">
         Section 3
       </div>
       <div class="panel">
