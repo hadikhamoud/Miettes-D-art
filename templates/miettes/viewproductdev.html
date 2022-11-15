@@ -40,7 +40,7 @@
             <img
               id="0"
               class="product_image"
-              src="/{{ Selectedproduct.Image }}"
+              src="/media/{{ Selectedproduct.Image }}"
             />
           </div>
         </li>
@@ -51,7 +51,7 @@
             <img
               id="{{ forloop.counter }}"
               class="product_image"
-              src="/{{ element.picture }}"
+              src="/media/{{ element.picture }}"
             />
           </div>
         </li>
@@ -61,14 +61,18 @@
         {% for element in Pictures %}
         <li id="slide{{ forloop.counter }}">
           <div class="anim_gradient">
-            <img src="/{{ element.picture }}" class="product_image" alt=" " />
+            <img
+              src="/media/{{ element.picture }}"
+              class="product_image"
+              alt=" "
+            />
           </div>
         </li>
         {% endfor %}
         <li id="slide0">
           <div class="anim_gradient">
             <img
-              src="/{{ Selectedproduct.Image }}"
+              src="/media/{{ Selectedproduct.Image }}"
               class="product_image"
               alt=""
             />
@@ -172,7 +176,7 @@
   <div class="marker-label">
     <div class="wrapper-container-mobile">
       <div class="slide-mobile anim_gradient">
-        <img class="product_image" src="/{{ Selectedproduct.Image }}" />
+        <img class="product_image" src="/media/{{ Selectedproduct.Image }}" />
       </div>
       {% for element in Pictures %}
       <div class="slide-mobile anim_gradient">

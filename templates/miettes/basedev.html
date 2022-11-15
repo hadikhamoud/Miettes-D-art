@@ -151,7 +151,10 @@
           {{ Cartitem.Color }} &nbsp; {{ Cartitem.Size }}
         </p>
 
-        <img class="shoppingCartItem-img" src="/{{ Cartitem.Item.Image }}" />
+        <img
+          class="shoppingCartItem-img"
+          src="/media/{{ Cartitem.Item.Image }}"
+        />
         <a
           href="{% url 'removeitem' Cartitem.id %}"
           class="shoppingCartItem-rmv"

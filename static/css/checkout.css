@@ -292,6 +292,9 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .accordionDescription {
@@ -322,6 +325,9 @@ label {
   /* padding: 0 18px; */
   display: none;
   background-color: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
   /* overflow: hidden; */ /* this is the key */
 }
 
