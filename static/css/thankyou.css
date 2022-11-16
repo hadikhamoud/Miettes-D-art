@@ -14,8 +14,8 @@ body {
 }
 
 .thankyou-explanation {
-  position: absolute;
-  bottom: 25%;
+  /* position: absolute;
+  bottom: 25%; */
   text-align: center;
 }
 

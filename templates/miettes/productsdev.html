@@ -60,7 +60,11 @@
     <div class="grid-item grid-medium">
       <a href="{% url 'viewproduct' product.SKU %}">
         <div class="cardImg anim_gradient" data-content>
-          <img src="/{{ product.Image }}" class="cardImg product_image" />
+          <img
+            src="/media/{{ product.Image }}"
+            class="cardImg product_image"
+            decoding="sync"
+          />
         </div>
       </a>
       <h1 class="ProductName">{{ product.Name }}</h1>
@@ -70,6 +74,7 @@
     {% endfor %}
   </div>
 </section>
+{%if page_obj.paginator.num_pages > 1 %}
 <div class="pagination">
   <span class="step-links">
     {% if page_obj.has_previous %}
@@ -136,6 +141,6 @@
   </span>
   {% endif %}
 </div>
-
+{% endif %}
 <script src="{% static 'js/products.js' %}"></script>
 {% endblock %}

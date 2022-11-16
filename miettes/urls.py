@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from MA import views
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('taymaa-and-sara-only-secret/', admin.site.urls),
@@ -25,6 +27,7 @@ urlpatterns = [
     path('aboutus', views.aboutus_view, name='aboutus'),
     path('contactus', views.contactus_view, name='contactus'),
     path('products/', views.products_view, name='products'),
+    path('webmail', views.webmail_view, name='webmail'),
     #path('productcard', views.productcard_view,name='productcard'),
     path('discover', views.discover_view, name='discover'),
     path('collections/<str:Title_en>/', views.collection_view, name='collections'),
@@ -39,7 +42,7 @@ urlpatterns = [
     path('payment/', views.payment_view,name='payment'),
 
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 handler404 = 'MA.views.page_not_found_view'

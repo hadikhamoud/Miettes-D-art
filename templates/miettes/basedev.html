@@ -145,13 +145,18 @@
     <ul class="shoppingCartItems">
       {% for Cartitem in Order %}
       <li class="shoppingCartItem">
-        <h3 class="shoppingCartItem-name">{{ Cartitem.Item.Name }}</h3>
+        <a href="{% url 'viewproduct' Cartitem.Item.SKU %}">
+          <h3 class="shoppingCartItem-name">{{ Cartitem.Item.Name }}</h3>
 
-        <p class="shoppingCartItem-sizeAndColor">
-          {{ Cartitem.Color }} &nbsp; {{ Cartitem.Size }}
-        </p>
+          <p class="shoppingCartItem-sizeAndColor">
+            {{ Cartitem.Color }} &nbsp; {{ Cartitem.Size }}
+          </p>
 
-        <img class="shoppingCartItem-img" src="/{{ Cartitem.Item.Image }}" />
+          <img
+            class="shoppingCartItem-img"
+            src="/media/{{ Cartitem.Item.Image }}"
+          />
+        </a>
         <a
           href="{% url 'removeitem' Cartitem.id %}"
           class="shoppingCartItem-rmv"

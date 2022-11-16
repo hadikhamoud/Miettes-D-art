@@ -16,9 +16,8 @@ from django_countries import countries
 from django.http import HttpResponse
 from django.http import JsonResponse
 
-
+from miettes.settings import env
 from django.core.mail import send_mail
-from miettes.settings import EMAIL_HOST_USER
 from .utils import *
 from django.template.loader import render_to_string
 import os
@@ -71,22 +70,22 @@ def faq_view(request):
     form = forms.CountryForm(initial={'Country': "LB"})
     Zone = models.Country.objects.get(Country="Lebanon")
     response = f'Shipping Cost: {Zone.Zone.Cost}' 
-    if request.method == 'POST' and "country" in request.POST:
+    if request.method == 'POST' and "Country" in request.POST:
 
-        form = forms.CountryForm(request.POST)
-        if form.is_valid():
-      
+            form = forms.CountryForm(request.POST)
+            if form.is_valid():
+            
+                country = dict(countries)[form.cleaned_data['Country']]
+                
         
-            country = dict(countries)[form.cleaned_data['Country']]
-      
-            Zone = models.Country.objects.filter(Country=country)
-            if Zone:
+                Zone = models.Country.objects.filter(Country=country)
+                if Zone:
 
-                response = f'Shipping Cost: {Zone[0].Zone.Cost}'
-            else:
-                response = "Sorry, we don't ship to your country yet"
+                    response = f'Shipping Cost: {Zone[0].Zone.Cost}'
+                else:
+                    response = "Sorry, we don't ship to your country yet"
 
-            return JsonResponse({"Zone":response}) 
+                return JsonResponse({"Zone":response}) 
             
     return render(request, 'miettes/faq.html', {'form': form, "Zone": response})
 
@@ -96,7 +95,8 @@ def contactus_view(request):
         name = request.POST.get("name")
         content = request.POST.get("content")
         models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
-        send_html_mail(subject= "we have received your complaint", html_content="<h1> we love you<h1>",recipient_list=[email],sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+        send_html_mail(subject= "Thank you for contacting us", html_content=render_to_string(
+            'miettes/contactemail.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_SUPPORT"),connection=settings.EMAIL_CONNECTIONS["support"])
         return render(request, 'miettes/contactus.html',{"sentComplaint": True})
     return render(request, 'miettes/contactus.html')
 
@@ -187,7 +187,7 @@ def search_view(request):
     page_obj = paginator.get_page(page_number)
     print(page_obj)
 
-    return render(request, 'miettes/search.html',{"Allproducts":results,"queryInput":queryInput, "page_obj":page_obj})
+    return render(request, 'miettes/search.html',{"queryInput":queryInput, "page_obj":page_obj})
 
 
 def discover_view(request):
@@ -267,11 +267,14 @@ def cart_view(request):
     orderitems = models.OrderItem.objects.filter(Order=order.pk)
     total, numberofitems = get_total_and_items(orderitems)
     if request.method == 'POST' and "contact[email]" in request.POST:
-        if request.POST.get("contact[email]"):
             sent = True
             email = request.POST.get("contact[email]")
-            models.Newsletter.objects.create(Email=email)
-            
+            object, created = models.Newsletter.objects.get_or_create(Email=email)
+            if created:
+                send_html_mail(subject= " Thank you for subscribing!", html_content=render_to_string(
+            'miettes/newslettersubscription.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_NOREPLY"),connection=settings.EMAIL_CONNECTIONS["newsletter"])
+            sent = created
+    
 
 
     return {'Order': orderitems, "total": total, "numberofitems": numberofitems,"numOfItems":len(orderitems),"sent":sent}
@@ -337,6 +340,7 @@ def checkout_view(request):
                 Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
             #TODO add Customer.phonenumber and assign it using input
             customer.Phone_number=Address.Phone_number
+            order.Additional_comments=request.POST.get("comments")
             customer.save()
             order.save()
             print(order.Shipping_address.Country.name)
@@ -382,17 +386,27 @@ def payment_view(request):
         order.Customer = customer
         order.save()
         Images = [image.Item.Image.url for image in orderitems]
-     
+        ImagesEmail = [switch_extension(image.Item.Image.url)[1:] for image in orderitems]
+        orderItems = [item for item in orderitems]
+        print(ImagesEmail)
+        print(orderItems)
+        zippedOrder = zip(ImagesEmail,orderItems)
+        print(zippedOrder)
         send_html_mail(subject=f"Order completed {order.Ref_code}!", html_content=render_to_string(
-            'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'orderItems': orderitems,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"),Images=Images)
+            'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'zippedOrder': zippedOrder,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"),Images=Images)
         request.session.flush()
         request.session.cycle_key()
 
         return render(request, 'miettes/thankyou.html',{"orderNumber":order.Ref_code})
 
-    return render(request,"miettes/payment.html",{'Customer':customer,"Address":order.Shipping_address,"Zone":shippingZone,"subtotal":subtotal,"total":shippingZone.Cost+subtotal})
+    return render(request,"miettes/payment.html",{'Customer':customer,"Comments":order.Additional_comments,"Address":order.Shipping_address,"Zone":shippingZone,"subtotal":subtotal,"total":shippingZone.Cost+subtotal})
     
 
+
+
+
+def webmail_view(request):
+    return redirect("https://www.zoho.com/mail/login.html")
 
 # def addproduct_view(request):
 #     form = forms.ProductForm()

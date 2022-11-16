@@ -3,7 +3,10 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1"
+  />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %} " />
 
@@ -43,7 +46,10 @@
       <ul class="checkoutCart-items">
         {% for Cartitem in Order %}
         <li class="checkoutCartItem">
-          <img class="checkoutCartItem-img" src="/{{ Cartitem.Item.Image }}" />
+          <img
+            class="checkoutCartItem-img"
+            src="/media/{{ Cartitem.Item.Image }}"
+          />
           <h3 class="checkoutCartItem-name">{{ Cartitem.Item.Name }}</h3>
           <p class="checkoutCartItem-sizeAndColor">
             {{ Cartitem.Color }} &nbsp; {{ Cartitem.Size }}
@@ -88,7 +94,7 @@
                 <div class="cost-label">
                   <img
                     class="checkoutCartItem-img"
-                    src="/{{ Cartitem.Item.Image }}"
+                    src="/media/{{ Cartitem.Item.Image }}"
                   />
                   <h3 class="checkoutCartItem-name">
                     {{ Cartitem.Item.Name }}

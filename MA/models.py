@@ -16,8 +16,7 @@ import string
 
 from django.template.loader import render_to_string
 from django_resized import ResizedImageField
-
-
+from miettes.settings import env
 
 
 def ConvertCheck():
@@ -71,7 +70,6 @@ class Product(models.Model):
     Image = ResizedImageField(force_format="WEBP",quality=75, upload_to='static/images',null=True,blank=True)
     Thumbnail = ResizedImageField(force_format="WEBP",quality=40, upload_to='static/images',scale = 25,null=True,blank=True)
     PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
-
 
     def save(self, *args, **kwargs):
         if self.Image:
@@ -176,6 +174,7 @@ class Order(models.Model):
     Total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Shipped = models.BooleanField(default=False)
     Delivered = models.BooleanField(default=False)
+    Additional_comments = models.TextField(null = True, blank=True)
 
     class Meta:
         ordering=['-Ordered']
@@ -196,12 +195,12 @@ class Order(models.Model):
         if self.Shipped and not self.Delivered:
             print("shipped")
             send_html_mail(subject = "Your order is on its way", html_content=render_to_string(
-            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
             self.Shipped_date = generate_timestamp() 
         elif self.Shipped and self.Delivered: 
             print("delivered")
             send_html_mail(subject = "Order delivered", html_content=render_to_string(
-            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=os.environ.get("EMAIL_HOST_USER_NOREPLY"))
+            'miettes/deliveredemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
             self.Delivered_date = generate_timestamp()
 
 
@@ -290,7 +289,7 @@ class ContactUs(models.Model):
     def save(self, *args, **kwargs):
 
         if self.Response:
-            send_html_mail("Support!",f"<h1> we have received your complaint!<br></br> {self.Response}</h1>", recipient_list=[self.Email],sender=os.environ.get("EMAIL_HOST_USER_SUPPORT"))
+            send_html_mail("Support!",f"<h1> we have received your complaint!<br></br> {self.Response}</h1>", recipient_list=[self.Email],sender=env("EMAIL_HOST_USER_SUPPORT"))
 
         super(ContactUs, self).save(*args, **kwargs)
     

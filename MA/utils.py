@@ -10,8 +10,11 @@ from email.mime.image import MIMEImage
 from datetime import datetime
 import pytz
 from pathlib import Path
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, get_connection
+
 from bs4 import BeautifulSoup as bs
+from PIL import Image
+
 
 # ___________________________For view.py_______________________________________________
 
@@ -61,45 +64,62 @@ def generate_timestamp():
     return tzNow.localize(dateNow)
 
 
-print(generate_timestamp())
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # _________________________To send Emails seperate from main thread________________________
 
-def handleImage(imgPath):
+def strip_extension(img):
+    imgS = img.split(".")
+    return ".".join(imgS[:-1])
 
-    with open(os.path.join(BASE_DIR, imgPath[1:]), 'rb') as f:
+def mail_convert_to_jpg(img):
+    im = Image.open(img)
+    rgb_im = im.convert('RGB')
+    rgb_im.save(strip_extension(img)+".jpeg","jpeg")
+
+def switch_extension(img):
+    imgS = img.split(".")
+    return ".".join(imgS[:-1])+".jpeg"
+
+def handleImage(imgPath):
+    modifiedPath = strip_extension(imgPath[1:])+".jpeg"
+ 
+
+    with open(os.path.join(BASE_DIR, modifiedPath), 'rb') as f:
 
         img = MIMEImage(f.read())
-        print(imgPath)
-        img.add_header('Content-ID', '<{name}>'.format(name=imgPath[1:]))
-        img.add_header('Content-Disposition', 'inline', filename=imgPath[1:])
+        img.add_header('Content-ID', '<{name}>'.format(name=modifiedPath))
+        img.add_header('Content-Disposition', 'inline', filename=modifiedPath)
 
     return img
 
 
 class EmailThread(threading.Thread):
-    def __init__(self, subject, html_content, recipient_list, sender,Images=[]):
+    def __init__(self, subject, html_content, recipient_list, sender,Images=[],connection=settings.EMAIL_CONNECTIONS["noreply"]):
         self.subject = subject
         self.recipient_list = recipient_list
         self.html_content = html_content
         self.sender = sender
         self.Images = Images
+        self.connection = connection
         threading.Thread.__init__(self)
 
     def run(self):
-        msg = EmailMultiAlternatives(self.subject, self.html_content, self.sender, self.recipient_list)
-        msg.content_subtype = 'html'
-        msg.mixed_subtype = 'related'
-        for image in self.Images:
-            img = handleImage(image)
-            msg.attach(img)
-        msg.send(fail_silently=False)
+
+        with get_connection(host=self.connection["host"], port=self.connection["port"], username=self.connection["username"], password=self.connection["password"], use_tls=self.connection["use_tls"],use_ssl=self.connection["use_ssl"]) as connect:
+            msg = EmailMultiAlternatives(self.subject, self.html_content, self.sender, self.recipient_list,connection = connect)
+            msg.content_subtype = 'html'
+            msg.mixed_subtype = 'related'
+            for image in self.Images:
+                
+                img = handleImage(image)
+                msg.attach(img)
+            msg.send(fail_silently=False)
 
 
-def send_html_mail(subject, html_content, recipient_list, sender,Images=[]):
-    EmailThread(subject, html_content, recipient_list, sender,Images=Images).start()
+def send_html_mail(subject, html_content, recipient_list, sender,Images=[],connection=settings.EMAIL_CONNECTIONS["noreply"]):
+    EmailThread(subject, html_content, recipient_list, sender,Images=Images,connection=connection).start()
 
 
 
@@ -171,4 +191,17 @@ def extract_SKU(reader):
 # def extract_SKU(reader):
 
 # dir = "/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages/Product_ BE100B _ Miettesdart1.html"
+
+
+
+
+# MEDIA_DIR = os.listdir("/Users/hadihamoud/Desktop/Projects/Miettes-D-art/media/images")
+
+# for img in MEDIA_DIR:
+#     try:
+#         if img.split(".")[-1]!="jpeg":
+#             mail_convert_to_jpg(f"/Users/hadihamoud/Desktop/Projects/Miettes-D-art/media/images/{img}")
+#     except:
+#         print("ERROR")
+#         continue
 

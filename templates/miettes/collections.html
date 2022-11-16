@@ -8,13 +8,19 @@
 
 <section class="products-grid" title="products-grid">
   {% csrf_token %} {% if page_obj %}
-  <h1>{{collection.Title}}</h1>
+  <div class="collection-intro">
+    <h1 class="collection-title">{{collection.Title}}</h1>
+    <div class="collection-description">{{collection.Description}}</div>
+  </div>
   <div class="products-grid-table">
     {% for product in page_obj %}
     <div class="grid-item grid-medium">
       <a href="{% url 'viewproduct' product.SKU %}">
         <div class="cardImg anim_gradient">
-          <img src="/{{ product.Image }}" class="cardImg product_image" /></div
+          <img
+            src="/media/{{ product.Image }}"
+            class="cardImg product_image"
+          /></div
       ></a>
       <h1 class="ProductName">{{ product.Name }}</h1>
       <h3 class="ProductPrice">{{ product.Price }}</h3>
@@ -23,12 +29,13 @@
     {% endfor %}
   </div>
 </section>
+{%if page_obj.paginator.num_pages > 1 %}
 <div class="pagination">
   <span class="step-links">
     {% if page_obj.has_previous %}
     <!-- <a style="margin-right: 15px" href="?page=1&q={{ queryInput }}"
-      >&laquo;</a
-    > -->
+        >&laquo;</a
+        > -->
 
     <a
       class="arrow"
@@ -87,10 +94,10 @@
     <!-- <a
       style="margin-left: 15px"
       href="?page={{ page_obj.paginator.num_pages }}&q={{ queryInput }}"
-    >
+      >
       &raquo;</a
-    > -->
+      > -->
     {% endif %}
   </span>
 </div>
-{% endif %} {% endblock %}
+{% endif %}{% endif %} {% endblock %}

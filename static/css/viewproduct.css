@@ -211,6 +211,9 @@ ul.slides {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .colorSize-choose input {
@@ -313,6 +316,9 @@ label.checkmark {
   font-size: 15px;
   transition: 0.4s;
   border-bottom: 2px solid var(--lighter_accent_color);
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 /* .activate,
@@ -323,7 +329,23 @@ label.checkmark {
   text-align: start;
   max-width: 300px;
   word-wrap: break-word;
+  font-family: var(--other_font);
+  padding-left: 10px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
+
+.accordionDescription ol > li {
+  margin: 10px 0;
+}
+
+.accordionDescription ol {
+  padding: 0;
+  padding-left: 10px;
+  text-align: justify;
+}
+
 .accordionDetails:after {
   content: "\002B";
   color: #777;
@@ -345,6 +367,9 @@ label.checkmark {
   /* padding: 0 18px; */
   display: none;
   background-color: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
   /* overflow: hidden; */
 }
 
@@ -377,6 +402,12 @@ label.checkmark {
 
 .product-category {
   text-transform: capitalize;
+}
+
+@media only screen and (min-width: 1000px) {
+  .body-content {
+    margin-bottom: 200px;
+  }
 }
 
 @media only screen and (max-width: 1000px) {
@@ -471,4 +502,12 @@ label.checkmark {
   .slides img {
     max-height: 600px;
   }
+}
+
+.newsletter,
+.socials,
+.links {
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }

@@ -97,7 +97,8 @@
   border-radius: 5px;
 }
 .input-container input,
-.input-container select {
+.input-container select,
+.input-container textarea {
   font-family: var(--other_font);
   border: none;
   font-size: 16px;
@@ -152,6 +153,13 @@ label {
 
 .accordion {
   display: none;
+}
+.comments {
+  height: 150px;
+}
+
+.comment-box {
+  padding-top: 25px;
 }
 
 @media screen and (max-width: 890px) {
@@ -208,7 +216,7 @@ label {
 .review-area hr {
   margin-bottom: 10px;
   margin-left: 10px;
-  width: 95%;
+  /* width: 95%; */
   align-items: flex-start;
   opacity: 0.4;
 }
@@ -217,7 +225,8 @@ label {
 .ship-row,
 .cost-row,
 .cartItem-row,
-.subtotal {
+.subtotal,
+.comments-row {
   padding: 10px;
   opacity: 1;
   margin: 0;
@@ -292,6 +301,9 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .accordionDescription {
@@ -322,6 +334,9 @@ label {
   /* padding: 0 18px; */
   display: none;
   background-color: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
   /* overflow: hidden; */ /* this is the key */
 }
 
@@ -338,8 +353,18 @@ address {
 
 .cost-label,
 .address-label,
-.contact-label {
+.contact-label,
+.comments-label {
   opacity: 0.6;
+}
+
+.comments-label {
+  width: 100%;
+  margin-right: 20px;
+}
+
+.comments-value p {
+  margin: 0;
 }
 
 .cost-value {

@@ -13,6 +13,12 @@
       body {
         font-family: "verdana", courier sans-serif;
         margin: 0;
+        height: 100%;
+        overflow: auto;
+      }
+      html {
+        overflow: hidden;
+        height: 100%;
       }
 
       .mainLogo,
@@ -21,16 +27,25 @@
         margin: 0 auto;
         height: auto;
         text-align: center; /* Add This*/
-        background-color: rgb(246, 246, 246);
         overflow-x: hidden;
+        background-color: #91aabf;
+        color: white;
+        width: 100%;
       }
 
       .imgLogo {
         margin: 30px 0;
       }
       .facebook,
-      .instagram {
+      .instagram,
+      .pinterest,
+      .whatsapp,
+      .tiktok {
         width: 20px;
+      }
+
+      .pinterest {
+        height: 23px;
       }
 
       .orderDetails,
@@ -38,6 +53,10 @@
       .products {
         text-align: center;
         margin: 130px auto;
+      }
+
+      .orderDetails {
+        height: 35%;
       }
 
       .bottomNav {
@@ -69,10 +88,15 @@
         margin-top: 10px;
         margin-bottom: 10px;
       }
-
       .socials {
+        color: white;
         text-align: center;
         text-decoration: none;
+        margin-bottom: 20px;
+      }
+
+      .socials a {
+        margin-right: 15px;
       }
     </style>
   </head>
@@ -80,15 +104,17 @@
     <div class="mainLogo">
       <img
         class="imgLogo"
-        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667720412/Miettes%20D%27art/logo_tosw14_yvvqw2.png"
+        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981271/logo-white_vwrxiv.png"
       />
     </div>
     <div class="orderDetails">
       <h2>Your order has been delivered</h2>
       <p>ORDER NO. &nbsp;<strong>{{orderNumber}}</strong></p>
-      <p>YOU WILL RECEIVE YOUR DELIVERY SOON</p>
+      <p>We hope you like it!</p>
     </div>
-    <hr />
+
+    <!--
+    {% comment %}
     <div class="delivery">
       <h2>Delivery</h2>
       <p>HOME DELIVERY</p>
@@ -99,42 +125,71 @@
       </p>
     </div>
     <hr />
-    <!-- <div class="products">
-      <h2>Products</h2>
-      {% for item in orderItems %}
-
-      <img class="productImage" src="cid:{{ item.Item.Image }}" />
-      <h3>
-        {{item.Item.Name}}
-        <br />
-        {{item.Color}} - {{item.Size}}
-      </h3>
-      <p class="productPrice">{{item.Item.Price}}</p>
-      {% endfor %}
-    </div> -->
+    {% endcomment %}
+    -->
 
     <div class="bottomNav">
-      <a href="#">privacy policy</a>
+      <!-- <a href="#">privacy policy</a>
       <p>
         <a href="#"> shipping conditions</a>
-      </p>
+      </p> -->
       <p>Follow us:</p>
 
       <div class="socials">
-        <a href="#" style="text-decoration: none">
+        <a
+          href="https://www.facebook.com/miettesdart"
+          target="_blank"
+          style="text-decoration: none"
+          class="facebook"
+        >
           <img
             class="facebook"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574859/facebook-brands_sxjqdh.png"
+            style="height: 22px"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981399/416-4169142_facebook-logo-facebook-white-icon-png-2018_ucnevx.png"
           />
         </a>
         <a
           href="https://www.instagram.com/miettesdart/?hl=en"
+          target="_blank"
           class="instagram"
           style="text-decoration: none"
         >
           <img
             class="instagram"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1665574856/instagram-brands_k92vwr.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981619/instagram-white_xajpee.png"
+          />
+        </a>
+        <a
+          href="https://www.tiktok.com/@miettesdart"
+          target="_blank"
+          class="tiktok"
+          style="text-decoration: none"
+        >
+          <img
+            class="tiktok"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/tiktok-white_hfw24m.png"
+          />
+        </a>
+        <a
+          href="https://pin.it/7oo3bFP/"
+          target="_blank"
+          class="pinterest"
+          style="text-decoration: none"
+        >
+          <img
+            class="pinterest"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/pinterest-white_nl3o3j.png"
+          />
+        </a>
+        <a
+          href="https://wa.me/96176196979"
+          target="_blank"
+          class="whatsapp"
+          style="text-decoration: none"
+        >
+          <img
+            class="whatsapp"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/whatsapp-white_t43kua.png"
           />
         </a>
       </div>

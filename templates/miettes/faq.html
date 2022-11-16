@@ -45,7 +45,10 @@
         Please insert your location in order to know the delivery fees.
         <br />
         <form method="POST" id="get-zone">
-          {% csrf_token %} {% for field in form %}
+          {% csrf_token %}
+          <input type="hidden" name="form_country_id" value="country-form" />
+
+          {% for field in form %}
 
           <div class="input-container">{{ field }}</div>
 
@@ -241,8 +244,6 @@
       type: "POST",
       data: data,
       success: function (dat) {
-        console.log("in success!");
-        console.log(dat["Zone"]);
         $("#zone-output").html(dat["Zone"]);
       },
       error: function () {
