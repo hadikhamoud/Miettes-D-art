@@ -156,6 +156,9 @@ label {
 }
 .comments {
   height: 150px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .comment-box {
@@ -233,6 +236,9 @@ label {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .cartItem-row div {
