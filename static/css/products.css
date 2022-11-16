@@ -29,6 +29,22 @@
   object-fit: cover;
 }
 
+.collection-intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  flex-direction: column;
+  color: var(--lighter_accent_color);
+  font-family: var(--title_font);
+}
+
+.collection-intro h1 {
+  font-size: 32px;
+  margin-block: 0;
+  margin-bottom: 20px;
+}
+
 @media only screen and (min-width: 769px) {
   .grid-medium {
     width: calc(25% - 40px);
@@ -61,6 +77,8 @@
   text-align: center;
   padding-top: 70px;
   font-family: var(--title_font);
+  color: var(--lighter_accent_color);
+  font-size: 32px;
 }
 
 .hidden-label {
@@ -74,6 +92,7 @@
   display: flex;
   justify-content: flex-end;
   color: var(--font_color);
+  padding-left: 10px;
 }
 
 .collection-filter__item select {

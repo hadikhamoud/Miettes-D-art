@@ -7,7 +7,7 @@
 />
 
 <section title="products-grid" class="products-grid">
-  {% csrf_token %} {% if Allproducts %}
+  {% csrf_token %} {% if page_obj %}
 
   <h1 class="searchResults">Search results for "{{ queryInput }}"</h1>
 
@@ -16,7 +16,10 @@
     <div class="grid-item grid-medium">
       <a href="{% url 'viewproduct' product.SKU %}">
         <div class="cardImg anim_gradient">
-          <img src="/{{ product.Image }}" class="cardImg product_image" /></div
+          <img
+            src="/media/{{ product.Image }}"
+            class="cardImg product_image"
+          /></div
       ></a>
       <h1 class="ProductName">{{ product.Name }}</h1>
       <h3 class="ProductPrice">{{ product.Price }}</h3>
@@ -96,7 +99,9 @@
       {% endif %}
     </span>
   </div>
-  {% endif %} {%endif%}
+  {% endif %} {%else%}
+  <h1 class="searchResults">No results found for "{{ queryInput }}"</h1>
+  {%endif%}
 </section>
 
 {% endblock %}

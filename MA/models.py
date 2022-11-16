@@ -71,7 +71,6 @@ class Product(models.Model):
     Thumbnail = ResizedImageField(force_format="WEBP",quality=40, upload_to='static/images',scale = 25,null=True,blank=True)
     PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
-
     def save(self, *args, **kwargs):
         if self.Image:
             self.Thumbnail = self.Image
@@ -175,6 +174,7 @@ class Order(models.Model):
     Total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Shipped = models.BooleanField(default=False)
     Delivered = models.BooleanField(default=False)
+    Additional_comments = models.TextField(null = True, blank=True)
 
     class Meta:
         ordering=['-Ordered']

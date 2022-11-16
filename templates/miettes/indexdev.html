@@ -65,9 +65,13 @@
   <div class="coverPhoto">
     {% if Discover %}
 
-    <img src="/media/{{ Discover.Image }}" class="coverImg" />
+    <img src="/media/{{ Discover.Image }}" class="coverImg" decoding="sync" />
     {% else %}
-    <img src="{% static 'images/discover.jpeg' %}" class="coverImg" />
+    <img
+      src="{% static 'images/discover.jpeg' %}"
+      class="coverImg"
+      decoding="sync"
+    />
   </div>
   {% endif %}
   <button type="submit" class="btn" onclick="window.location.href='/discover'">
@@ -87,6 +91,7 @@
           <img
             src="/media/{{ pick.Image }}"
             class="cardImg product_image"
+            decoding="sync"
           /></div
       ></a>
 
@@ -111,6 +116,7 @@
           <img
             src="/media/{{ collection.Image }}"
             class="cardCollectionImg product_image"
+            decoding="sync"
           /></div
       ></a>
     </div>

@@ -40,6 +40,7 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 input,
@@ -173,18 +174,17 @@ input[type="reset"] {
   position: relative;
   transform: translateY(150px);
   -webkit-transform: translateY(150px);
-
   opacity: 0;
   transition: transform 0.5s linear, opacity 0.5s linear;
-  -webkit-transition: transform 0.5s linear, opacity 0.5s linear;
+  -webkit-transition: 1s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .reveal-vertical.active {
   transform: translateY(0);
   -webkit-transform: translateY(0);
+  opacity: 1;
   -webkit-backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translate3d(0, 0, 0);
-  opacity: 1;
 }
 
 /*shopping cart styling */
@@ -417,6 +417,10 @@ input[type="search"] {
   margin: 0 -20px;
   right: 0;
   font-family: var(--title_font);
+  width: 60%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .shoppingCartItem-sizeAndColor {

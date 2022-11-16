@@ -71,22 +71,22 @@ def faq_view(request):
     form = forms.CountryForm(initial={'Country': "LB"})
     Zone = models.Country.objects.get(Country="Lebanon")
     response = f'Shipping Cost: {Zone.Zone.Cost}' 
-    if request.method == 'POST' and "country" in request.POST:
+    if request.method == 'POST' and "Country" in request.POST:
 
-        form = forms.CountryForm(request.POST)
-        if form.is_valid():
-      
+            form = forms.CountryForm(request.POST)
+            if form.is_valid():
+            
+                country = dict(countries)[form.cleaned_data['Country']]
+                
         
-            country = dict(countries)[form.cleaned_data['Country']]
-      
-            Zone = models.Country.objects.filter(Country=country)
-            if Zone:
+                Zone = models.Country.objects.filter(Country=country)
+                if Zone:
 
-                response = f'Shipping Cost: {Zone[0].Zone.Cost}'
-            else:
-                response = "Sorry, we don't ship to your country yet"
+                    response = f'Shipping Cost: {Zone[0].Zone.Cost}'
+                else:
+                    response = "Sorry, we don't ship to your country yet"
 
-            return JsonResponse({"Zone":response}) 
+                return JsonResponse({"Zone":response}) 
             
     return render(request, 'miettes/faq.html', {'form': form, "Zone": response})
 
@@ -187,7 +187,7 @@ def search_view(request):
     page_obj = paginator.get_page(page_number)
     print(page_obj)
 
-    return render(request, 'miettes/search.html',{"Allproducts":results,"queryInput":queryInput, "page_obj":page_obj})
+    return render(request, 'miettes/search.html',{"queryInput":queryInput, "page_obj":page_obj})
 
 
 def discover_view(request):
@@ -267,7 +267,6 @@ def cart_view(request):
     orderitems = models.OrderItem.objects.filter(Order=order.pk)
     total, numberofitems = get_total_and_items(orderitems)
     if request.method == 'POST' and "contact[email]" in request.POST:
-        if request.POST.get("contact[email]"):
             sent = True
             email = request.POST.get("contact[email]")
             models.Newsletter.objects.create(Email=email)
@@ -337,6 +336,7 @@ def checkout_view(request):
                 Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
             #TODO add Customer.phonenumber and assign it using input
             customer.Phone_number=Address.Phone_number
+            order.Additional_comments=request.POST.get("comments")
             customer.save()
             order.save()
             print(order.Shipping_address.Country.name)
@@ -390,7 +390,7 @@ def payment_view(request):
 
         return render(request, 'miettes/thankyou.html',{"orderNumber":order.Ref_code})
 
-    return render(request,"miettes/payment.html",{'Customer':customer,"Address":order.Shipping_address,"Zone":shippingZone,"subtotal":subtotal,"total":shippingZone.Cost+subtotal})
+    return render(request,"miettes/payment.html",{'Customer':customer,"Comments":order.Additional_comments,"Address":order.Shipping_address,"Zone":shippingZone,"subtotal":subtotal,"total":shippingZone.Cost+subtotal})
     
 
 

@@ -46,7 +46,7 @@ class OrderAdmin(admin.ModelAdmin):
             'Ordered_date',
             
         ]
-    readonly_fields=['Shipping_address','Customer','Ordered_date','Delivered_date','Shipped_date',"Ordered"]
+    readonly_fields=['Shipping_address','Customer','Ordered_date','Delivered_date','Shipped_date',"Ordered","Ref_code","Delivered","Shipped", "Additional_comments"]
 
 
 
