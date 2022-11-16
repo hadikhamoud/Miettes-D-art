@@ -329,10 +329,23 @@ label.checkmark {
   text-align: start;
   max-width: 300px;
   word-wrap: break-word;
+  font-family: var(--other_font);
+  padding-left: 10px;
   -webkit-backface-visibility: hidden;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translate3d(0, 0, 0);
 }
+
+.accordionDescription ol > li {
+  margin: 10px 0;
+}
+
+.accordionDescription ol {
+  padding: 0;
+  padding-left: 10px;
+  text-align: justify;
+}
+
 .accordionDetails:after {
   content: "\002B";
   color: #777;

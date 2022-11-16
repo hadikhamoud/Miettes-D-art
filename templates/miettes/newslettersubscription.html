@@ -1,4 +1,4 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,33 +13,36 @@
       body {
         font-family: "verdana", courier sans-serif;
         margin: 0;
-        overflow: auto;
         height: 100%;
+        overflow: auto;
       }
       html {
         overflow: hidden;
         height: 100%;
       }
 
-      .mainLogo,
-      .bottomNav {
+      .mainLogo {
         position: relative;
         margin: 0 auto;
         height: auto;
         text-align: center; /* Add This*/
-        background-color: #91aabf;
         overflow-x: hidden;
+        background-color: #91aabf;
         color: white;
         width: 100%;
       }
 
-      .bottomNav a {
-        color: white;
+      .bottomNav {
+        margin-left: 50px;
       }
 
       .imgLogo {
         margin: 30px 0;
+        margin-left: 50px;
+        width: 100px;
+        height: auto;
       }
+
       .facebook,
       .instagram,
       .pinterest,
@@ -59,6 +62,10 @@
         margin: 130px auto;
       }
 
+      .orderDetails {
+        height: 35%;
+      }
+
       .bottomNav {
         text-align: center;
       }
@@ -74,14 +81,8 @@
 
       .productImage {
         max-width: 70%;
-        height: 100px;
+        height: 300px;
         object-fit: cover;
-      }
-      .productImage-table {
-        height: 20vmin;
-
-        object-fit: cover;
-        width: 15vmin;
       }
 
       .productPrice {
@@ -90,51 +91,50 @@
       }
 
       a {
-        color: white;
+        color: black;
         margin-top: 10px;
         margin-bottom: 10px;
       }
-
       .socials {
         color: white;
-        text-align: center;
+        text-align: start;
         text-decoration: none;
         margin-bottom: 20px;
-      }
-      .value-label {
-        width: 100%;
-        margin-bottom: 50px;
-      }
-      .value-label div {
-        width: 49%;
-        display: inline-block;
-      }
-      .value {
-        text-align: right;
-      }
-      .total-value {
-        font-weight: bold;
-        font-size: 23px;
+        margin-top: 50px;
       }
 
       .socials a {
-        margin-right: 15px;
+        margin-right: 10px;
+      }
+
+      .thankyou-contact {
+        padding-left: 50px;
+        padding-right: 40px;
       }
     </style>
   </head>
   <body>
-    <div class="mainLogo">
+    <div>
       <img
         class="imgLogo"
-        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981271/logo-white_vwrxiv.png"
+        src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586172/Miettes%20D%27art/logo-blue_sos61p.png"
       />
     </div>
-    <div class="orderDetails">
-      <h2>We received your order</h2>
-      <p>ORDER NO. &nbsp;<strong>{{orderNumber}}</strong></p>
-      <p>YOU WILL RECEIVE YOUR DELIVERY SOON</p>
+    <div class="thankyou-contact">
+      <h2>Welcome and Thank you for subscribing to our newsletter !</h2>
+      <p style="text-align: justify">
+        You are now part of “Miettes” community. We have so many things to share
+        with you. You will be the first to know our latest news, releases and
+        special offers.
+      </p>
+      <p>
+        With love, <br />
+        Miettes d’Art
+      </p>
     </div>
-    <hr />
+
+    <!--
+    {% comment %}
     <div class="delivery">
       <h2>Delivery</h2>
       <p>HOME DELIVERY</p>
@@ -145,48 +145,14 @@
       </p>
     </div>
     <hr />
-
-    <table style="width: 100%; text-align: center">
-      {% for image, item in zippedOrder %}
-      <tr>
-        <td style="text-align: start" rowspan="2">
-          <img class="productImage-table" src="cid:{{image}}" />
-        </td>
-        <td style="vertical-align: bottom">{{item.Item.Name}}</td>
-
-        <td style="text-align: end; vertical-align: middle" rowspan="2">
-          {{item.Item.Price}}
-        </td>
-      </tr>
-      <tr>
-        <td>{{item.Color}} - {{item.Size}}</td>
-      </tr>
-      {%endfor%}
-    </table>
-
-    <hr />
-    <div class="total">
-      <div class="value-label">
-        <div class="label">Subtotal</div>
-        <div class="value"><span>{{subtotal}}</span></div>
-      </div>
-      <div class="value-label">
-        <div class="label">Shipping</div>
-        <div class="value"><span>{{shipping}}</span></div>
-      </div>
-      <hr />
-      <div class="value-label">
-        <div class="label">Total</div>
-        <div class="value"><span class="total-value">{{total}}</span></div>
-      </div>
-    </div>
+    {% endcomment %}
+    -->
 
     <div class="bottomNav">
       <!-- <a href="#">privacy policy</a>
       <p>
         <a href="#"> shipping conditions</a>
       </p> -->
-      <p>Follow us:</p>
 
       <div class="socials">
         <a
@@ -198,7 +164,7 @@
           <img
             class="facebook"
             style="height: 22px"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981399/416-4169142_facebook-logo-facebook-white-icon-png-2018_ucnevx.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/facebook_1_islvxm.png"
           />
         </a>
         <a
@@ -209,7 +175,7 @@
         >
           <img
             class="instagram"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981619/instagram-white_xajpee.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/instagram_1_baujll.png"
           />
         </a>
         <a
@@ -220,7 +186,7 @@
         >
           <img
             class="tiktok"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/tiktok-white_hfw24m.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/tiktok-white_bltpp8.png"
           />
         </a>
         <a
@@ -231,7 +197,7 @@
         >
           <img
             class="pinterest"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/pinterest-white_nl3o3j.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586876/Miettes%20D%27art/pinterest_rhtvie.png"
           />
         </a>
         <a
@@ -242,7 +208,7 @@
         >
           <img
             class="whatsapp"
-            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/whatsapp-white_t43kua.png"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/whatsapp-white_gxccdo.png"
           />
         </a>
       </div>

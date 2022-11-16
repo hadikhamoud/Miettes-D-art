@@ -200,7 +200,7 @@ class Order(models.Model):
         elif self.Shipped and self.Delivered: 
             print("delivered")
             send_html_mail(subject = "Order delivered", html_content=render_to_string(
-            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
+            'miettes/deliveredemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
             self.Delivered_date = generate_timestamp()
 
 

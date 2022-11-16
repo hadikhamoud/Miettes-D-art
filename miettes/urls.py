@@ -27,6 +27,7 @@ urlpatterns = [
     path('aboutus', views.aboutus_view, name='aboutus'),
     path('contactus', views.contactus_view, name='contactus'),
     path('products/', views.products_view, name='products'),
+    path('webmail', views.webmail_view, name='webmail'),
     #path('productcard', views.productcard_view,name='productcard'),
     path('discover', views.discover_view, name='discover'),
     path('collections/<str:Title_en>/', views.collection_view, name='collections'),

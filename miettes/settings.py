@@ -169,27 +169,44 @@ MEDIA_URL = "/media/"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = env("EMAIL_HOST")
-# EMAIL_USE_TLS = False
-# EMAIL_USE_SSL = True
-# EMAIL_PORT = 465
-EMAIL_HOST_USER = env("EMAIL_HOST_USER_NOREPLY") 
-# EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-
-#
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp-mail.outlook.com'
-# EMAIL_HOST_USER = 'gradesoutaub@outlook.com'
-# EMAIL_HOST_PASSWORD = 'Password11@'
-# EMAIL_PORT = 587
+ENGINE = 'django.core.mail.backends.smtp.EmailBackend'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_CONNECTIONS = {
+    'noreply': {
+
+        "host" : env("EMAIL_HOST"),
+        "use_tls" : False,
+        "use_ssl" : True,
+        "port" : 465,
+        "username" : env("EMAIL_HOST_USER_NOREPLY"),
+        "password" : env("EMAIL_HOST_PASSWORD"),
+},
+    'support': {
+        "host" : env("EMAIL_HOST"),
+        "use_tls" : False,
+        "use_ssl" : True,
+        "port" : 465,
+        "username" : env("EMAIL_HOST_USER_SUPPORT"),
+        "password" : env("EMAIL_HOST_PASSWORD"),
 
 
-# DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
-# DJANGORESIZED_DEFAULT_SCALE = 0.5
+    },
+    'newsletter': {
+        "host" : env("EMAIL_HOST"),
+        "use_tls" : False,
+        "use_ssl" : True,
+        "port" : 465,
+        "username" : env("EMAIL_HOST_USER_NEWSLETTER"),
+        "password" : env("EMAIL_HOST_PASSWORD"),
+
+
+    }
+}
+
+EMAIL_CONNECTION_DEFAULT = 'noreply'
+
+
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'WEBP'
