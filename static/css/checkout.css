@@ -3,6 +3,10 @@
   flex-direction: row;
 }
 
+#checkoutForm {
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
 .checkoutHandling {
   width: 70%;
   /* background-color: var(--checkout_bg_color); */
@@ -118,9 +122,6 @@
   -khtml-user-select: initial;
   -moz-user-select: initial;
   -ms-user-select: initial;
-  -webkit-transform-style: preserve-3d;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .input-container label {
@@ -398,4 +399,11 @@ address {
   padding-right: 0;
   margin-right: 0;
   width: 15%;
+  color: var(--font_color);
+  background-color: white;
+}
+
+#id_Country {
+  color: var(--font_color);
+  background-color: white;
 }
