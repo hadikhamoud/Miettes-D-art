@@ -42,8 +42,8 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production! 
 DEBUG = True 
 
-ALLOWED_HOSTS = ["13.36.238.105","localhost","*"]
-
+ALLOWED_HOSTS = ["13.36.238.105","localhost","*",env("STATIC_IP"),env("PRODUCTION_IP")]
+ADMINS = [('Hadi', env("ADMIN_EMAIL"))]
 
 # Application definition
 
