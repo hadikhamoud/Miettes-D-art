@@ -11,6 +11,10 @@ html {
   box-sizing: border-box;
 }
 
+.body-content {
+  min-height: 0;
+}
+
 *,
 *:before,
 *:after {

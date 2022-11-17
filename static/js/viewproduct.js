@@ -146,3 +146,12 @@ function setPositionByIndex() {
 //   currentTranslate = 0;
 //   setSliderPosition();
 // });
+// function addProduct(){
+//   $.ajax({
+//     url: '/viewproduct/<str:SKU>/',
+//     type: 'POST',
+//     data: {
+//       SKU:
+//       quantity: 1
+//     },
+// }

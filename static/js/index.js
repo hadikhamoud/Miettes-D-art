@@ -50,9 +50,9 @@ function closeForm() {
 }
 
 function delayOpenForm() {
-  if (localStorage.getItem("newsletter") !== "shown") {
+  if (sessionStorage.getItem("newsletter") !== "shown") {
     setTimeout(openForm, 5000);
-    localStorage.setItem("newsletter", "shown");
+    sessionStorage.setItem("newsletter", "shown");
   }
 }
 
