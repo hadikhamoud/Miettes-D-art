@@ -10,16 +10,6 @@
   padding-right: 10%;
 }
 
-input,
-input:before,
-input:after {
-  -webkit-user-select: initial;
-  -khtml-user-select: initial;
-  -moz-user-select: initial;
-  -ms-user-select: initial;
-  user-select: initial;
-}
-
 .checkoutCart {
   width: 30%;
   height: 100%;
@@ -123,6 +113,14 @@ input:after {
   padding-right: 10px;
   padding-left: 5px;
   padding-top: 14px;
+  user-select: initial;
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .input-container label {
@@ -246,9 +244,6 @@ label {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  -webkit-transform-style: preserve-3d;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .cartItem-row div {
