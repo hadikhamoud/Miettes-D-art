@@ -1,4 +1,4 @@
-function openNav(event) {
+function openNav() {
   var navbar = document.getElementById("mobile-navbar");
   navbar.setAttribute(
     "style",
@@ -96,8 +96,6 @@ function reveal() {
     }
   }
 }
-
-function handleSideBars(target) {}
 
 ["click", "ontouchstart"].forEach(function (event) {
   window.addEventListener(

@@ -10,7 +10,9 @@
   {% csrf_token %} {% if page_obj %}
   <div class="collection-intro">
     <h1 class="collection-title">{{collection.Title}}</h1>
-    <div class="collection-description">{{collection.Description}}</div>
+    <div class="collection-description">
+      {{collection.Description|linebreaks}}
+    </div>
   </div>
   <div class="products-grid-table">
     {% for product in page_obj %}

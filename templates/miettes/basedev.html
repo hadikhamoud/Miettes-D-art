@@ -14,6 +14,12 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   />
 
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"
+  ></script>
+
   <link
     rel="icon"
     type="image/svg+xml"
@@ -131,7 +137,7 @@
     <i
       id="cartButton"
       class="fa fa-shopping-cart fa-lg"
-      onclick="openCart()"
+      onclick="checkCart();openCart();"
     ></i>
     {% if numOfItems > 0 %}
 
@@ -156,11 +162,12 @@
     <a href="javascript:void(0)" class="closebtnCart" onclick="closeCart()"
       >&times;</a
     >
-    {% if Order %}
+    {% if Order %} {% csrf_token %}
     <!-- <a href class="shoppingCartItem-rmv">clear cart</a> -->
     <h1 class="shoppingCart-Title">Your Cart</h1>
-    <ul class="shoppingCartItems">
+    <ul class="shoppingCartItems" id="shoppingCart-list">
       {% for Cartitem in Order %}
+
       <li class="shoppingCartItem">
         <a href="{% url 'viewproduct' Cartitem.Item.SKU %}">
           <h3 class="shoppingCartItem-name">{{ Cartitem.Item.Name }}</h3>
@@ -444,6 +451,32 @@
 </a>
 
 <script src="{% static 'js/base.js' %}"></script>
+<script>
+  function checkCart() {
+    var url = "{% url 'checkcart' %}";
+    var data = {
+      length: document.querySelectorAll("#shoppingCart-list li").length,
+      csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+    };
+    console.log(document.querySelectorAll("#shoppingCart-list li").length);
+
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: data,
+      success: function (dat) {
+        console.log(dat["Difference"]);
+        if (dat["Difference"] == true) {
+          window.location.reload();
+        }
+      },
+      error: function () {
+        console.log("THERE HAS BEEN AN ERROR");
+      },
+    });
+    return false;
+  }
+</script>
 
 {% comment %}
 <script>

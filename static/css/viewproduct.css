@@ -375,7 +375,7 @@ label.checkmark {
 
 .product-description {
   margin-top: 20px;
-  width: 80%;
+  width: max-content;
 }
 
 .marker-label {
