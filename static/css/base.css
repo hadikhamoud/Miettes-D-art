@@ -687,6 +687,7 @@ background: linear-gradient(
 .socials {
   margin-top: 30px;
   margin-bottom: 30px;
+  padding-bottom: 10px;
 }
 
 .socials-icons {
