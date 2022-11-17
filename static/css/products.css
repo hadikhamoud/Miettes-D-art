@@ -45,6 +45,11 @@
   margin-bottom: 20px;
 }
 
+.collection-description {
+  color: var(--font_color);
+  text-align: center;
+}
+
 @media only screen and (min-width: 769px) {
   .grid-medium {
     width: calc(25% - 40px);

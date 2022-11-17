@@ -213,7 +213,7 @@ class Order(models.Model):
 class Discover(models.Model):
     Title = models.CharField(max_length=80)
     Image = ResizedImageField(force_format="WEBP",quality=100, upload_to='images',null=True,blank=True)
-    ImageMobile = ResizedImageField(force_format="WEBP",quality=100, upload_to='images',null=True,blank=True)
+    ImageMobile = ResizedImageField(force_format="JPEG",quality=100, upload_to='images',null=True,blank=True)
     Description = models.TextField(null = True, blank = True)
     Active = models.BooleanField(default = False)
 

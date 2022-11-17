@@ -281,10 +281,37 @@ def cart_view(request):
                 send_html_mail(subject= " Thank you for subscribing!", html_content=render_to_string(
             'miettes/newslettersubscription.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_NOREPLY"),connection=settings.EMAIL_CONNECTIONS["newsletter"])
             sent = created
+    if request.method=="POST" and "length" in request.POST:
+        length = request.POST.get("length")
+        print(numberofitems)
+        if numberofitems==int(length):
+            difference = False
+        else:
+            difference = True
+        print(difference)
+        return JsonResponse({"Difference":difference})
+    
     
 
 
     return {'Order': orderitems, "total": total, "numberofitems": numberofitems,"numOfItems":len(orderitems),"sent":sent}
+
+def checkcart_view(request):
+    if not request.session.get("sess"):
+            request.session["sess"] = str(uuid4()) 
+   
+    Device = request.session.get("sess")
+
+
+    customer, created = models.Customer.objects.get_or_create(
+            Device=Device)
+       
+    order, created = models.Order.objects.get_or_create(
+        Customer=customer, Ordered=False)
+    orderitems = models.OrderItem.objects.filter(Order=order.pk)
+    length = request.POST.get("length") 
+    total, numberofitems = get_total_and_items(orderitems)
+    
 
 
 def navbar_view(request):
@@ -293,7 +320,7 @@ def navbar_view(request):
     return {'categories': categories, 'collections': collections}
 
 def removeitem_view(request, orderItemID):
-    orderItem = models.OrderItem.objects.get(id=int(orderItemID))
+    orderItem = models.OrderItem.objects.filter(id=int(orderItemID)).first()
     if orderItem:
         orderItem.delete()
         messages.success(request, "Item removed from cart")
