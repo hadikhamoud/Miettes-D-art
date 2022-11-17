@@ -64,8 +64,13 @@
 <section id="cover-photo">
   <div class="coverPhoto">
     {% if Discover %}
-
-    <img src="/media/{{ Discover.Image }}" class="coverImg" decoding="sync" />
+    <picture>
+      <source
+        media="(max-width:669px)"
+        srcset="/media/{{Discover.ImageMobile}}"
+      />
+      <img src="/media/{{ Discover.Image }}" class="coverImg" decoding="sync" />
+    </picture>
     {% else %}
     <img
       src="{% static 'images/discover.jpeg' %}"

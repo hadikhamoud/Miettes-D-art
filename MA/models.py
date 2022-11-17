@@ -67,8 +67,8 @@ class Product(models.Model):
     Optional = models.CharField(max_length=30,choices=optionalchoice,default='new arrivals',null = True, blank=True)
     Discover = models.ForeignKey('Discover',on_delete=models.CASCADE,null = True, blank = True)
     Collection = models.ForeignKey('Collection',on_delete=models.CASCADE,null = True, blank = True)
-    Image = ResizedImageField(force_format="WEBP",quality=75, upload_to='static/images',null=True,blank=True)
-    Thumbnail = ResizedImageField(force_format="WEBP",quality=40, upload_to='static/images',scale = 25,null=True,blank=True)
+    Image = ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
+    Thumbnail = ResizedImageField(force_format="WEBP",quality=40, upload_to='images',scale = 25,null=True,blank=True)
     PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
     def save(self, *args, **kwargs):
@@ -110,7 +110,7 @@ class Multiplier(models.Model):
 
 class Picture(models.Model):
     Product = models.ForeignKey('Product',on_delete=models.CASCADE,null = True, blank = True)
-    picture = ResizedImageField(force_format="WEBP",quality=75, upload_to='static/images',null=True,blank=True)
+    picture = ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
 
 
 class Customer(models.Model):
@@ -212,7 +212,8 @@ class Order(models.Model):
 
 class Discover(models.Model):
     Title = models.CharField(max_length=80)
-    Image = ResizedImageField(force_format="WEBP",quality=75, upload_to='static/images',null=True,blank=True)
+    Image = ResizedImageField(force_format="WEBP",quality=100, upload_to='images',null=True,blank=True)
+    ImageMobile = ResizedImageField(force_format="WEBP",quality=100, upload_to='images',null=True,blank=True)
     Description = models.TextField(null = True, blank = True)
     Active = models.BooleanField(default = False)
 
@@ -236,7 +237,7 @@ class Collection(models.Model):
     Title = models.CharField(max_length=80,null = True, blank=True)
     Title_en = models.CharField(max_length=80,null = True, blank=True)
     Description = models.TextField(null = True, blank = True)
-    Image =ResizedImageField(force_format="WEBP",quality=75, upload_to='static/images',null=True,blank=True)
+    Image =ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
     Show = models.BooleanField(default = False)
 
     def save(self, *args, **kwargs):
