@@ -73,8 +73,8 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):
         super(Product, self).save(*args, **kwargs)
-        if self.Image:
-            mail_convert_to_jpg(self.Image.path)
+        # if self.Image:
+        #     mail_convert_to_jpg(self.Image.path)
 
     def __str__(self):
         try:
