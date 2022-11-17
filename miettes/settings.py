@@ -42,7 +42,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production! 
 DEBUG = False
 
-ALLOWED_HOSTS = ["13.36.238.105","localhost","*",env("STATIC_IP"),env("PRODUCTION_IP")]
+ALLOWED_HOSTS = [env("STATIC_IP"),env("PRODUCTION_IP")]
 ADMINS = [('Hadi', env("ADMIN_EMAIL"))]
 
 # Application definition
@@ -198,7 +198,7 @@ EMAIL_CONNECTIONS = {
         "use_ssl" : True,
         "port" : 465,
         "username" : env("EMAIL_HOST_USER_NEWSLETTER"),
-        "password" : env("EMAIL_HOST_PASSWORD"),
+        "password" : env("EMAIL_HOST_PASSWORD_NEWSLETTER"),
 
 
     }

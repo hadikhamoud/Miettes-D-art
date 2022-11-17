@@ -186,7 +186,7 @@ def search_view(request):
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    print(page_obj)
+
 
     return render(request, 'miettes/search.html',{"queryInput":queryInput, "page_obj":page_obj})
 
@@ -203,7 +203,7 @@ def discover_view(request):
 def collection_view(request, Title_en):
     collection = models.Collection.objects.get(Title_en=Title_en)
     results = models.Product.objects.filter(Collection = collection)
-    print(results)
+
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number) 
@@ -279,17 +279,17 @@ def cart_view(request):
             object, created = models.Newsletter.objects.get_or_create(Email=email)
             if created:
                 send_html_mail(subject= " Thank you for subscribing!", html_content=render_to_string(
-            'miettes/newslettersubscription.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_NOREPLY"),connection=settings.EMAIL_CONNECTIONS["newsletter"])
+            'miettes/newslettersubscription.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_NEWSLETTER"),connection=settings.EMAIL_CONNECTIONS["newsletter"])
             sent = created
     if request.method=="POST" and "length" in request.POST:
         length = request.POST.get("length")
-        print(numberofitems)
+
         if numberofitems==int(length):
             difference = False
         else:
             difference = True
             messages.success(request, "Item added to cart")
-        print(difference)
+     
         
         return JsonResponse({"Difference":difference})
     
@@ -382,7 +382,7 @@ def checkout_view(request):
             order.Additional_comments=request.POST.get("comments")
             customer.save()
             order.save()
-            print(order.Shipping_address.Country.name)
+
             return redirect("payment")
             
     return render(request, 'miettes/checkout.html', {'Order': orderitems, 'form': form, "total": total, "numberofitems": numberofitems})
@@ -430,10 +430,8 @@ def payment_view(request):
         Images = [image.Item.Image.url for image in orderitems]
         ImagesEmail = [switch_extension(image.Item.Image.url)[1:] for image in orderitems]
         orderItems = [item for item in orderitems]
-        print(ImagesEmail)
-        print(orderItems)
+   
         zippedOrder = zip(ImagesEmail,orderItems)
-        print(zippedOrder)
         send_html_mail(subject=f"Order completed {order.Ref_code}!", html_content=render_to_string(
             'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'zippedOrder': zippedOrder,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"),Images=Images)
         if request.session.get("sess"):
@@ -475,3 +473,6 @@ def orderemail_view(request):
 
 def page_not_found_view(request,exception):
     return render(request,"miettes/404.html",status=404)
+
+def internal_server_error_view(request,exception):
+    return render(request,"miettes/500.html",status=500)

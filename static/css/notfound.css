@@ -2,6 +2,7 @@ body {
   height: 100vh;
 }
 .content-404 {
+  margin-top: 200px;
   display: flex;
   justify-content: center;
   align-items: center;

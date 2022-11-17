@@ -47,4 +47,5 @@ urlpatterns = [
 
 
 handler404 = 'MA.views.page_not_found_view'
+handler500 = 'MA.views.internal_server_error_view'
 # handler500 = 'MA.views.page_not_found_view'
