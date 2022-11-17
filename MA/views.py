@@ -197,7 +197,7 @@ def discover_view(request):
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'miettes/collections.html', {'page_obj': page_obj})
+    return render(request, 'miettes/collections.html', {'page_obj': page_obj,"collection":discover})
 
 
 def collection_view(request, Title_en):
@@ -415,7 +415,6 @@ def payment_view(request):
 
     return render(request,"miettes/payment.html",{'Customer':customer,"Comments":order.Additional_comments,"Address":order.Shipping_address,"Zone":shippingZone,"subtotal":subtotal,"total":shippingZone.Cost+subtotal})
     
-
 
 
 
