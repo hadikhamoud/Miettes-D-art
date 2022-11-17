@@ -23,6 +23,7 @@ from django.template.loader import render_to_string
 import os
 from django.http import HttpResponseRedirect
 from bs4 import BeautifulSoup as bsoup
+from uuid import uuid4
 # Create your views here.
 
 # def mainScraper():
@@ -231,9 +232,10 @@ def viewproduct_view(request, SKU):
             Size_choice = Size_choices[0]
 
     
-           
+        if not request.session.get("sess"):
+            request.session["sess"] = str(uuid4()) 
    
-        Device = request.session.session_key
+        Device = request.session.get("sess")
         customer, created = models.Customer.objects.get_or_create(
                 Device=Device)
      
@@ -258,7 +260,12 @@ def viewproduct_view(request, SKU):
 def cart_view(request):
     sent = False
 
-    Device = request.session.session_key
+    if not request.session.get("sess"):
+            request.session["sess"] = str(uuid4()) 
+   
+    Device = request.session.get("sess")
+
+
     customer, created = models.Customer.objects.get_or_create(
             Device=Device)
        
@@ -305,7 +312,10 @@ def checkout_view(request):
 
       
  
-    Device = request.session.session_key
+    if not request.session.get("sess"):
+            request.session["sess"] = str(uuid4()) 
+   
+    Device = request.session.get("sess")
     customer, created = models.Customer.objects.get_or_create(
             Device=Device)
     
@@ -358,7 +368,10 @@ def get_shipping_cost(order):
 
 
 def payment_view(request):
-    Device = request.session.session_key
+    if not request.session.get("sess"):
+            request.session["sess"] = str(uuid4()) 
+   
+    Device = request.session.get("sess")
     customer, created = models.Customer.objects.get_or_create(
             Device=Device)
     
@@ -394,8 +407,9 @@ def payment_view(request):
         print(zippedOrder)
         send_html_mail(subject=f"Order completed {order.Ref_code}!", html_content=render_to_string(
             'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'zippedOrder': zippedOrder,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"),Images=Images)
-        request.session.flush()
-        request.session.cycle_key()
+        if request.session.get("sess"):
+            del request.session["sess"]
+        request.session["sess"] = str(uuid4())
 
         return render(request, 'miettes/thankyou.html',{"orderNumber":order.Ref_code})
 
