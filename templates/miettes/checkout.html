@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="{% static 'css/checkout.css' %} " />
 
-<form method="POST">
+<form method="POST" id="checkoutForm">
   {% csrf_token %}
   <div class="contact-info">
     <h2 class="h2-infoLabel">Contact Information</h2>
