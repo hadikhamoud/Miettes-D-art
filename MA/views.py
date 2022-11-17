@@ -288,7 +288,9 @@ def cart_view(request):
             difference = False
         else:
             difference = True
+            messages.success(request, "Item added to cart")
         print(difference)
+        
         return JsonResponse({"Difference":difference})
     
     

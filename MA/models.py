@@ -72,11 +72,9 @@ class Product(models.Model):
     PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
     def save(self, *args, **kwargs):
-        if self.Image:
-            self.Thumbnail = self.Image
-            self.Thumbnail.quality=40
-            self.Thumbnail.scale = 25
         super(Product, self).save(*args, **kwargs)
+        if self.Image:
+            mail_convert_to_jpg(self.Image.path)
 
     def __str__(self):
         try:

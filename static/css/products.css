@@ -42,7 +42,12 @@
 .collection-intro h1 {
   font-size: 32px;
   margin-block: 0;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+}
+
+.collection-intro p {
+  padding-right: 13px;
+  padding-left: 13px;
 }
 
 .collection-description {
