@@ -375,15 +375,16 @@ def checkout_view(request):
         
         if form.is_valid():
             Address = form.save()
-            order.Shipping_address = models.Address.objects.create(City = Address.City,
-                Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
-            #TODO add Customer.phonenumber and assign it using input
-            customer.Phone_number=Address.Phone_number
-            order.Additional_comments=request.POST.get("comments")
-            customer.save()
-            order.save()
+            if models.Country.objects.filter(Country=Address.Country).first():
+                order.Shipping_address = models.Address.objects.create(City = Address.City,
+                    Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
+                #TODO add Customer.phonenumber and assign it using input
+                customer.Phone_number=Address.Phone_number
+                order.Additional_comments=request.POST.get("comments")
+                customer.save()
+                order.save()
 
-            return redirect("payment")
+                return redirect("payment")
             
     return render(request, 'miettes/checkout.html', {'Order': orderitems, 'form': form, "total": total, "numberofitems": numberofitems})
 
