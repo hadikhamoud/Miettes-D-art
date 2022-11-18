@@ -2,7 +2,7 @@
 
 ## E-commerce platform for a Lebanese jewelry business
 
-[linked here](www.miettesdart.com)
+[linked here](https://www.miettesdart.com)
 
 ### Technologies used
 
