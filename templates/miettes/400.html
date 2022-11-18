@@ -1,0 +1,14 @@
+{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/notfound.css' %}" />
+
+<div class="content-404">
+  <p class="subheader-404">There's been a mistake</p>
+  <p class="title-404">SORRY</p>
+  <p class="explanation-404">please try again in a few minutes</p>
+
+  <p class="mainpage-404">
+    Return to the
+    <a href="/">Main Page</a>
+  </p>
+</div>
+{% endblock %}
