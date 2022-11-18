@@ -168,6 +168,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ENGINE = 'django.core.mail.backends.smtp.EmailBackend'
 
+EMAIL_HOST_USER_NOREPLY = env("EMAIL_HOST_USER_NOREPLY")
+EMAIL_HOST_USER_SUPPORT= env("EMAIL_HOST_USER_SUPPORT")
+EMAIL_HOST_USER_NEWSLETTER= env("EMAIL_HOST_USER_NEWSLETTER")
+
+
+
 
 EMAIL_CONNECTIONS = {
     'noreply': {
@@ -176,7 +182,7 @@ EMAIL_CONNECTIONS = {
         "use_tls" : False,
         "use_ssl" : True,
         "port" : 465,
-        "username" : env("EMAIL_HOST_USER_NOREPLY"),
+        "username" : EMAIL_HOST_USER_NOREPLY,
         "password" : env("EMAIL_HOST_PASSWORD"),
 },
     'support': {
@@ -184,7 +190,7 @@ EMAIL_CONNECTIONS = {
         "use_tls" : False,
         "use_ssl" : True,
         "port" : 465,
-        "username" : env("EMAIL_HOST_USER_SUPPORT"),
+        "username" : EMAIL_HOST_USER_SUPPORT,
         "password" : env("EMAIL_HOST_PASSWORD"),
 
 
@@ -194,7 +200,7 @@ EMAIL_CONNECTIONS = {
         "use_tls" : False,
         "use_ssl" : True,
         "port" : 465,
-        "username" : env("EMAIL_HOST_USER_NEWSLETTER"),
+        "username" : EMAIL_HOST_USER_NEWSLETTER,
         "password" : env("EMAIL_HOST_PASSWORD_NEWSLETTER"),
 
 
