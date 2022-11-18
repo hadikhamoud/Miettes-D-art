@@ -1,0 +1,217 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <head>
+    <style>
+      body {
+        font-family: "verdana", courier sans-serif;
+        margin: 0;
+        height: 100%;
+        overflow: auto;
+      }
+      html {
+        overflow: hidden;
+        height: 100%;
+      }
+
+      .mainLogo {
+        position: relative;
+        margin: 0 auto;
+        height: auto;
+        text-align: center; /* Add This*/
+        overflow-x: hidden;
+        background-color: #91aabf;
+        color: white;
+        width: 100%;
+      }
+
+      .bottomNav {
+        margin-left: 50px;
+      }
+
+      .imgLogo {
+        margin: 30px 0;
+        margin-left: 50px;
+        width: 100px;
+        height: auto;
+      }
+
+      .facebook,
+      .instagram,
+      .pinterest,
+      .whatsapp,
+      .tiktok {
+        width: 20px;
+      }
+
+      .pinterest {
+        height: 23px;
+      }
+
+      .orderDetails,
+      .delivery,
+      .products {
+        text-align: center;
+        margin: 130px auto;
+      }
+
+      .orderDetails {
+        height: 35%;
+      }
+
+      .bottomNav {
+        text-align: center;
+      }
+
+      hr {
+        border: 0;
+        clear: both;
+        display: block;
+        width: 96%;
+        background-color: rgb(246, 246, 246);
+        height: 3px;
+      }
+
+      .productImage {
+        max-width: 70%;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .productPrice {
+        font-size: 30px;
+        margin-top: -10px;
+      }
+
+      a {
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .socials {
+        color: white;
+        text-align: start;
+        text-decoration: none;
+        margin-bottom: 20px;
+        margin-top: 50px;
+      }
+
+      .socials a {
+        margin-right: 10px;
+      }
+
+      .thankyou-contact {
+        padding-left: 50px;
+        padding-right: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img
+        class="imgLogo"
+        src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586172/Miettes%20D%27art/logo-blue_sos61p.png"
+      />
+    </div>
+    <div class="thankyou-contact">
+      <h2>Welcome and Thank you for subscribing to our newsletter !</h2>
+      <p style="text-align: justify">
+        You are now part of “Miettes” community. We have so many things to share
+        with you. You will be the first to know our latest news, releases and
+        special offers.
+      </p>
+      <p>
+        With love, <br />
+        Miettes d’Art
+      </p>
+    </div>
+
+    <!--
+    {% comment %}
+    <div class="delivery">
+      <h2>Delivery</h2>
+      <p>HOME DELIVERY</p>
+      <p>
+        {{address.Street_address}}<br />
+        {{address.City}}, {{address.Country.name}}<br />
+        {{address.Phone_number}}
+      </p>
+    </div>
+    <hr />
+    {% endcomment %}
+    -->
+
+    <div class="bottomNav">
+      <!-- <a href="#">privacy policy</a>
+      <p>
+        <a href="#"> shipping conditions</a>
+      </p> -->
+
+      <div class="socials">
+        <a
+          href="https://www.facebook.com/miettesdart"
+          target="_blank"
+          style="text-decoration: none"
+          class="facebook"
+        >
+          <img
+            class="facebook"
+            style="height: 22px"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/facebook_1_islvxm.png"
+          />
+        </a>
+        <a
+          href="https://www.instagram.com/miettesdart/?hl=en"
+          target="_blank"
+          class="instagram"
+          style="text-decoration: none"
+        >
+          <img
+            class="instagram"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/instagram_1_baujll.png"
+          />
+        </a>
+        <a
+          href="https://www.tiktok.com/@miettesdart"
+          target="_blank"
+          class="tiktok"
+          style="text-decoration: none"
+        >
+          <img
+            class="tiktok"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/tiktok-white_bltpp8.png"
+          />
+        </a>
+        <a
+          href="https://pin.it/7oo3bFP/"
+          target="_blank"
+          class="pinterest"
+          style="text-decoration: none"
+        >
+          <img
+            class="pinterest"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586876/Miettes%20D%27art/pinterest_rhtvie.png"
+          />
+        </a>
+        <a
+          href="https://wa.me/96176196979"
+          target="_blank"
+          class="whatsapp"
+          style="text-decoration: none"
+        >
+          <img
+            class="whatsapp"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668586875/Miettes%20D%27art/whatsapp-white_gxccdo.png"
+          />
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

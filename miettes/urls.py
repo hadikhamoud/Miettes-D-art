@@ -17,23 +17,35 @@ from django.contrib import admin
 from django.urls import path
 from MA import views
 from django.conf.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('taymaa-and-sara-only-secret/', admin.site.urls),
     path('homepage', views.homepage),
     path('', views.homepage),
     path('aboutus', views.aboutus_view, name='aboutus'),
     path('contactus', views.contactus_view, name='contactus'),
-    path('products', views.products_view, name='products'),
+    path('products/', views.products_view, name='products'),
+    path('webmail', views.webmail_view, name='webmail'),
+    path('checkcart', views.cart_view, name='checkcart'),
     #path('productcard', views.productcard_view,name='productcard'),
-    path('discover/<str:Title>/', views.discover_view, name='discover'),
-    path('addproduct', views.addproduct_view, name='addproduct'),
+    path('discover', views.discover_view, name='discover'),
+    path('collections/<str:Title_en>/', views.collection_view, name='collections'),
+    # path('addproduct', views.addproduct_view, name='addproduct'),
     path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
-    path('cart', views.cart_view, name='cart'),
+    path('faq/', views.faq_view, name='faq'),
     path('checkout', views.checkout_view, name='checkout'),
+    path('orderemail', views.orderemail_view, name='orderemail'),
     path('removeitem/<str:orderItemID>',
          views.removeitem_view, name='removeitem'),
-    path('productsearch', views.productsearch_view, name = "productsearch"),
+    path('search/', views.search_view,name='search'),
+    path('payment/', views.payment_view,name='payment'),
 
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+handler404 = 'MA.views.page_not_found_view'
+handler500 = 'MA.views.internal_server_error_view'
+# handler500 = 'MA.views.page_not_found_view'

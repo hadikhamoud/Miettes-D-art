@@ -9,9 +9,10 @@ media/
 staticfiles/
 geoip/
 Products_HTML_pages/
+miettes/wsgi.py
 
 
-
+.DS_Store
 # env files
 miettes/bin/
 miettes/lib/
@@ -19,16 +20,22 @@ miettes/__pycache__/
 miettes/__init__.py
 miettes/pyvenv.cfg
 miettes/asgi.py
+env/
 
 
 MiettesDB
 
 static/images/
+MA/jpeg
+MA/migrations
+static/.DS_Store
 
 
 
+.env
 
 
+democart.html
 
 
 # Backup files # 

@@ -1,0 +1,387 @@
+{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/viewproduct.css' %} "
+/>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"
+></script>
+
+<div class="preloader" id="pre-loader">
+  <div class="preloader-logo">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="var(--lighter_accent_color)"
+      version="1.0"
+      width="200px"
+      preserveaspectratio="xMidYMid meet"
+      viewbox="68.7 1 157.3 110.69"
+    >
+      <metadata>
+        Created by potrace 1.10, written by Peter Selinger 2001-2011
+      </metadata>
+
+      <g
+        transform="translate(0.000000,120.000000) scale(0.100000,-0.100000)"
+        stroke="none"
+      >
+        <path
+          d="M1179 1167 c-122 -51 -291 -169 -388 -272 -98 -105 -126 -181 -87 -239 14 -23 23 -27 53 -24 51 4 52 24 3 32 -22 3 -43 13 -46 21 -9 23 40 116 87 166 132 138 341 275 459 300 43 9 55 8 77 -6 24 -16 25 -21 20 -74 -6 -66 -46 -188 -93 -285 -24 -49 -58 -94 -113 -150 -155 -158 -281 -345 -281 -418 0 -43 10 -47 56 -19 67 41 182 203 295 415 56 104 73 127 129 174 72 59 147 102 181 102 20 0 21 -4 16 -45 -10 -68 -70 -221 -162 -412 -46 -94 -80 -174 -77 -177 3 -3 15 -6 28 -6 16 0 50 34 129 129 86 104 113 130 139 135 52 9 336 29 341 24 3 -3 -7 -34 -23 -69 -76 -168 -99 -288 -68 -348 10 -17 23 -34 31 -37 38 -15 252 163 227 188 -7 7 -29 -9 -69 -49 -61 -61 -144 -110 -164 -97 -29 18 22 195 103 358 l30 59 96 -7 c54 -3 109 -9 125 -12 20 -5 27 -2 27 9 0 21 -16 25 -130 33 -55 4 -100 9 -100 11 0 2 15 27 33 56 129 202 147 235 147 276 0 31 -7 48 -28 73 -29 31 -29 31 -75 19 -93 -27 -243 -145 -444 -354 -91 -94 -119 -117 -149 -123 -20 -4 -35 -3 -33 2 49 114 94 243 103 293 10 63 10 63 -17 87 -16 13 -35 24 -43 24 -22 0 -104 -44 -148 -79 -22 -17 -41 -29 -43 -27 -2 2 10 43 27 92 17 48 33 114 37 145 6 57 5 59 -30 94 -31 31 -41 35 -83 35 -28 0 -73 -11 -105 -23z m989 -220 c2 -10 -28 -71 -66 -135 -38 -64 -83 -144 -100 -178 l-31 -61 -158 -11 c-87 -7 -169 -15 -183 -18 -34 -8 239 263 342 340 109 82 188 107 196 63z m-1038 -424 c-69 -115 -188 -283 -200 -283 -17 0 38 109 96 194 69 98 144 189 152 182 3 -3 -19 -45 -48 -93z m383 -35 c-47 -63 -87 -108 -91 -103 -9 9 40 104 57 108 33 9 44 7 34 -5z"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+<section title="view-product" class="view-product">
+  <div class="wrapper-container">
+    <div class="slideshow-container">
+      {% if Selectedproduct %}
+
+      <ul class="thumbnails" id="thumbnails">
+        <li>
+          <div class="anim_gradient">
+            <img
+              id="0"
+              class="product_image"
+              src="/media/{{ Selectedproduct.Image }}"
+            />
+          </div>
+        </li>
+
+        {% for element in Pictures %}
+        <li>
+          <div class="anim_gradient">
+            <img
+              id="{{ forloop.counter }}"
+              class="product_image"
+              src="/media/{{ element.picture }}"
+            />
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <ul class="slides">
+        {% for element in Pictures %}
+        <li id="slide{{ forloop.counter }}">
+          <div class="anim_gradient">
+            <img
+              src="/media/{{ element.picture }}"
+              class="product_image"
+              alt=" "
+            />
+          </div>
+        </li>
+        {% endfor %}
+        <li id="slide0">
+          <div class="anim_gradient">
+            <img
+              src="/media/{{ Selectedproduct.Image }}"
+              class="product_image"
+              alt=""
+            />
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="product-details">
+      <p class="product-collection">{{ Selectedproduct.Collection.Title }}</p>
+      <h1 class="product-title">{{ Selectedproduct.Name }}</h1>
+      {% if Selectedproduct.Category %}
+      <p class="product-category">{{ Selectedproduct.Category }}</p>
+      {% endif %}
+      <p class="product-price">{{ Selectedproduct.Price }}</p>
+      <form method="POST" id="colorSize-Desktop">
+        {% csrf_token %}
+        <!-- <p class="product-sizeTitle">Sizes:</p> -->
+        <div class="colorSize-choose">
+          {% for colorName, colorHex in ColorsMobile %}
+          <div class="containerRadio">
+            <input
+              type="radio"
+              id="{{colorName}}"
+              name="color"
+              value="{{colorName}}"
+              required
+            />
+            <label
+              class="checkmark"
+              style="background-color: {{ colorHex }};"
+              for="{{colorName}}"
+            ></label>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="colorSize-choose" style="margin-top: 20px">
+          {% for option in Selectedproduct.Size %}
+          <div class="containerRadio">
+            <input
+              type="radio"
+              id="{{option}}"
+              name="size"
+              value="{{option}}"
+              required
+            />
+            <label
+              class="checkmark checkmarkSize"
+              style="background-color: {{ option }};"
+              for="{{option}}"
+              >{{ option }}</label
+            >
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- <p class="product-colorTitle">Colors:</p> -->
+        <button
+          type="submit"
+          name="addtocart"
+          id="add-to-cart"
+          class="addToCart"
+        >
+          Add to cart
+        </button>
+      </form>
+      <div class="product-description">
+        <div onclick="handleAccordion(event)" class="accordionDetails activate">
+          Description
+        </div>
+        <div class="panel" style="display: flex">
+          <div class="accordionDescription">
+            {{ Selectedproduct.Description|linebreaks }}
+          </div>
+        </div>
+
+        <div onclick="handleAccordion(event)" class="accordionDetails">
+          Payment and shipping
+        </div>
+        <div class="panel">
+          <div class="accordionDescription">
+            <u>Payment:</u>
+            <br />Cash On Delivery is the only payment method available in
+            Lebanon.
+            <br />
+            <br />
+            For international orders, you can pay through western union. Our
+            team will contact you to arrange with you the payment methods.
+            <br />
+            <br />
+            Payments are accepted in USD dollars or LBP, at the daily market
+            rate.
+            <br />
+            <br />
+            <u>Shipping:</u>
+            <br />
+            Once you place your order you will receive an email with your order
+            number and delivery information.
+            <br />
+            Your order will be delivered within 2 to 7 business days depending
+            on your location.
+            <br />
+            <br />
+            If you need to receive your order on a specific date, kindly send us
+            an email on
+            <a href="mailto:support@miettes.com">support@miettesdart.com </a>
+            and we will inform you if it’s possible.
+            <br />
+            <br />
+            Please note that delivery fees change based on your location.
+          </div>
+        </div>
+
+        <div onclick="handleAccordion(event)" class="accordionDetails">
+          Product care
+        </div>
+        <div class="panel">
+          <div class="accordionDescription">
+            How to Preserve your Gold-Plated Piece:
+
+            <ol>
+              <li>
+                Put on your jewelry after you have applied lotion, makeup,
+                perfume or hand sanitizer
+              </li>
+              <li>
+                Remove your jewelry before swimming, showering, exercising, or
+                doing any other activity that may cause you to sweat
+              </li>
+              <li>
+                Remove your jewelry if you will be bringing it into contact with
+                something hard (For example, take off your ring before weight
+                lifting)
+              </li>
+              <li>
+                Store your jewelry in a cool, dry place, such as a jewelry box
+                or a ziplock bag (a soft bag, one per piece of jewelry, is
+                ideal)
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</section>
+
+<section title="view-product-mobile" class="view-product-mobile-section">
+  <div class="marker-label">
+    <div class="wrapper-container-mobile">
+      <div class="slide-mobile anim_gradient">
+        <img class="product_image" src="/media/{{ Selectedproduct.Image }}" />
+      </div>
+      {% for element in Pictures %}
+      <div class="slide-mobile anim_gradient">
+        <img src="/media/{{ element.picture }}" class="product_image" />
+      </div>
+      {% endfor %}
+    </div>
+    <!-- <div class="image-navigator"> -->
+    <ul class="image-navigator">
+      {% if numOfPictures %} {% for i in numOfPictures %}
+      <li class="dot"></li>
+      {% endfor %} {% endif %}
+    </ul>
+  </div>
+
+  <div class="product-details">
+    <p class="product-collection">{{ Selectedproduct.Collection.Title }}</p>
+    <h1 class="product-title">{{ Selectedproduct.Name }}</h1>
+    <p class="product-category">{{ Selectedproduct.Category }}</p>
+    <p class="product-price">{{ Selectedproduct.Price }}</p>
+    <form method="POST" id="colorSize-mobile">
+      {% csrf_token %}
+      <!-- <p class="product-sizeTitle">Sizes:</p> -->
+      <div class="colorSize-choose">
+        {% for name, hex in Colors %}
+        <div class="containerRadio">
+          <input
+            type="radio"
+            id="{{name}}"
+            name="color"
+            value="{{name}}"
+            required
+          />
+          <label
+            class="checkmark"
+            style="background-color: {{ hex }};"
+            for="{{name}}"
+          ></label>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="colorSize-choose" style="margin-top: 20px">
+        {% for option in Selectedproduct.Size %}
+        <div class="containerRadio">
+          <input
+            type="radio"
+            id="{{option}}"
+            name="size"
+            value="{{option}}"
+            required
+          />
+          <label
+            class="checkmark checkmarkSize"
+            style="background-color: {{ option }};"
+            for="{{option}}"
+            >{{ option }}</label
+          >
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- <p class="product-colorTitle">Colors:</p> -->
+      <button
+        type="submit"
+        name="addtocart"
+        id="add-to-cart-mobile"
+        class="addToCart"
+      >
+        Add to cart
+      </button>
+    </form>
+    <div class="product-description">
+      <div onclick="handleAccordion(event)" class="accordionDetails activate">
+        Description
+      </div>
+      <div class="panel" style="display: flex">
+        <div class="accordionDescription">
+          {{ Selectedproduct.Description|linebreaks }}
+        </div>
+      </div>
+
+      <div onclick="handleAccordion(event)" class="accordionDetails">
+        Payment and shipping
+      </div>
+      <div class="panel">
+        <div class="accordionDescription">
+          <u>Payment:</u>
+          <br />Cash On Delivery is the only payment method available in
+          Lebanon.
+          <br />
+          <br />
+          For international orders, you can pay through western union. Our team
+          will contact you to arrange with you the payment methods.
+          <br />
+          <br />
+          Payments are accepted in USD dollars or LBP, at the daily market rate.
+          <br />
+          <br />
+          <u>Shipping:</u>
+          <br />
+          Once you place your order you will receive an email with your order
+          number and delivery information.
+          <br />
+          Your order will be delivered within 2 to 7 business days depending on
+          your location.
+          <br />
+          <br />
+          If you need to receive your order on a specific date, kindly send us
+          an email on
+          <a href="mailto:support@miettes.com">support@miettesdart.com </a> and
+          we will inform you if it’s possible.
+          <br />
+          <br />
+          Please note that delivery fees change based on your location.
+        </div>
+      </div>
+
+      <div onclick="handleAccordion(event)" class="accordionDetails">
+        Product care
+      </div>
+      <div class="panel">
+        <div class="accordionDescription">
+          How to Preserve your Gold-Plated Piece:
+
+          <ol>
+            <li>
+              Put on your jewelry after you have applied lotion, makeup, perfume
+              or hand sanitizer
+            </li>
+            <li>
+              Remove your jewelry before swimming, showering, exercising, or
+              doing any other activity that may cause you to sweat
+            </li>
+            <li>
+              Remove your jewelry if you will be bringing it into contact with
+              something hard (For example, take off your ring before weight
+              lifting)
+            </li>
+            <li>
+              Store your jewelry in a cool, dry place, such as a jewelry box or
+              a ziplock bag (a soft bag, one per piece of jewelry, is ideal)
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src=" {% static 'js/viewproduct.js' %} "></script>
+
+{% endblock %}

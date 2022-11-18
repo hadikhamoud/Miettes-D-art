@@ -1,0 +1,253 @@
+{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/faq.css' %} " />
+
+<div class="faq-container">
+  <h1 class="faq-title">FAQ</h1>
+  <div class="faq-content">
+    <div class="accordion-faq">When will I receive my order?</div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        Once you place your order you will receive an email with your order
+        number and delivery information. Your order will be delivered within 2
+        to 7 business days depending on your location. <br /><br />If you need
+        to receive your order on a specific date, kindly send us an email on
+        <a href="mailto:support@miettes.com">support@miettesdart.com </a>and we
+        will inform you if it’s possible.
+      </p>
+    </div>
+
+    <div class="accordion-faq">How can I pay for my order ?</div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        Cash On Delivery is the only payement method available in Lebanon.
+        <br /><br />
+
+        For international orders, you can pay through western union. Our team
+        will contact you to arrange with you the payement methods. <br />
+        <br />
+        Payments are accepted in USD dollars or LBP, at the daily market rate.
+      </p>
+    </div>
+
+    <div class="accordion-faq" id="delivery-fees-button">
+      What are the delivery fees?
+    </div>
+    <div class="panel">
+      <div id="delivery-fees" class="accordionDescription-faq">
+        Delivery fees change based on your location. <br />
+        <br />
+        Please insert your location in order to know the delivery fees.
+        <br />
+        <form method="POST" id="get-zone">
+          {% csrf_token %}
+          <input type="hidden" name="form_country_id" value="country-form" />
+
+          {% for field in form %}
+
+          <div class="input-container">{{ field }}</div>
+
+          {% endfor %}
+          <div class="zone-output" id="zone-output">{{ Zone }}</div>
+        </form>
+
+        <!-- <script>
+          var feesDiv = document.getElementById("delivery-fees-button");
+          feesDiv.toggle("activate");
+          var panel = feesDiv.nextElementSibling;
+          console.log("insideee");
+          if (panel.style.display === "flex") {
+            panel.style.display = "none";
+          } else {
+            panel.style.display = "flex";
+          }
+
+          document
+            .getElementById("delivery-fees")
+            .scrollIntoView({ behavior: "smooth" });
+        </script> -->
+      </div>
+    </div>
+
+    <div class="accordion-faq">Can I exchange my item?</div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        Yes, we accept exchanges within the first 7 days after you receive your
+        delivery. The item should be unworn and in a good condition to be
+        accepted for exchange. Please make sure to send it in its original
+        packaging. Kindly note that rings and customized items can’t be
+        exchanged. <br />
+        <br />
+        In order to process your exchange, send an email to
+        <a href="mailto:support@miettes.com">support@miettesdart.com </a> with
+        your order number and your request. Our team will support you.
+      </p>
+    </div>
+
+    <div class="accordion-faq">Can I cancel my order?</div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        You can cancel your order within 2 days after its confirmation. In order
+        to cancel or modify your order you can send an email to
+        <a href="mailto:support@miettes.com">support@miettesdart.com </a> with
+        your order number and your request. We will handle your request.
+      </p>
+    </div>
+
+    <div class="accordion-faq">
+      Can I change my delivery address after ordering?
+    </div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        It is possible to change your delivery address by sending an email to
+        <a href="mailto:support@miettes.com">support@miettesdart.com </a> with
+        your order number and your new address. We will update your information.
+      </p>
+    </div>
+
+    <div class="accordion-faq">How can I measure my finger?</div>
+    <div class="panel">
+      <div class="accordionDescription-faq">
+        In order to measure your finger:
+
+        <ol>
+          <li>
+            Take a floss or a string and wrap it around the base of your finger
+          </li>
+          <li>Mark where the floss or string overlaps</li>
+          <li>
+            Stretch the length of string out along a ruler and take down the
+            length in millimeters
+          </li>
+          <li>
+            Use the ring size chart below to know your exact ring size. Another
+            method to measure your ring size:
+          </li>
+        </ol>
+
+        OR
+
+        <ol>
+          <li>Take a ring you already have</li>
+          <li>Place it on a ruler to measure the inner diameter of the ring</li>
+          <li>Use the ring size chart below to know your exact ring size.</li>
+        </ol>
+        If you’re confused about your ring size you can contact us at
+        <a href="mailto:support@miettes.com">support@miettesdart.com </a> and we
+        will be more than happy to assist you. Make sure that you have the right
+        size because we do not exchange rings
+      </div>
+    </div>
+
+    <div class="accordion-faq">What is my ring size?</div>
+    <div class="panel">
+      <div class="accordionDescription-faq">
+        <table class="sizing-table">
+          <tr class="sizing-table-row">
+            <th>Size</th>
+            <th>Inner Diameter (cm)</th>
+            <th>Finger Circumference (mm)</th>
+          </tr>
+
+          <tr class="sizing-table-row">
+            <td>XS</td>
+            <td>1.6</td>
+            <td>49.3</td>
+          </tr>
+          <tr class="sizing-table-row">
+            <td>S</td>
+            <td>1.65</td>
+            <td>52</td>
+          </tr>
+          <tr class="sizing-table-row">
+            <td>M</td>
+            <td>1.7</td>
+            <td>54.5</td>
+          </tr>
+          <tr class="sizing-table-row">
+            <td>L</td>
+            <td>1.8</td>
+            <td>57</td>
+          </tr>
+          <tr class="sizing-table-row">
+            <td>XL</td>
+            <td>1.9</td>
+            <td>59.5</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="accordion-faq">What are your pieces made of?</div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        Our items are 24k gold plated brass. You can check the description of
+        each item to get detailed information about the material used.
+      </p>
+    </div>
+
+    <div class="accordion-faq">What if my item was damaged?</div>
+    <div class="panel">
+      <p class="accordionDescription-faq">
+        We can always fix your damaged items! All you have to do is send us an
+        email on
+        <a href="mailto:support@miettes.com">support@miettesdart.com </a> with
+        your issue and a photo of your item if possible. Our team will take it
+        from there.
+      </p>
+    </div>
+
+    <div class="accordion-faq">How can I take care of my items?</div>
+    <div class="panel">
+      <div class="accordionDescription-faq">
+        How to Preserve your Gold-Plated Piece
+        <ol>
+          <li>
+            Put on your jewelry after you have applied lotion, makeup, perfume
+            or hand sanitizer
+          </li>
+          <li>
+            Remove your jewelry before swimming, showering, exercising, or doing
+            any other activity that may cause you to sweat
+          </li>
+          <li>
+            Remove your jewelry if you will be bringing it into contact with
+            something hard (For example, take off your ring before weight
+            lifting)
+          </li>
+          <li>
+            Store your jewelry in a cool, dry place, such as a jewelry box or a
+            ziplock bag (a soft bag, one per piece of jewelry, is ideal)
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<script src=" {% static 'js/faq.js' %} "></script>
+
+<script>
+  $("#id_Country").change(function () {
+    var url = "{% url 'faq' %}";
+    var data = {
+      Country: this.value,
+      csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+    };
+
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: data,
+      success: function (dat) {
+        $("#zone-output").html(dat["Zone"]);
+      },
+      error: function () {
+        $("#zone-output").html(
+          "We're sorry, we are unable to process your request at this time."
+        );
+      },
+    });
+    return false;
+  });
+</script>
+{%endblock%}

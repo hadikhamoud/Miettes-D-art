@@ -1,0 +1,198 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <head>
+    <style>
+      body {
+        font-family: "verdana", courier sans-serif;
+        margin: 0;
+        height: 100%;
+        overflow: auto;
+      }
+      html {
+        overflow: hidden;
+        height: 100%;
+      }
+
+      .mainLogo,
+      .bottomNav {
+        position: relative;
+        margin: 0 auto;
+        height: auto;
+        text-align: center; /* Add This*/
+        overflow-x: hidden;
+        background-color: #91aabf;
+        color: white;
+        width: 100%;
+      }
+
+      .imgLogo {
+        margin: 30px 0;
+      }
+      .facebook,
+      .instagram,
+      .pinterest,
+      .whatsapp,
+      .tiktok {
+        width: 20px;
+      }
+
+      .pinterest {
+        height: 23px;
+      }
+
+      .orderDetails,
+      .delivery,
+      .products {
+        text-align: center;
+        margin: 130px auto;
+      }
+
+      .orderDetails {
+        height: 35%;
+      }
+
+      .bottomNav {
+        text-align: center;
+      }
+
+      hr {
+        border: 0;
+        clear: both;
+        display: block;
+        width: 96%;
+        background-color: rgb(246, 246, 246);
+        height: 3px;
+      }
+
+      .productImage {
+        max-width: 70%;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .productPrice {
+        font-size: 30px;
+        margin-top: -10px;
+      }
+
+      a {
+        color: black;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .socials {
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        margin-bottom: 20px;
+      }
+
+      .socials a {
+        margin-right: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainLogo">
+      <img
+        class="imgLogo"
+        src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981271/logo-white_vwrxiv.png"
+      />
+    </div>
+    <div class="orderDetails">
+      <h2>Your order has been delivered</h2>
+      <p>ORDER NO. &nbsp;<strong>{{orderNumber}}</strong></p>
+      <p>We hope you like it!</p>
+    </div>
+
+    <!--
+    {% comment %}
+    <div class="delivery">
+      <h2>Delivery</h2>
+      <p>HOME DELIVERY</p>
+      <p>
+        {{address.Street_address}}<br />
+        {{address.City}}, {{address.Country.name}}<br />
+        {{address.Phone_number}}
+      </p>
+    </div>
+    <hr />
+    {% endcomment %}
+    -->
+
+    <div class="bottomNav">
+      <!-- <a href="#">privacy policy</a>
+      <p>
+        <a href="#"> shipping conditions</a>
+      </p> -->
+      <p>Follow us:</p>
+
+      <div class="socials">
+        <a
+          href="https://www.facebook.com/miettesdart"
+          target="_blank"
+          style="text-decoration: none"
+          class="facebook"
+        >
+          <img
+            class="facebook"
+            style="height: 22px"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981399/416-4169142_facebook-logo-facebook-white-icon-png-2018_ucnevx.png"
+          />
+        </a>
+        <a
+          href="https://www.instagram.com/miettesdart/?hl=en"
+          target="_blank"
+          class="instagram"
+          style="text-decoration: none"
+        >
+          <img
+            class="instagram"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1667981619/instagram-white_xajpee.png"
+          />
+        </a>
+        <a
+          href="https://www.tiktok.com/@miettesdart"
+          target="_blank"
+          class="tiktok"
+          style="text-decoration: none"
+        >
+          <img
+            class="tiktok"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/tiktok-white_hfw24m.png"
+          />
+        </a>
+        <a
+          href="https://pin.it/7oo3bFP/"
+          target="_blank"
+          class="pinterest"
+          style="text-decoration: none"
+        >
+          <img
+            class="pinterest"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/pinterest-white_nl3o3j.png"
+          />
+        </a>
+        <a
+          href="https://wa.me/96176196979"
+          target="_blank"
+          class="whatsapp"
+          style="text-decoration: none"
+        >
+          <img
+            class="whatsapp"
+            src="https://res.cloudinary.com/inoroutapp/image/upload/v1668584553/Miettes%20D%27art/whatsapp-white_t43kua.png"
+          />
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

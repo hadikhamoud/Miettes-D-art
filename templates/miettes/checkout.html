@@ -1,193 +1,64 @@
-<!DOCTYPE html>
-<html>
-<head>
-  {% load static %}
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      {% include "miettes/topnav.html" %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body {
-  font-family: quicksand;
-  font-size: 17px;
-  padding: 8px;
-  background-color:rgb(246, 246, 246);
-  color:rgb(68, 76, 87)
+{% extends "miettes/basecheckout.html" %} {% load static %} {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %} " />
 
-* {
-  box-sizing: border-box;
-}
+<form method="POST" id="checkoutForm">
+  {% csrf_token %}
+  <div class="contact-info">
+    <h2 class="h2-infoLabel">Contact Information</h2>
 
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-    max-width: 90%;
-    margin: auto;
-    padding: 10px;
-}
+    <div class="input-container">
+      <label for="email" class="inputLabel"> Email</label>
+      <input type="text" id="email" name="email" required />
+    </div>
 
-.cart {
-  flex: 50%;
-}
+    <div class="fullName">
+      <div class="input-container fname">
+        <label for="fname" class="inputLabel"> First Name</label>
+        <input type="text" id="fname" name="fname" required />
+      </div>
 
-.info {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-}
-
-.col {
-  -ms-flex: 75%; /* IE10 */
-  flex: 55%;
-}
-
-.cart,
-.info,
-.col {
-  padding: 0 16px;
-
-}
-
-.container {
-  text-align:center;
-  padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
-  border-radius: 10px;
-  width:100%;
-  background-color:rgb(244, 246, 246)
-}
-
-input[type=text] {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-
-}
-.input2 {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-
-}
-
-label {
-  margin-bottom: 10px;
-  display: block;
-}
-
-.icon-container {
-  margin-bottom: 20px;
-  padding: 7px 0;
-  font-size: 24px;
-}
-
-.btn {
-  background-color:rgb(225, 229, 234);
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  width: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 17px;
-  font-family:quicksand
-}
-
-.btn:hover {
-  background-color: white;
-   font-weight:600;
-   border: 1px solid rgb(225, 229, 234)
-}
-
-
-
-hr {
-  border: 1px solid lightgrey;
-}
-
-span.price {
-  float: right;
-  color: grey;
-}
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-@media (max-width: 800px) {
-  .row {
-    flex-direction: column-reverse;
-  }
-  .cart {
-    margin-bottom: 20px;
-  }
-}
-</style>
-</head>
-<body>
-
-  <form  method = "POST">
- {% csrf_token %}
-
-<div class="row">
-  <div class="col">
-    <div class="container">
-
-
-        <div class="row">
-          <div class="info">
-            <h3>Shipping Address</h3>
-
-
-            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
-            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
-            <label for="email"><i class="fa fa-envelope"></i> Email</label>
-            <input type="text" id="email" name="email" placeholder="john@example.com">
-            <!--
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" name="address" placeholder="Apartments, suits, etc. (optional)">
-
-            <label for="city"><i class="fa fa-institution"></i> City</label>
-            <input type="text" id="city" name="city" placeholder="..."> -->
-            {% for field in form %}
-            {%if field.html_name == 'Phone_number' %}
-            <label for="country"><i class="fa fa-institution"></i> TEST</label>
-            <div class='input2'>{{field}} </div> 
-            {%else%}
-            <label for="country"><i class="fa fa-institution"></i> {{ field.label_tag }}</label>
-            {{field}}
-            {%endif%}
-            
-            {%endfor%}
-            <div><input type="submit" value="Process Order" class="btn"></div>
-
-          </div>
-        </form>
-
-        </div>
-
-
+      <div class="input-container lname">
+        <label for="lname" class="inputLabel"> Last Name</label>
+        <input type="text" id="lname" name="lname" required />
+      </div>
     </div>
   </div>
-  <div class="cart">
-    <div class="container">
-      <h4>Your cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>{{numberofitems}}</b></span></h4>
-      {%if Order%}
-      {%for Cartitem in Order %}
+  <div class="shipping-info">
+    <h2 class="h2-infoLabel">Shipping Information</h2>
 
-      <p>{{Cartitem.Item.Name}}<span class="price">{{Cartitem.Item.PriceLBP}}</span></p>
-      {%endfor%}
-      {%else%}
-      {%endif%}
-      <hr>
+    {% for field in form %}
 
-      <p>Total <span class="price" style="color:black"><b>{{total}}</b></span></p>
+    <div class="input-container">
+      <label for=" {{ field.label }}" class="inputLabel">
+        {{ field.label_tag }}</label
+      >
+      {%if field.name == "Phone_number" %}
+      <div class="phonenumber-field">{{field}}</div>
+
+      {%else%} {{ field }} {%endif%}
+    </div>
+
+    {% endfor %}
+    <div class="input-container comments">
+      <label for="comments" class="inputLabel">Additional Comments</label>
+      <textarea
+        type="textarea"
+        id="comments"
+        name="comments"
+        row="4"
+        class="comment-box"
+        cols="50"
+        style="padding-top: 25px"
+      ></textarea>
     </div>
   </div>
-</div>
-</body>
-{% include "miettes/botnav.html" %}
-</html>
+
+  <div class="process-button">
+    <input type="submit" value="Process Order" id="processBtn" />
+  </div>
+</form>
+
+<script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

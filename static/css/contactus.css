@@ -1,0 +1,74 @@
+.navbar-miettes {
+  background-color: white;
+}
+
+body {
+  margin-top: 100px;
+  font-family: var(--other_font);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* make input of type text placeholder the same font as body */
+input[type="text"] {
+  font-family: var(--other_font);
+}
+
+/*make textarea placeholder the same font as body */
+textarea {
+  font-family: var(--other_font);
+}
+
+#contactUsName,
+#contactUsEmail,
+select,
+#contactUsArea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+  border-radius: 5px;
+}
+
+#contactUsSubmit {
+  background-color: var(--lighter_accent_color);
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.contactUsSubmit:hover {
+  font-weight: 600;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  margin-top: 6px;
+  padding: 20px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  margin-bottom: 100px;
+}
+
+h1,
+h2 {
+  color: var(--lighter_accent_color);
+  font-family: var(--title_font);
+}
+
+@media only screen and (max-width: 550px) {
+  .column {
+    width: 100%;
+  }
+}

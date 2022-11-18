@@ -1,0 +1,137 @@
+{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %} " />
+<div class="preloader" id="pre-loader">
+  <div class="preloader-logo">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="var(--lighter_accent_color)"
+      version="1.0"
+      width="200px"
+      preserveaspectratio="xMidYMid meet"
+      viewbox="68.7 1 157.3 110.69"
+    >
+      <metadata>
+        Created by potrace 1.10, written by Peter Selinger 2001-2011
+      </metadata>
+      <g
+        transform="translate(0.000000,120.000000) scale(0.100000,-0.100000)"
+        stroke="none"
+      >
+        <path
+          d="M1179 1167 c-122 -51 -291 -169 -388 -272 -98 -105 -126 -181 -87 -239 14 -23 23 -27 53 -24 51 4 52 24 3 32 -22 3 -43 13 -46 21 -9 23 40 116 87 166 132 138 341 275 459 300 43 9 55 8 77 -6 24 -16 25 -21 20 -74 -6 -66 -46 -188 -93 -285 -24 -49 -58 -94 -113 -150 -155 -158 -281 -345 -281 -418 0 -43 10 -47 56 -19 67 41 182 203 295 415 56 104 73 127 129 174 72 59 147 102 181 102 20 0 21 -4 16 -45 -10 -68 -70 -221 -162 -412 -46 -94 -80 -174 -77 -177 3 -3 15 -6 28 -6 16 0 50 34 129 129 86 104 113 130 139 135 52 9 336 29 341 24 3 -3 -7 -34 -23 -69 -76 -168 -99 -288 -68 -348 10 -17 23 -34 31 -37 38 -15 252 163 227 188 -7 7 -29 -9 -69 -49 -61 -61 -144 -110 -164 -97 -29 18 22 195 103 358 l30 59 96 -7 c54 -3 109 -9 125 -12 20 -5 27 -2 27 9 0 21 -16 25 -130 33 -55 4 -100 9 -100 11 0 2 15 27 33 56 129 202 147 235 147 276 0 31 -7 48 -28 73 -29 31 -29 31 -75 19 -93 -27 -243 -145 -444 -354 -91 -94 -119 -117 -149 -123 -20 -4 -35 -3 -33 2 49 114 94 243 103 293 10 63 10 63 -17 87 -16 13 -35 24 -43 24 -22 0 -104 -44 -148 -79 -22 -17 -41 -29 -43 -27 -2 2 10 43 27 92 17 48 33 114 37 145 6 57 5 59 -30 94 -31 31 -41 35 -83 35 -28 0 -73 -11 -105 -23z m989 -220 c2 -10 -28 -71 -66 -135 -38 -64 -83 -144 -100 -178 l-31 -61 -158 -11 c-87 -7 -169 -15 -183 -18 -34 -8 239 263 342 340 109 82 188 107 196 63z m-1038 -424 c-69 -115 -188 -283 -200 -283 -17 0 38 109 96 194 69 98 144 189 152 182 3 -3 -19 -45 -48 -93z m383 -35 c-47 -63 -87 -108 -91 -103 -9 9 40 104 57 108 33 9 44 7 34 -5z"
+        />
+      </g>
+    </svg>
+  </div>
+</div>
+{% csrf_token %} {%if not sent%}
+<div class="newsletterForm" id="newsletter-Form">
+  <a href="javascript:void(0)" class="closebtnCart" onclick="closeForm()"
+    >&times;</a
+  >
+  <div class="newsletter" style="margin: auto">
+    <h2>Join our Community!</h2>
+    <p>Stay updated with our latest news, releases and special offers</p>
+    <div class="newsletter-form">
+      <form method="POST">
+        {% csrf_token %}
+        <input
+          type="email"
+          placeholder="Enter your email"
+          name="contact[email]"
+          class="newsletter-input"
+        />
+        <button type="submit" class="newsletter-button">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="presentation"
+            class="icon icon-email"
+            viewBox="0 0 64 64"
+          >
+            <path
+              d="M63 52H1V12h62zM1 12l25.68 24h9.72L63 12M21.82 31.68L1.56 51.16m60.78.78L41.27 31.68"
+            ></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{%else%} {%endif%}
+
+<section id="cover-photo">
+  <div class="coverPhoto">
+    {% if Discover %}
+    <picture>
+      <source
+        media="(max-width:669px)"
+        srcset="/media/{{Discover.ImageMobile}}"
+      />
+      <img src="/media/{{ Discover.Image }}" class="coverImg" decoding="sync" />
+    </picture>
+    {% else %}
+    <img
+      src="{% static 'images/discover.jpeg' %}"
+      class="coverImg"
+      decoding="sync"
+    />
+  </div>
+  {% endif %}
+  <button type="submit" class="btn" onclick="window.location.href='/discover'">
+    Discover
+  </button>
+</section>
+
+<section title="picks" class="slider-picks">
+  <h1 class="slider-title reveal-vertical">Monthly Picks</h1>
+  <div class="scrolling-wrapper reveal-horizontal">
+    {% if Picks %} {% for pick in Picks %}
+
+    <div class="card">
+      <a href="{% url 'viewproduct' pick.SKU %}">
+        <!-- <div class="anim_gradient"></div> -->
+        <div class="cardImg anim_gradient">
+          <img
+            src="/media/{{ pick.Image }}"
+            class="cardImg product_image"
+            decoding="sync"
+          /></div
+      ></a>
+
+      <h2 class="productTitle">{{ pick.Name }}</h2>
+      <h3 class="productPrice">{{ pick.Price }}</h3>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+</section>
+
+<section title="byCollection" class="collectionSection">
+  <h1 class="slider-title reveal-vertical">Shop By Collection</h1>
+  <div class="cards reveal-vertical">
+    {% if Collections %} {% for collection in Collections %}
+
+    <div class="cardCollection">
+      <a href="{% url 'collections' collection.Title_en %}">
+        <div class="collection-title">
+          <h2 class="collection-title-content">{{ collection.Title }}</h2>
+        </div>
+        <div class="cardCollectionImg anim_gradient">
+          <img
+            src="/media/{{ collection.Image }}"
+            class="cardCollectionImg product_image"
+            decoding="sync"
+          /></div
+      ></a>
+    </div>
+
+    {% endfor %}
+  </div>
+
+  {% endif %}
+</section>
+
+<script src="{% static 'js/index.js' %}"></script>
+
+{% endblock %}

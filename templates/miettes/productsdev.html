@@ -1,0 +1,146 @@
+{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/products.css' %} "
+/>
+
+<section class="products-grid" title="products-grid">
+  {% csrf_token %}
+  <form method="get" action="{% url 'products'%}" id="filter">
+    <div class="filters">
+      <div class="collection-filter">
+        <div class="collection-filter__item">
+          <label for="Category" class="hidden-label">Category</label>
+          <select name="Category" id="Category" onchange="handleFilters()">
+            <option value="Category" selected="selected">Category</option>
+
+            {% for category in categories %}
+            <option value="{{category.Name}}">{{category.Display_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="collection-filter">
+        <div class="collection-filter__item">
+          <label for="Color" class="hidden-label">Color</label>
+          <select name="Color" id="Color" onchange="handleFilters()">
+            <option value="Color" selected="selected">Color</option>
+
+            <option value="Gold">Gold</option>
+
+            <option value="Silver">Silver</option>
+
+            <option value="Black">Black</option>
+          </select>
+        </div>
+      </div>
+      <div class="collection-filter">
+        <div class="collection-filter__item">
+          <label for="sort_by" class="hidden-label">Sort</label>
+          <select name="sort_by" id="sort_by" onchange="handleFilters()">
+            <option value="Sort" selected="selected">Sort</option>
+
+            <option value="title-ascending">Alphabetically, A-Z</option>
+
+            <option value="title-descending">Alphabetically, Z-A</option>
+
+            <option value="price-ascending">Price, low to high</option>
+
+            <option value="price-descending">Price, high to low</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="products-grid-table">
+    {% if page_obj %} {% for product in page_obj %}
+    <div class="grid-item grid-medium">
+      <a href="{% url 'viewproduct' product.SKU %}">
+        <div class="cardImg anim_gradient" data-content>
+          <img
+            src="/media/{{ product.Image }}"
+            class="cardImg product_image"
+            decoding="sync"
+          />
+        </div>
+      </a>
+      <h1 class="ProductName">{{ product.Name }}</h1>
+      <h3 class="ProductPrice">{{ product.Price }}</h3>
+    </div>
+
+    {% endfor %}
+  </div>
+</section>
+{%if page_obj.paginator.num_pages > 1 %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a
+      class="arrow"
+      style="margin-right: 20px"
+      href="?{{GET_params.urlencode}}&amp;page={{ page_obj.previous_page_number }}"
+      ><svg
+        fill="currentColor"
+        aria-hidden="true"
+        focusable="false"
+        role="presentation"
+        class="icon-chevron icon-chevron-left"
+        viewBox="0 0 284.49 498.98"
+      >
+        <path
+          d="M249.49 0a35 35 0 0 1 24.75 59.75L84.49 249.49l189.75 189.74a35.002 35.002 0 1 1-49.5 49.5L10.25 274.24a35 35 0 0 1 0-49.5L224.74 10.25A34.89 34.89 0 0 1 249.49 0z"
+        ></path>
+      </svg>
+    </a>
+    <a
+      href="?{{GET_params.urlencode}}&amp;page={{ page_obj.previous_page_number }}"
+    >
+      {{ page_obj.previous_page_number }}</a
+    >
+  </span>
+  {%else%}
+  <style>
+    .current-page {
+      margin-right: 20px;
+    }
+  </style>
+  {% endif %}
+
+  <span class="current-page"> {{ page_obj.number }} </span>
+  <span>
+    {% if page_obj.has_next %}
+    <a
+      href="?{{GET_params.urlencode}}&amp;page={{ page_obj.next_page_number }}"
+    >
+      {{ page_obj.next_page_number }}</a
+    >
+
+    <a
+      class="arrow"
+      style="margin-left: 20px"
+      href="?{{GET_params.urlencode}}&amp;page={{ page_obj.next_page_number }}"
+    >
+      <svg
+        aria-hidden="true"
+        fill="currentColor"
+        focusable="false"
+        role="presentation"
+        class="icon-chevron icon-chevron-right"
+        viewBox="0 0 284.49 498.98"
+      >
+        <path
+          d="M35 498.98a35 35 0 0 1-24.75-59.75l189.74-189.74L10.25 59.75a35.002 35.002 0 0 1 49.5-49.5l214.49 214.49a35 35 0 0 1 0 49.5L59.75 488.73A34.89 34.89 0 0 1 35 498.98z"
+        ></path>
+      </svg>
+    </a>
+
+    {% endif %}
+  </span>
+  {% endif %}
+</div>
+{% endif %}
+<script src="{% static 'js/products.js' %}"></script>
+{% endblock %}

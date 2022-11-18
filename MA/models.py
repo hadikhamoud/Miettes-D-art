@@ -1,21 +1,22 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime,timedelta,timezone
+from datetime import datetime
 from django_countries.fields import CountryField
 from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
-import uuid
-from shortuuidfield import ShortUUIDField
-import random
-import string
+
 from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.validators import MaxLengthValidator
+# from django.core.validators import MaxLengthValidator
+from .utils import *
+import os
+from colorfield.fields import ColorField
+import string
 
-def generate_Ref_code():
-    current_date =datetime.now()
-    Ref_code = str(int(current_date.strftime("%y%m%d")))+''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
-    return Ref_code
+from django.template.loader import render_to_string
+from django_resized import ResizedImageField
+from miettes.settings import env
 
 
 def ConvertCheck():
@@ -23,16 +24,13 @@ def ConvertCheck():
     return multiplier[0]
 
 
-def get_default_size():
-    return ['XS','S','M','L','XL']
-def get_default_color():
-    return ['Gold', 'Silver']
+
 
 
 class Product(models.Model):
     catchoice= [
         ('earrings', 'Earrings'),
-        ('objet dart', "objet d'art"),
+        ('objet dart', "Objet d'art"),
         ('rings', 'Rings'),
         ('necklaces', 'Necklaces'),
         ]
@@ -58,20 +56,46 @@ class Product(models.Model):
 
     Name = models.CharField(max_length=40,null = True, blank=True)
     SKU = models.CharField(max_length=40,unique = True)
+    Pick=models.BooleanField(default=False)
     Size = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_size)
-    Color = ArrayField(models.CharField(max_length=10,null = True, blank=True),null = True, blank=True,default = get_default_color)
+    Color = ArrayField(models.CharField(max_length=30,null=True,blank=True),null = True, blank=True,default = get_default_color)
+    ColorHex = ArrayField(models.CharField(max_length=30,null=True,blank=True),null = True, blank=True,default = get_default_color)
     Description = models.TextField(max_length=400,null = True, blank=True)
     Price = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
-    Category = models.CharField(max_length=30,choices=catchoice,default='earrings',null = True, blank=True)
-    Status = models.CharField(max_length=30,choices=statuschoice,default='Active',null = True, blank=True)
+    Category = models.ForeignKey("Category",null = True, blank=True, on_delete=models.SET_NULL)
+    Status = models.CharField(max_length=30,choices=statuschoice,default='active',null = True, blank=True)
     Optional = models.CharField(max_length=30,choices=optionalchoice,default='new arrivals',null = True, blank=True)
     Discover = models.ForeignKey('Discover',on_delete=models.CASCADE,null = True, blank = True)
-    Image = models.ImageField(upload_to='static/images',null = True, blank=True)
-    PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
+    Collection = models.ForeignKey('Collection',on_delete=models.CASCADE,null = True, blank = True)
+    Image = ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
+    Thumbnail = ResizedImageField(force_format="WEBP",quality=40, upload_to='images',scale = 25,null=True,blank=True)
+    PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
+    def save(self, *args, **kwargs):
+        super(Product, self).save(*args, **kwargs)
+        # if self.Image:
+        #     mail_convert_to_jpg(self.Image.path)
 
     def __str__(self):
-        return self.Name+" "+self.SKU
+        try:
+            return self.Name+" "+self.SKU
+        except:
+            return ""
+    
+
+    def delete(self):
+        self.Status = "disabled"
+        super(Product, self).save()
+      
+
+
+class Color(models.Model):
+    colorHex = models.CharField(max_length=7,unique = True)
+    colorName = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.colorName
+    
 
 
 class Multiplier(models.Model):
@@ -84,12 +108,13 @@ class Multiplier(models.Model):
 
 class Picture(models.Model):
     Product = models.ForeignKey('Product',on_delete=models.CASCADE,null = True, blank = True)
-    picture = models.ImageField(upload_to='static/images')
+    picture = ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
 
 
 class Customer(models.Model):
     User = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE,editable=False)
-    Name = models.CharField(max_length=200, null=True, blank=True,editable=False)
+    First_name = models.CharField(max_length=200, null=True, blank=True,editable=False)
+    Last_name = models.CharField(max_length=200, null=True, blank=True,editable=False)
     Email = models.EmailField(max_length=254,null=True, blank=True,editable=False)
     Device = models.CharField(max_length=200, null=True, blank=True,editable=False)
     Phone_number = PhoneNumberField(max_length=200,null=True, blank=True,editable=False)
@@ -97,8 +122,9 @@ class Customer(models.Model):
 
 
     def __str__(self):
-        if self.Name:
-            name = self.Name
+        if self.First_name and self.Last_name:
+            name  = f'{self.First_name} {self.Last_name}'
+
         else:
             name = self.Device
         return str(name)
@@ -117,7 +143,7 @@ class OrderItem(models.Model):
     Quantity = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.Item.Name} \n------ {self.Size} \n----- {self.Color}"
+        return f"{self.Item.Name} \t- {self.Size} \t- {self.Color}"
 
     def get_total_item_price(self):
         return self.Quantity * self.Item.Price
@@ -130,35 +156,94 @@ class Order(models.Model):
     Customer = models.ForeignKey('Customer',
                              on_delete=models.CASCADE,null = True, blank = True)
     #Ref_code = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True, editable=False)
-    Ref_code = ShortUUIDField()
+    Ref_code = models.CharField(max_length=12,null=True, blank=True, unique=True)
+
 
     #Items = models.ManyToManyField(OrderItem)
     Start_date = models.DateTimeField(auto_now=True,null = True)
     Ordered_date = models.DateTimeField(blank=True, null=True)
+    Shipped_date = models.DateTimeField(blank=True, null=True)
+    Delivered_date = models.DateTimeField(blank=True, null=True)
     Ordered = models.BooleanField(default=False)
     Shipping_address = models.OneToOneField(
         'Address', on_delete=models.SET_NULL, blank=True, null=True)
+    Subtotal = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
+    Shipping = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
     Total = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
-    Being_delivered = models.BooleanField(default=False)
-    Received = models.BooleanField(default=False)
+    Shipped = models.BooleanField(default=False)
+    Delivered = models.BooleanField(default=False)
+    Additional_comments = models.TextField(null = True, blank=True)
 
     class Meta:
         ordering=['-Ordered']
 
     def __str__(self):
-        return str(self.Customer) + str(self.Ref_code)
+        return str(self.Customer) +" "+ str(self.Ref_code)
+
+    
+    def save(self, *args, **kwargs):
+
+        if not self.Ref_code:
+            self.Ref_code = generate_Ref_code()
+            while Order.objects.filter(Ref_code=self.Ref_code).exists():
+                self.Ref_code = generate_Ref_code()
+        
+
+        #admin should press shipped then delivered(in that order)
+        if self.Shipped and not self.Delivered:
+            print("shipped")
+            send_html_mail(subject = "Your order is on its way", html_content=render_to_string(
+            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
+            self.Shipped_date = generate_timestamp() 
+        elif self.Shipped and self.Delivered: 
+            print("delivered")
+            send_html_mail(subject = "Order delivered", html_content=render_to_string(
+            'miettes/deliveredemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
+            self.Delivered_date = generate_timestamp()
+
+
+        super(Order, self).save(*args, **kwargs)
 
 
 
 
 
 class Discover(models.Model):
-    Title = models.CharField(max_length=40,null = True, blank=True)
-    Image1 = models.ImageField(upload_to='static/images',null = True, blank=True)
-    Image2 =  models.ImageField(upload_to='static/images',null = True, blank=True)
-    Image3 =  models.ImageField(upload_to='static/images',null = True, blank=True)
-    Items = models.ManyToManyField(Product)
+    Title = models.CharField(max_length=80)
+    Image = ResizedImageField(force_format="WEBP",quality=100, upload_to='images',null=True,blank=True)
+    ImageMobile = ResizedImageField(force_format="JPEG",quality=100, upload_to='images',null=True,blank=True)
+    Description = models.TextField(null = True, blank = True)
+    Active = models.BooleanField(default = False)
 
+
+
+    def __str__(self):
+        return self.Title
+    
+
+    def save(self, *args, **kwargs):
+        if self.Active:
+            Discover.objects.all().update(Active = False)
+            self.Active = True
+        super(Discover, self).save(*args, **kwargs)
+ 
+        
+
+
+
+class Collection(models.Model):
+    Title = models.CharField(max_length=80,null = True, blank=True)
+    Title_en = models.CharField(max_length=80,null = True, blank=True)
+    Description = models.TextField(null = True, blank = True)
+    Image =ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
+    Show = models.BooleanField(default = False)
+
+    def save(self, *args, **kwargs):
+
+        self.Title_en = self.Title.replace(" ","-").lower()
+        # self.Title_en = self.Title
+        self.Title_en = self.Title_en.strip(string.punctuation)
+        super(Collection, self).save(*args, **kwargs)
 
 
     def __str__(self):
@@ -179,7 +264,86 @@ class Address(models.Model):
     Default = models.BooleanField(default=False,null = True, blank = True)
 
     def __str__(self):
-        return self.Street_address+ '\n' +self.Zip + '\n' + str(self.Country) + '\n' + 'Phone Number: ' + str(self.Phone_number)
+        return self.Street_address+ '\n' +self.Zip + '\n' + str(self.City)+', '+str(self.Country.name) + '\n' + 'Phone Number: ' + str(self.Phone_number)
 
     class Meta:
         verbose_name_plural = 'Addresses'
+
+
+
+
+
+class ContactUs(models.Model):
+    Name = models.CharField(max_length=200, null=True, blank=True,editable=False)
+    Email = models.EmailField(max_length=254,null=True, blank=True,editable=False)
+    Content = models.TextField(null = True, blank=True)
+    Response = models.TextField(null = True, blank = True)
+
+
+
+    def __str__(self):
+        return f"{str(self.Name)} : {str(self.Email)}"
+
+    
+    def save(self, *args, **kwargs):
+
+        if self.Response:
+            send_html_mail("Support!",f"<h1> we have received your complaint!<br></br> {self.Response}</h1>", recipient_list=[self.Email],sender=env("EMAIL_HOST_USER_SUPPORT"))
+
+        super(ContactUs, self).save(*args, **kwargs)
+    
+    class Meta:
+        # Add verbose name
+        verbose_name = 'Contact Us'
+        verbose_name_plural= "Contact Us"
+        
+
+
+
+class Zone(models.Model):
+    ZoneNumber = models.IntegerField(null=True,blank=True)
+    Cost = MoneyField(max_digits=14, decimal_places=2, default_currency='USD',null = True, blank = True)
+
+    def __str__(self):
+        return "Zone " + str(self.ZoneNumber)
+
+
+class Country(models.Model):
+    Country = models.CharField(max_length=120,null=True,blank=True)
+    Zone = models.ForeignKey("Zone",null=True,blank=True,on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Country'
+        verbose_name_plural = 'Countries'
+
+    def __str__(self):
+        return str(self.Country)
+
+class Category(models.Model):
+    Name = models.CharField(max_length=120,null=True,blank=True)
+    Display_name = models.CharField(max_length=120,null=True,blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.Display_name:
+            self.Display_name = self.Name
+        super(Category, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return str(self.Name)
+
+    
+
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+class Newsletter(models.Model):
+    Email = models.EmailField(max_length=254,null=True, blank=True,unique=True)
+    Name = models.CharField(max_length=200, null=True, blank=True)
+
+    def __str__(self):
+        return self.Email
+
+    class Meta:
+        verbose_name = 'Newsletter'
+        verbose_name_plural = 'Newsletters'

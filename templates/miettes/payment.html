@@ -1,0 +1,71 @@
+{% extends "miettes/basecheckout.html" %} {% load static %} {% block content %}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="stylesheet" href="{% static 'css/checkout.css' %} " />
+
+<div class="review-order">
+  <h2 class="review-order-title">Review order</h2>
+
+  <div class="review-area">
+    <div class="contact-row">
+      <div class="contact-label">Contact</div>
+
+      <span class="contact-value">{{Customer.Email}}</span>
+    </div>
+
+    <hr />
+
+    <div class="ship-row">
+      <div class="address-label">Ship to</div>
+
+      <address class="address-value">
+        {{Address.Street_address}} <br />
+        {{Address.City}}, {{Address.Country.name}}<br />
+        {{Address.Phone_number}}
+      </address>
+    </div>
+    <hr />
+    <div class="comments-row">
+      <div class="comments-label">Additional comments</div>
+      <div class="comments-value">{{Comments|linebreaks}}</div>
+    </div>
+
+    <hr />
+    <div class="cost-row">
+      <div class="cost-label">Shipping cost</div>
+
+      <span class="cost-value">Zone {{Zone.ZoneNumber}}: {{Zone.Cost}}</span>
+    </div>
+  </div>
+
+  <div class="review-area total-area">
+    <div class="cost-row">
+      <div class="cost-label">Subtotal</div>
+
+      <span class="cost-value">{{subtotal}}</span>
+    </div>
+
+    <div class="cost-row">
+      <div class="cost-label">Shipping</div>
+
+      <span class="cost-value">{{Zone.Cost}}</span>
+    </div>
+    <hr />
+
+    <div class="cost-row">
+      <div class="cost-label">Total</div>
+
+      <span class="total-value">{{total}}</span>
+    </div>
+  </div>
+  <div class="process-button">
+    <button onclick="history.back()" id="changeBtn">Edit</button>
+    <form method="POST">
+      {% csrf_token %}
+
+      <input type="submit" value="Order" id="orderBtn" />
+    </form>
+  </div>
+</div>
+
+{% endblock %}
