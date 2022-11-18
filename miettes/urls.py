@@ -20,7 +20,6 @@ urlpatterns = [
     path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
     path('faq/', views.faq_view, name='faq'),
     path('checkout', views.checkout_view, name='checkout'),
-    path('orderemail', views.orderemail_view, name='orderemail'),
     path('removeitem/<str:orderItemID>',
          views.removeitem_view, name='removeitem'),
     path('search/', views.search_view,name='search'),
