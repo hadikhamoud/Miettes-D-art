@@ -31,3 +31,5 @@ urlpatterns = [
 
 handler404 = 'MA.views.page_not_found_view'
 handler500 = 'MA.views.internal_server_error_view'
+handler403 = 'MA.views.permission_denied_view'
+handler400 = 'MA.views.bad_request_view'
