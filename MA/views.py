@@ -329,7 +329,8 @@ def checkout_view(request):
         
         if form.is_valid():
             Address = form.save()
-            if models.Country.objects.filter(Country=Address.Country).first():
+            if models.Country.objects.filter(Country=Address.Country.name).first():
+                print("here")
                 order.Shipping_address = models.Address.objects.create(City = Address.City,
                     Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
                 customer.Phone_number=Address.Phone_number
