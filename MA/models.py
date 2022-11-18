@@ -1,19 +1,11 @@
-from email.policy import default
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
 from django_countries.fields import CountryField
-from django.conf import settings
 from django.contrib.postgres.fields import ArrayField
-
 from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
-# from django.core.validators import MaxLengthValidator
 from .utils import *
-import os
-from colorfield.fields import ColorField
 import string
-
 from django.template.loader import render_to_string
 from django_resized import ResizedImageField
 from miettes.settings import env
@@ -155,11 +147,7 @@ class Order(models.Model):
 
     Customer = models.ForeignKey('Customer',
                              on_delete=models.CASCADE,null = True, blank = True)
-    #Ref_code = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True, editable=False)
     Ref_code = models.CharField(max_length=12,null=True, blank=True, unique=True)
-
-
-    #Items = models.ManyToManyField(OrderItem)
     Start_date = models.DateTimeField(auto_now=True,null = True)
     Ordered_date = models.DateTimeField(blank=True, null=True)
     Shipped_date = models.DateTimeField(blank=True, null=True)
@@ -241,7 +229,6 @@ class Collection(models.Model):
     def save(self, *args, **kwargs):
 
         self.Title_en = self.Title.replace(" ","-").lower()
-        # self.Title_en = self.Title
         self.Title_en = self.Title_en.strip(string.punctuation)
         super(Collection, self).save(*args, **kwargs)
 
@@ -253,8 +240,7 @@ class Collection(models.Model):
 
 
 class Address(models.Model):
-    # Customer = models.ForeignKey('Customer',
-    #                          on_delete=models.SET_NULL,null = True, blank = True)
+  
     Street_address = models.CharField(max_length=100,null = True, blank = True)
     Apartment_address = models.CharField(max_length=100,null = True, blank = True)
     City = models.CharField(max_length=100,null = True, blank = True)
@@ -293,7 +279,6 @@ class ContactUs(models.Model):
         super(ContactUs, self).save(*args, **kwargs)
     
     class Meta:
-        # Add verbose name
         verbose_name = 'Contact Us'
         verbose_name_plural= "Contact Us"
         

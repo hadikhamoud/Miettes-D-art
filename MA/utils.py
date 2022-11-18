@@ -1,9 +1,7 @@
 import random
 import string
-# from django.contrib.gis.geoip2 import GeoIP2
 from datetime import datetime
 import threading
-from django.core.mail import EmailMessage
 from django.conf import settings
 import os
 from email.mime.image import MIMEImage
@@ -125,13 +123,6 @@ def send_html_mail(subject, html_content, recipient_list, sender,Images=[],conne
 
 
 
-#_________________________For adding products_______________________________________________
-
-# from selenium import webdriver
-
-
-
-
 
 
 
@@ -188,20 +179,8 @@ def extract_SKU(reader):
     inpt = reader.find("input",{"id":"edit-sku"})
     return inpt["value"]
 
-# def extract_SKU(reader):
-
-# dir = "/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages/Product_ BE100B _ Miettesdart1.html"
 
 
 
 
-# MEDIA_DIR = os.listdir("/Users/hadihamoud/Desktop/Projects/Miettes-D-art/media/images")
-
-# for img in MEDIA_DIR:
-#     try:
-#         if img.split(".")[-1]!="jpeg":
-#             mail_convert_to_jpg(f"/Users/hadihamoud/Desktop/Projects/Miettes-D-art/media/images/{img}")
-#     except:
-#         print("ERROR")
-#         continue
-
+ 

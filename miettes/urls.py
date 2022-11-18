@@ -1,18 +1,4 @@
-"""miettes URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from MA import views
@@ -29,10 +15,8 @@ urlpatterns = [
     path('products/', views.products_view, name='products'),
     path('webmail', views.webmail_view, name='webmail'),
     path('checkcart', views.cart_view, name='checkcart'),
-    #path('productcard', views.productcard_view,name='productcard'),
     path('discover', views.discover_view, name='discover'),
     path('collections/<str:Title_en>/', views.collection_view, name='collections'),
-    # path('addproduct', views.addproduct_view, name='addproduct'),
     path('viewproduct/<str:SKU>/', views.viewproduct_view, name='viewproduct'),
     path('faq/', views.faq_view, name='faq'),
     path('checkout', views.checkout_view, name='checkout'),
@@ -48,4 +32,3 @@ urlpatterns = [
 
 handler404 = 'MA.views.page_not_found_view'
 handler500 = 'MA.views.internal_server_error_view'
-# handler500 = 'MA.views.page_not_found_view'
