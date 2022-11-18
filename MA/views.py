@@ -330,7 +330,6 @@ def checkout_view(request):
         if form.is_valid():
             Address = form.save()
             if models.Country.objects.filter(Country=Address.Country.name).first():
-                print("here")
                 order.Shipping_address = models.Address.objects.create(City = Address.City,
                     Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
                 customer.Phone_number=Address.Phone_number
@@ -389,6 +388,8 @@ def payment_view(request):
         zippedOrder = zip(ImagesEmail,orderItems)
         send_html_mail(subject=f"Order completed {order.Ref_code}!", html_content=render_to_string(
             'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'zippedOrder': zippedOrder,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"),Images=Images)
+        send_html_mail(subject=f"New Order {order.Ref_code}", html_content=render_to_string(
+            'miettes/neworder.html', {"total":order.Total,'orderNumber':order.Ref_code,"Customer":order.Customer,"Ordered_date":order.Ordered_date,"orderitems":orderitems}), recipient_list=[env("EMAIL_HOST_USER_NOREPLY")], sender=env("EMAIL_HOST_USER_NOREPLY"))
         if request.session.get("sess"):
             del request.session["sess"]
         request.session["sess"] = str(uuid4())
