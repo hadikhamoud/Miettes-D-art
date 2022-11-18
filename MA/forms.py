@@ -31,7 +31,6 @@ class AddressForm(forms.ModelForm):
         attrs = {'onchange' : "displayCountryCode()"}
     
     def __init__(self, *args, **kwargs):
-        # first call parent's constructor
         super(AddressForm, self).__init__(*args, **kwargs)
         for field in ["Street_address",'Country','City','Phone_number']:
             self.fields[field].required = True 

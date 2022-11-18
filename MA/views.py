@@ -2,60 +2,22 @@ import re
 from django.shortcuts import render
 from django.db import models
 from django.shortcuts import redirect
-from phonenumbers import PhoneNumber
 from . import forms, models
 from django.db.models import Q
 from string import punctuation
 from django.core.paginator import Paginator
 from django.contrib import messages
-
-from django.template import RequestContext
-from django.db.models import Avg, Case, F, FloatField, Value, When
+from django.db.models import Case, F, FloatField, Value, When
 from django_countries import countries
-
-from django.http import HttpResponse
 from django.http import JsonResponse
-
 from miettes.settings import env
-from django.core.mail import send_mail
 from .utils import *
 from django.template.loader import render_to_string
-import os
 from django.http import HttpResponseRedirect
-from bs4 import BeautifulSoup as bsoup
 from uuid import uuid4
-# Create your views here.
-
-# def mainScraper():
-#     productsDir = os.listdir("/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages")
-#     for i in range(len(productsDir)):
-#         print("heree")
-#         try:
-#             with open(os.path.join("/Users/hadihamoud/Desktop/Personal work/Miettes_General_Scraper/Products_HTML_Pages",productsDir[i]), 'r') as f:
-#         # with open(dir, 'r') as f:
-            
-#                 contents = f.read()
-
-#                 reader = bsoup(contents,"lxml")
-                
-#                 # print(extract_images(reader))
-#                 # print(extract_title(reader))
-#                 # print(extract_category(reader))
-#                 # print(extract_price(reader))
-#                 # print(extract_status(reader))
-#                 # print(extract_SKU(reader))
-#                 # print(extract_description(reader))
-
-#                 models.Product.objects.create(SKU = extract_SKU(reader), Name = extract_title(reader), Description = extract_description(reader), Category = extract_category(reader), Price = extract_price(reader), Status = extract_status(reader),Image="static/images/discover.jpeg")
-#                 print("here")
-        
-#         except Exception as e:
-#             print(e)
-
 
 
 def homepage(request):
-    # mainScraper()
     Picks = models.Product.objects.filter(Pick=True)
     Collections = models.Collection.objects.filter(Show = True)
     Discover = models.Discover.objects.get(Active = True)
@@ -101,18 +63,10 @@ def contactus_view(request):
         return render(request, 'miettes/contactus.html',{"sentComplaint": True})
     return render(request, 'miettes/contactus.html')
 
-# def newsletter_view(request):
-#     if request.method == 'POST':
-#         email = request.POST.get("email")
-#         models.Newsletter.objects.get_or_create(Email = email)
-#         return render(request, 'miettes/newsletter.html',{"sent": True})
-#     return render(request, 'miettes/newsletter.html')
 
 def products_view(request):
 
     categories = models.Category.objects.all()
-
-    #TODO: work on Colors
 
     GET_params = request.GET.copy()
 
@@ -378,7 +332,6 @@ def checkout_view(request):
             if models.Country.objects.filter(Country=Address.Country).first():
                 order.Shipping_address = models.Address.objects.create(City = Address.City,
                     Country=Address.Country, Street_address=Address.Street_address, Zip=Address.Zip,Phone_number = Address.Phone_number)
-                #TODO add Customer.phonenumber and assign it using input
                 customer.Phone_number=Address.Phone_number
                 order.Additional_comments=request.POST.get("comments")
                 customer.save()
@@ -445,23 +398,8 @@ def payment_view(request):
     
 
 
-
 def webmail_view(request):
     return redirect("https://www.zoho.com/mail/login.html")
-
-# def addproduct_view(request):
-#     form = forms.ProductForm()
-#     if request.method == 'POST':
-#         form = forms.ProductForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             Product = form.save()
-
-
-def orderemail_view(request):
-    return render(request, 'miettes/orderemail.html')
-
-
-
 
 
 

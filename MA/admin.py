@@ -1,11 +1,9 @@
-from xml.etree.ElementInclude import include
 from django.contrib import admin
 from .models import *
-from django.contrib.contenttypes.admin import GenericTabularInline
 from django.db.models.functions import Lower
 from django.contrib.sessions.models import Session
 from . import forms
-# Register your models here.
+
 
 
 
@@ -112,7 +110,6 @@ class DiscoverAdmin(admin.ModelAdmin):
     list_display=('Title', )
     exclude = ['id']
 
-    #inlines = [ProductlInline,]
 
 
 class ProductAdminInLine(admin.TabularInline):
@@ -176,6 +173,7 @@ class ZoneAdmin(admin.ModelAdmin):
 class CountryAdmin(admin.ModelAdmin):
 
     list_display = ['Country', 'Zone']
+    search_fields = ['Country']
     # readonly_fields = ["Country"]
 
 
@@ -194,4 +192,3 @@ admin.site.register(Collection, CollectionAdmin)
 admin.site.register(Zone, ZoneAdmin)
 admin.site.register(Country, CountryAdmin)
 admin.site.register(Newsletter, NewsletterAdmin)
-#admin.site.register(ShippingAddress)
