@@ -181,12 +181,12 @@ class Order(models.Model):
         if self.Shipped and not self.Delivered:
             print("shipped")
             send_html_mail(subject = "Your order is on its way", html_content=render_to_string(
-            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
+            'miettes/shippedemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=settings.EMAIL_HOST_USER_NOREPLY)
             self.Shipped_date = generate_timestamp() 
         elif self.Shipped and self.Delivered: 
             print("delivered")
             send_html_mail(subject = "Order delivered", html_content=render_to_string(
-            'miettes/deliveredemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"))
+            'miettes/deliveredemail.html', {'orderNumber':self.Ref_code,'address':self.Shipping_address}), recipient_list=[self.Customer.Email], sender=settings.EMAIL_HOST_USER_NOREPLY)
             self.Delivered_date = generate_timestamp()
 
 
@@ -274,7 +274,8 @@ class ContactUs(models.Model):
     def save(self, *args, **kwargs):
 
         if self.Response:
-            send_html_mail("Support!",f"<h1> we have received your complaint!<br></br> {self.Response}</h1>", recipient_list=[self.Email],sender=env("EMAIL_HOST_USER_SUPPORT"))
+            send_html_mail("Support!",f"<h1> we have received your complaint!<br></br> {self.Response}</h1>", recipient_list=[self.Email],sender=settings.EMAIL_HOST_USER_SUPPORT)
+
 
         super(ContactUs, self).save(*args, **kwargs)
     

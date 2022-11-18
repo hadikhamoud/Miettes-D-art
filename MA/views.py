@@ -15,6 +15,7 @@ from .utils import *
 from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect
 from uuid import uuid4
+from django.conf import settings
 
 
 def homepage(request):
@@ -59,7 +60,9 @@ def contactus_view(request):
         content = request.POST.get("content")
         models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
         send_html_mail(subject= "Thank you for contacting us", html_content=render_to_string(
-            'miettes/contactemail.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_SUPPORT"),connection=settings.EMAIL_CONNECTIONS["support"])
+            'miettes/contactemail.html'),recipient_list=[email],sender=settings.EMAIL_HOST_USER_SUPPORT,connection=settings.EMAIL_CONNECTIONS["support"])
+        send_html_mail(subject= f"{name} sent a contact request", html_content=render_to_string(
+            'miettes/supportmail.html',{"email":email,"message":content}),recipient_list=[settings.EMAIL_HOST_USER_SUPPORT],sender=settings.EMAIL_HOST_USER_SUPPORT,connection=settings.EMAIL_CONNECTIONS["support"]) 
         return render(request, 'miettes/contactus.html',{"sentComplaint": True})
     return render(request, 'miettes/contactus.html')
 
@@ -233,7 +236,7 @@ def cart_view(request):
             object, created = models.Newsletter.objects.get_or_create(Email=email)
             if created:
                 send_html_mail(subject= " Thank you for subscribing!", html_content=render_to_string(
-            'miettes/newslettersubscription.html'),recipient_list=[email],sender=env("EMAIL_HOST_USER_NEWSLETTER"),connection=settings.EMAIL_CONNECTIONS["newsletter"])
+            'miettes/newslettersubscription.html'),recipient_list=[email],sender=settings.EMAIL_HOST_USER_NEWSLETTER,connection=settings.EMAIL_CONNECTIONS["newsletter"])
             sent = created
     if request.method=="POST" and "length" in request.POST:
         length = request.POST.get("length")
@@ -387,9 +390,9 @@ def payment_view(request):
    
         zippedOrder = zip(ImagesEmail,orderItems)
         send_html_mail(subject=f"Order completed {order.Ref_code}!", html_content=render_to_string(
-            'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'zippedOrder': zippedOrder,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=env("EMAIL_HOST_USER_NOREPLY"),Images=Images)
+            'miettes/orderemail.html', {"total":order.Total,"subtotal":order.Subtotal,"shipping":order.Shipping,'zippedOrder': zippedOrder,'orderNumber':order.Ref_code,'address':order.Shipping_address}), recipient_list=[order.Customer.Email], sender=settings.EMAIL_HOST_USER_NOREPLY,Images=Images)
         send_html_mail(subject=f"New Order {order.Ref_code}", html_content=render_to_string(
-            'miettes/neworder.html', {"total":order.Total,'orderNumber':order.Ref_code,"Customer":order.Customer,"Ordered_date":order.Ordered_date,"orderitems":orderitems}), recipient_list=[env("EMAIL_HOST_USER_NOREPLY")], sender=env("EMAIL_HOST_USER_NOREPLY"))
+            'miettes/neworder.html', {"total":order.Total,'orderNumber':order.Ref_code,"Customer":order.Customer,"Ordered_date":order.Ordered_date,"orderitems":orderitems}), recipient_list=[settings.EMAIL_HOST_USER_NOREPLY], sender=settings.EMAIL_HOST_USER_NOREPLY)
         if request.session.get("sess"):
             del request.session["sess"]
         request.session["sess"] = str(uuid4())
