@@ -33,7 +33,7 @@
   </div>
 
   <div class="column">
-    <form method="POST">
+    <form method="POST" id = "contactform">
       {%csrf_token%}
       <label for="fname">Name</label>
       <input
@@ -65,8 +65,11 @@
         id="contactUsSubmit"
         value="Submit"
       />
+      <input type="hidden" name="g-recaptcha-response" id='recaptcha'>
+
     </form>
     {%if sentComplaint%} {%include 'miettes/complaintreceived.html'%} {%endif%}
+    {%if is_robot%} {%include 'miettes/complaintrejected.html'%} {%endif%} 
   </div>
 </div>
 
@@ -93,4 +96,19 @@
     setTimeout(showSlides, 2000);
   }
 </script>
+ <script>
+
+          grecaptcha.ready(function() {
+              $('#contactform').submit(function(e){
+                  var form = this;
+                  e.preventDefault()
+                  grecaptcha.execute('{{site_key}}', {action: 'contactform'}).then(function(token) {
+     
+                      $('#recaptcha').val(token)
+           
+                      form.submit()
+                  });
+              })
+          });
+         </script>
 {%endblock%}

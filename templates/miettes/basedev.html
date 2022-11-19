@@ -7,7 +7,7 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1"
   />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Miettes</title>
+  <title>Miettes D'art</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %} " />
   <link
     rel="stylesheet"
@@ -19,6 +19,24 @@
     integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"
   ></script>
+   <script src="https://www.google.com/recaptcha/api.js?render={{site_key}}"></script>
+  <!-- <script>
+          // 3
+          grecaptcha.ready(function() {
+              // 4
+              $('#contactform').submit(function(e){
+                  var form = this;
+                  // 5
+                  e.preventDefault()
+                  grecaptcha.execute('reCAPTCHA_site_key', {action: 'contactform'}).then(function(token) {
+                      // 6
+                      $('#recaptcha').val(token)
+                      // 7
+                      form.submit()
+                  });
+              })
+          });
+         </script> -->
 
   <link
     rel="icon"
