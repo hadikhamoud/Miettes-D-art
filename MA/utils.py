@@ -83,14 +83,14 @@ def switch_extension(img):
 def handleImage(imgPath):
     modifiedPath = strip_extension(imgPath[1:])+".jpeg"
  
-
-    with open(os.path.join(BASE_DIR, modifiedPath), 'rb') as f:
-
-        img = MIMEImage(f.read())
-        img.add_header('Content-ID', '<{name}>'.format(name=modifiedPath))
-        img.add_header('Content-Disposition', 'inline', filename=modifiedPath)
-
-    return img
+    try:
+        with open(os.path.join(BASE_DIR, modifiedPath), 'rb') as f:
+            img = MIMEImage(f.read())
+            img.add_header('Content-ID', '<{name}>'.format(name=modifiedPath))
+            img.add_header('Content-Disposition', 'inline', filename=modifiedPath)
+            return img
+    except:
+        return None
 
 
 class EmailThread(threading.Thread):
@@ -112,7 +112,8 @@ class EmailThread(threading.Thread):
             for image in self.Images:
                 
                 img = handleImage(image)
-                msg.attach(img)
+                if img:
+                    msg.attach(img)
             msg.send(fail_silently=False)
 
 
