@@ -20,3 +20,17 @@ function checkPanel(panel) {
     panel.style.display = "block";
   }
 }
+
+function handleHash() {
+  var hash = window.location.hash;
+  console.log(hash);
+  if (hash) {
+    var acc = document.querySelector(hash);
+    acc.scrollIntoView({ behavior: "smooth", block: "center" });
+    var panel = acc.nextElementSibling;
+    acc.classList.toggle("activate");
+    checkPanel(panel);
+  }
+}
+
+handleHash();
