@@ -22,12 +22,15 @@ function checkPanel(panel) {
 }
 
 function handleHash() {
-  var hash = window.location.hash;
+  const hash = window.location.hash;
   console.log(hash);
   if (hash) {
-    var acc = document.querySelector(hash);
-    acc.scrollIntoView({ behavior: "smooth", block: "center" });
-    var panel = acc.nextElementSibling;
+    const acc = document.querySelector(hash);
+    const absoluteElementTop =
+      acc.getBoundingClientRect().top + window.pageYOffset;
+    const middle = absoluteElementTop - window.innerHeight / 2;
+    window.scrollTo(0, middle + 50);
+    const panel = acc.nextElementSibling;
     acc.classList.toggle("activate");
     checkPanel(panel);
   }
