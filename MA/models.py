@@ -60,13 +60,12 @@ class Product(models.Model):
     Discover = models.ForeignKey('Discover',on_delete=models.CASCADE,null = True, blank = True)
     Collection = models.ForeignKey('Collection',on_delete=models.CASCADE,null = True, blank = True)
     Image = ResizedImageField(force_format="WEBP",quality=75, upload_to='images',null=True,blank=True)
-    Thumbnail = ResizedImageField(force_format="WEBP",quality=40, upload_to='images',scale = 25,null=True,blank=True)
+    Thumbnail = ResizedImageField(force_format="JPEG",quality=40, upload_to='images',scale = 25,null=True,blank=True)
     PriceLBP = MoneyField(max_digits=14, decimal_places=2, default_currency='LBP',null = True, blank = True)
 
     def save(self, *args, **kwargs):
+        # super(Product, self).save(*args, **kwargs)
         super(Product, self).save(*args, **kwargs)
-        # if self.Image:
-        #     mail_convert_to_jpg(self.Image.path)
 
     def __str__(self):
         try:
