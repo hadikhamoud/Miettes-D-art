@@ -55,16 +55,16 @@ def faq_view(request):
 
 def contactus_view(request):
     if request.method == 'POST' and "contactus" in request.POST:
-        temp_data = {
-        'response': request.POST.get("g-recaptcha-response"),
-        'secret': settings.RECAPTCHA_SECRET_KEY
-        }
-        resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=temp_data)
-        result_json = resp.json()
-        print(result_json)
-        if not result_json.get("success"):
-            return render(request, 'miettes/contactus.html', {"is_robot":True,'site_key': settings.RECAPTCHA_SITE_KEY})
-        print(result_json)
+        # temp_data = {
+        # 'response': request.POST.get("g-recaptcha-response"),
+        # 'secret': settings.RECAPTCHA_SECRET_KEY
+        # }
+        # resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=temp_data)
+        # result_json = resp.json()
+        # print(result_json)
+        # if not result_json.get("success"):
+        #     return render(request, 'miettes/contactus.html', {"is_robot":True,'site_key': settings.RECAPTCHA_SITE_KEY})
+        # print(result_json)
         email = request.POST.get("email")
         name = request.POST.get("name")
         content = request.POST.get("content")

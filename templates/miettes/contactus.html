@@ -69,7 +69,7 @@
 
     </form>
     {%if sentComplaint%} {%include 'miettes/complaintreceived.html'%} {%endif%}
-    {%if is_robot%} {%include 'miettes/complaintrejected.html'%} {%endif%} 
+    <!-- {%if is_robot%} {%include 'miettes/complaintrejected.html'%} {%endif%}  -->
   </div>
 </div>
 
@@ -96,7 +96,7 @@
     setTimeout(showSlides, 2000);
   }
 </script>
- <script>
+ <!-- <script>
 
           grecaptcha.ready(function() {
               $('#contactform').submit(function(e){
@@ -110,5 +110,5 @@
                   });
               })
           });
-         </script>
+         </script> -->
 {%endblock%}

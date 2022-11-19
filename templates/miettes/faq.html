@@ -258,4 +258,23 @@
     return false;
   });
 </script>
+<script>
+  function handleHash() {
+  const hash = window.location.hash;
+  console.log(hash);
+  if (hash) {
+    const accr = document.querySelector(hash);
+    const absoluteElementTop =
+      accr.getBoundingClientRect().top + window.pageYOffset;
+    const middle = absoluteElementTop - window.innerHeight / 2;
+    window.scrollTo(0, middle + 50);
+    const panelg = accr.nextElementSibling;
+    accr.classList.toggle("activate");
+    checkPanel(panelg);
+  }
+}
+
+handleHash();
+
+</script>
 {%endblock%}
