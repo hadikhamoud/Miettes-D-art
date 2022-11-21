@@ -77,6 +77,9 @@ class Product(models.Model):
     def delete(self):
         self.Status = "disabled"
         super(Product, self).save()
+    
+    def get_absolute_url(self):
+        return f"/viewproduct/{self.SKU}"
       
 
 
@@ -234,6 +237,9 @@ class Collection(models.Model):
 
     def __str__(self):
         return self.Title
+    
+    def get_absolute_url(self):
+        return f"/collections/{self.Title_en}/"
 
 
 
@@ -263,6 +269,7 @@ class ContactUs(models.Model):
     Email = models.EmailField(max_length=254,null=True, blank=True,editable=False)
     Content = models.TextField(null = True, blank=True)
     Response = models.TextField(null = True, blank = True)
+
 
 
 
@@ -315,6 +322,9 @@ class Category(models.Model):
 
     def __str__(self):
         return str(self.Name)
+    
+    def get_absolute_url(self):
+        return f"/products?Category={self.Name}"
 
     
 
