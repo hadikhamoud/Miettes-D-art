@@ -5,6 +5,16 @@ from MA import views
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from MA.sitemap import *
+
+
+sitemaps={
+    'static': StaticViewSitemap,
+    'products': ProductSitemap,
+    'collections': CollectionSitemap,
+    'categories': CategorySitemap,
+}
 
 urlpatterns = [
     path('taymaa-and-sara-only-secret/', admin.site.urls),
@@ -24,9 +34,13 @@ urlpatterns = [
          views.removeitem_view, name='removeitem'),
     path('search/', views.search_view,name='search'),
     path('payment/', views.payment_view,name='payment'),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+     name='django.contrib.sitemaps.views.sitemap'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 
 handler404 = 'MA.views.page_not_found_view'
