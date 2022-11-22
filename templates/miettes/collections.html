@@ -1,4 +1,11 @@
-{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+{% extends 'miettes/basedev.html' %} {% load static %} {%block meta%}
+
+<meta
+  name="description"
+  content="{{collection.Title}}, {{collection.Description}}"
+/>
+
+{%endblock meta%} {% block content %}
 
 <link
   rel="stylesheet"

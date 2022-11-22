@@ -1,11 +1,16 @@
-{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+{% extends 'miettes/basedev.html' %} {% load static %} {%block meta%}
 
+<meta
+  name="description"
+  content="Miettes D'art offers a variety of products ranging from earrings, to necklaces, to rings. Click to embark on this journey."
+/>
+
+{%endblock meta%} {% block content %}
 <link
   rel="stylesheet"
   type="text/css"
   href="{% static 'css/products.css' %} "
 />
-
 <section class="products-grid" title="products-grid">
   {% csrf_token %}
   <form method="get" action="{% url 'products'%}" id="filter">
