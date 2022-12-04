@@ -1,4 +1,10 @@
-{% extends "miettes/basecheckout.html" %} {% load static %} {% block content %}
+{% extends "miettes/basecheckout.html" %} {% load static %} 
+
+{%block metapixel%}
+fbq('track', 'InitiateCheckout');
+{%endblock metapixel%}
+{% block content %}
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <link rel="stylesheet" href="{% static 'css/checkout.css' %} " />

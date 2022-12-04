@@ -1,11 +1,20 @@
-{% extends 'miettes/basedev.html' %} {% load static %} {%block meta%}
+{% extends 'miettes/basedev.html' %} {% load static %} 
+
+
+{%block meta%}
 
 <meta
   name="description"
   content="Miettes D'art offers a variety of products ranging from earrings, to necklaces, to rings. Click to embark on this journey."
 />
 
-{%endblock meta%} {% block content %}
+{%endblock meta%}
+
+{%block metapixel%}
+fbq('track', 'ViewContent');
+{%enblock metapixel%}
+
+{% block content %}
 <link
   rel="stylesheet"
   type="text/css"
