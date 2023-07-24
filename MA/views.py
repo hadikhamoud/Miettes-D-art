@@ -90,7 +90,7 @@ def products_view(request):
         'price-descending': '-Price',
     }
   
-    GET_params.pop('page',0)
+    GET_params.pop('page', 0)
 
 
     results = models.Product.objects.filter(Status="active")
@@ -143,7 +143,7 @@ def query(inpt):
             output_field=FloatField(),
         ),
         rank=F("k1") + F("k2") + F("k3") + F("k4"),
-    ).order_by("-rank").exclude(rank=0.0)
+    ).order_by("-rank").filter(Status="active").exclude(rank=0.0)
 
 
 def search_view(request):
@@ -160,7 +160,7 @@ def search_view(request):
 
 def discover_view(request):
     discover = models.Discover.objects.get(Active=True)
-    results = models.Product.objects.filter(Discover = discover)
+    results = models.Product.objects.filter(Discover = discover).filter(Status="active")
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -169,7 +169,7 @@ def discover_view(request):
 
 def collection_view(request, Title_en):
     collection = models.Collection.objects.get(Title_en=Title_en)
-    results = models.Product.objects.filter(Collection = collection)
+    results = models.Product.objects.filter(Collection = collection).filter(Status="active")
 
     paginator = Paginator(results, 24)
     page_number = request.GET.get('page')
@@ -182,6 +182,10 @@ def collection_view(request, Title_en):
 
 def viewproduct_view(request, SKU):
     Selectedproduct = models.Product.objects.filter(SKU=SKU)[0]
+    #if product' Status is disabled, redirect to homepage
+    if Selectedproduct.Status == "disabled":
+        return redirect("/")
+
     numOfPictures = 1
     Pictures = models.Picture.objects.filter(Product=Selectedproduct)
     if not Pictures.exists():
