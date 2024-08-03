@@ -69,10 +69,10 @@ def contactus_view(request):
         name = request.POST.get("name")
         content = request.POST.get("content")
         models.ContactUs.objects.get_or_create(Name = name, Email = email, Content = content)
-        send_html_mail(subject= "Thank you for contacting us", html_content=render_to_string(
-            'miettes/contactemail.html'),recipient_list=[email],sender=settings.EMAIL_HOST_USER_SUPPORT,connection=settings.EMAIL_CONNECTIONS["support"])
-        send_html_mail(subject= f"{name} sent a contact request", html_content=render_to_string(
-            'miettes/supportmail.html',{"email":email,"message":content}),recipient_list=[settings.EMAIL_HOST_USER_SUPPORT],sender=settings.EMAIL_HOST_USER_SUPPORT,connection=settings.EMAIL_CONNECTIONS["support"])
+        #send_html_mail(subject= "Thank you for contacting us", html_content=render_to_string(
+          #  'miettes/contactemail.html'),recipient_list=[email],sender=settings.EMAIL_HOST_USER_SUPPORT,connection=settings.EMAIL_CONNECTIONS["support"])
+        #send_html_mail(subject= f"{name} sent a contact request", html_content=render_to_string(
+         #   'miettes/supportmail.html',{"email":email,"message":content}),recipient_list=[settings.EMAIL_HOST_USER_SUPPORT],sender=settings.EMAIL_HOST_USER_SUPPORT,connection=settings.EMAIL_CONNECTIONS["support"])
         return render(request, 'miettes/contactus.html',{"sentComplaint": True ,'site_key': settings.RECAPTCHA_SITE_KEY})
     return render(request, 'miettes/contactus.html',{'site_key': settings.RECAPTCHA_SITE_KEY})
 

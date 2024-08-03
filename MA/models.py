@@ -255,8 +255,9 @@ class Address(models.Model):
     Default = models.BooleanField(default=False,null = True, blank = True)
 
     def __str__(self):
-        return self.Street_address+ '\n' +self.Zip + '\n' + str(self.City)+', '+str(self.Country.name) + '\n' + 'Phone Number: ' + str(self.Phone_number)
-
+        fields = [self.Street_address, self.Apartment_address, f"{self.City}, {self.Country.name if self.Country else ''}", self.Zip, f"Phone Number: {self.Phone_number}"]
+        return '\n'.join(filter(None, fields))
+        
     class Meta:
         verbose_name_plural = 'Addresses'
 
