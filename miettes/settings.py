@@ -30,6 +30,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
+ALLOWED_HOSTS_FP = os.path.join(BASE_DIR, 'allowed_hosts.txt')
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -43,7 +44,12 @@ if env("DEBUG_MODE") == "False":
 else:
     DEBUG = True
  
-ALLOWED_HOSTS = [env("STATIC_IP"),env("PRODUCTION_IP"),env("PRODUCTION_IP_2")]
+with open(ALLOWED_HOSTS_FP) as fp:
+    hosts = fp.readlines()
+
+ALLOWED_HOSTS_FROM_FILE = [host.strip() for host in hosts] 
+
+ALLOWED_HOSTS = [env("STATIC_IP"),env("PRODUCTION_IP"),env("PRODUCTION_IP_2")] + ALLOWED_HOSTS_FROM_FILE
 ADMINS = [('Hadi', env("ADMIN_EMAIL"))]
 
 

@@ -200,6 +200,7 @@
           </div>
         </div>
 
+        {% if Selectedproduct.Category.Name != "Wax Melts" and Selectedproduct.Category.Display_name != "Wax Melts" and Selectedproduct.Category.Name != "Candles" and Selectedproduct.Category.Display_name != "Candles" %}
         <div onclick="handleAccordion(event)" class="accordionDetails">
           Product care
         </div>
@@ -229,6 +230,7 @@
             </ol>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -357,6 +359,7 @@
         </div>
       </div>
 
+      {% if Selectedproduct.Category.Name != "Wax Melts" and Selectedproduct.Category.Display_name != "Wax Melts" and Selectedproduct.Category.Name != "Candles" and Selectedproduct.Category.Display_name != "Candles" %}
       <div onclick="handleAccordion(event)" class="accordionDetails">
         Product care
       </div>
@@ -385,6 +388,7 @@
           </ol>
         </div>
       </div>
+      {% endif %}
     </div>
   </div>
 </section>

@@ -1,4 +1,11 @@
-{% extends 'miettes/basedev.html' %} {% load static %} {% block content %}
+{% extends 'miettes/basedev.html' %} {% load static %}
+
+{%block metapixel%}
+fbq('track', 'Search');
+{%endblock metapixel%}
+
+{% block content %}
+
 
 <link
   rel="stylesheet"

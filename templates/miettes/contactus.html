@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-{%extends 'miettes/basedev.html'%} {%block content%} {% load static %}
+{%extends 'miettes/basedev.html'%}
+
+{%block metapixel%}
+fbq('track', 'Contact');
+{%endblock metapixel%}
+{%block content%} {% load static %}
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link
   rel="stylesheet"

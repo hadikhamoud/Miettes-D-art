@@ -143,3 +143,8 @@ cython_debug/
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+**/__pycache__/*
+
+
+allowed_hosts.txt
