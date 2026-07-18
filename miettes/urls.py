@@ -17,6 +17,7 @@ sitemaps={
 }
 
 urlpatterns = [
+    path('health/', views.health_view, name='health'),
     path('taymaa-and-sara-only-secret/', admin.site.urls),
     path('homepage', views.homepage),
     path('', views.homepage),

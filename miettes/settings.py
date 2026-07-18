@@ -37,20 +37,28 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY", default="")
 
-if env("DEBUG_MODE") == "False":
-    DEBUG = False
-else:
-    DEBUG = True
- 
-with open(ALLOWED_HOSTS_FP) as fp:
-    hosts = fp.readlines()
+DEBUG = env.bool("DEBUG_MODE", default=False)
+
+try:
+    with open(ALLOWED_HOSTS_FP) as fp:
+        hosts = fp.readlines()
+except FileNotFoundError:
+    hosts = []
 
 ALLOWED_HOSTS_FROM_FILE = [host.strip() for host in hosts] 
 
-ALLOWED_HOSTS = [env("STATIC_IP"),env("PRODUCTION_IP"),env("PRODUCTION_IP_2")] + ALLOWED_HOSTS_FROM_FILE
-ADMINS = [('Hadi', env("ADMIN_EMAIL"))]
+legacy_hosts = [
+    env("STATIC_IP", default=""),
+    env("PRODUCTION_IP", default=""),
+    env("PRODUCTION_IP_2", default=""),
+]
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=[host for host in legacy_hosts + ALLOWED_HOSTS_FROM_FILE if host],
+)
+ADMINS = [('Hadi', env("ADMIN_EMAIL", default=""))]
 
 
 INSTALLED_APPS = [
@@ -64,7 +72,6 @@ INSTALLED_APPS = [
     'MA',
     'djmoney',
     'phonenumber_field',
-    'livereload',
     'colorfield',
 
 
@@ -78,8 +85,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'livereload.middleware.LiveReloadScript',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append('livereload')
+    MIDDLEWARE.append('livereload.middleware.LiveReloadScript')
 
 ROOT_URLCONF = 'miettes.urls'
 
@@ -108,12 +119,12 @@ WSGI_APPLICATION = 'miettes.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': env("ENGINE"),
-        'NAME': env("NAME"),
-        'USER': env("USER_DB"),
-        'PASSWORD': env("PASSWORD"),
-        'HOST': env("HOST"),
-        'PORT': env("PORT"),
+        'ENGINE': env("ENGINE", default="django.db.backends.postgresql_psycopg2"),
+        'NAME': env("NAME", default="postgres"),
+        'USER': env("USER_DB", default=""),
+        'PASSWORD': env("PASSWORD", default=""),
+        'HOST': env("HOST", default="localhost"),
+        'PORT': env("PORT", default="5432"),
     },
     "example_db": {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -161,6 +172,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 IMG_DIR = 'static/images'
 
 
@@ -175,9 +188,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ENGINE = 'django.core.mail.backends.smtp.EmailBackend'
 
-EMAIL_HOST_USER_NOREPLY = env("EMAIL_HOST_USER_NOREPLY")
-EMAIL_HOST_USER_SUPPORT= env("EMAIL_HOST_USER_SUPPORT")
-EMAIL_HOST_USER_NEWSLETTER= env("EMAIL_HOST_USER_NEWSLETTER")
+EMAIL_HOST_USER_NOREPLY = env("EMAIL_HOST_USER_NOREPLY", default="")
+EMAIL_HOST_USER_SUPPORT = env("EMAIL_HOST_USER_SUPPORT", default="")
+EMAIL_HOST_USER_NEWSLETTER = env("EMAIL_HOST_USER_NEWSLETTER", default="")
 
 
 
@@ -185,30 +198,30 @@ EMAIL_HOST_USER_NEWSLETTER= env("EMAIL_HOST_USER_NEWSLETTER")
 EMAIL_CONNECTIONS = {
     'noreply': {
 
-        "host" : env("EMAIL_HOST"),
+        "host" : env("EMAIL_HOST", default=""),
         "use_tls" : False,
         "use_ssl" : True,
         "port" : 465,
         "username" : EMAIL_HOST_USER_NOREPLY,
-        "password" : env("EMAIL_HOST_PASSWORD"),
+         "password" : env("EMAIL_HOST_PASSWORD", default=""),
 },
     'support': {
-        "host" : env("EMAIL_HOST"),
+        "host" : env("EMAIL_HOST", default=""),
         "use_tls" : False,
         "use_ssl" : True,
         "port" : 465,
         "username" : EMAIL_HOST_USER_SUPPORT,
-        "password" : env("EMAIL_HOST_PASSWORD"),
+        "password" : env("EMAIL_HOST_PASSWORD", default=""),
 
 
     },
     'newsletter': {
-        "host" : env("EMAIL_HOST"),
+        "host" : env("EMAIL_HOST", default=""),
         "use_tls" : False,
         "use_ssl" : True,
         "port" : 465,
         "username" : EMAIL_HOST_USER_NEWSLETTER,
-        "password" : env("EMAIL_HOST_PASSWORD_NEWSLETTER"),
+        "password" : env("EMAIL_HOST_PASSWORD_NEWSLETTER", default=""),
 
 
     }
@@ -226,5 +239,10 @@ DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'WEBP': ".webp","JPEG": ".jpeg","PNG"
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = False
 
 
-RECAPTCHA_SITE_KEY=env("RECAPTCHA_SITE_KEY")
-RECAPTCHA_SECRET_KEY=env("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_SITE_KEY=env("RECAPTCHA_SITE_KEY", default="")
+RECAPTCHA_SECRET_KEY=env("RECAPTCHA_SECRET_KEY", default="")
+
+CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG

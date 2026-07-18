@@ -18,6 +18,9 @@ from uuid import uuid4
 from django.conf import settings
 import requests
 
+def health_view(request):
+    return JsonResponse({"status": "ok"})
+
 def homepage(request):
     Picks = models.Product.objects.filter(Pick=True)
     Collections = models.Collection.objects.filter(Show = True)

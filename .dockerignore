@@ -1,0 +1,14 @@
+.env
+allowed_hosts.txt
+email_list.txt
+.git
+.gitignore
+media
+staticfiles
+venv
+__pycache__
+*.pyc
+*.pyo
+*.log
+miettes.sock
+.DS_Store
