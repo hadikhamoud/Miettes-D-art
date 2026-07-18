@@ -1,11 +1,11 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from MA import views
 from django.conf.urls import include
 from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
+from django.views.static import serve
 from MA.sitemap import *
 
 
@@ -18,6 +18,7 @@ sitemaps={
 
 urlpatterns = [
     path('health/', views.health_view, name='health'),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('taymaa-and-sara-only-secret/', admin.site.urls),
     path('homepage', views.homepage),
     path('', views.homepage),
@@ -39,7 +40,7 @@ urlpatterns = [
      name='django.contrib.sitemaps.views.sitemap'),
 
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ]
 
 
 

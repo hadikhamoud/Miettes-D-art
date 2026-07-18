@@ -41,6 +41,10 @@ democart.html
 # Backup files # 
 *.bak 
 
+# Local database exports
+miettes_dump
+miettes_dump.*
+
 ### Django.Python Stack ###
 *.py[cod]
 *$py.class
