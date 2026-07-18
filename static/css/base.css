@@ -1,7 +1,7 @@
 /* @font-face {
   font-family: "latoLight";
   src: local("latoLight"),
-    url("../fonts/lato/Lato-Light.ttf") format("truetype");
+    url("../fonts/Lato/Lato-Light.ttf") format("truetype");
 }
 
 @font-face {
@@ -30,12 +30,12 @@
 }
 @font-face {
   font-family: "latoRegular";
-  src: local("lato"), url("../fonts/lato/Lato-Regular.ttf") format("truetype");
+  src: local("lato"), url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "latoRegular";
-  src: local("lato"), url("../fonts/lato/Lato-Regular.ttf") format("truetype");
+  src: local("lato"), url("../fonts/Lato/Lato-Regular.ttf") format("truetype");
 } */
 
 * {
